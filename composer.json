@@ -1,0 +1,37 @@
+{
+    "name": "sammyjo20/saloon-laravel",
+    "description": "Laravel package for Sammyjo20/Saloon",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sammyjo20\\SaloonLaravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sam Carré",
+            "email": "29132017+Sammyjo20@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^8.0",
+        "illuminate/console": "^8.0",
+        "sammyjo20/saloon": "dev-main"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./../saloon"
+        }
+    ]
+}
