@@ -14,7 +14,7 @@
             "email": "29132017+Sammyjo20@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0",
