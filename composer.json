@@ -27,11 +27,5 @@
                 "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./../saloon"
-        }
-    ]
+    }
 }
