@@ -19,7 +19,7 @@
         "php": "^8.0",
         "illuminate/support": "^8.0",
         "illuminate/console": "^8.0",
-        "sammyjo20/saloon": "^0.0.2"
+        "sammyjo20/saloon": "^0.2.0"
     },
     "extra": {
         "laravel": {
