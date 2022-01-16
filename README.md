@@ -1,4 +1,4 @@
-## Saloon Larael Package
+## Saloon Laravel Package
 
 This is the Laravel package for Saloon, to install it run the following command
 
