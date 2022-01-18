@@ -27,5 +27,22 @@
                 "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.5",
+        "pestphp/pest": "^1.21"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/pest"
+        ],
+        "fix-code": [
+            "./vendor/bin/php-cs-fixer fix"
+        ]
     }
 }
