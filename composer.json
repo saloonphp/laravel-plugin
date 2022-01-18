@@ -14,12 +14,12 @@
             "email": "29132017+Sammyjo20@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0",
         "illuminate/console": "^8.0",
-        "sammyjo20/saloon": "^0.3.0"
+        "sammyjo20/saloon": "dev-main"
     },
     "extra": {
         "laravel": {
@@ -44,5 +44,11 @@
         "fix-code": [
             "./vendor/bin/php-cs-fixer fix"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./../saloon"
+        }
+    ]
 }
