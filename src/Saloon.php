@@ -21,6 +21,7 @@ class Saloon
 
         if ($isMocking === true) {
             $laravelManger->addHandler('laravelSaloonMockHandler', new MockHandler);
+            // Todo: Use a response interceptor
         }
 
         $laravelManger->setIsMocking($isMocking);
