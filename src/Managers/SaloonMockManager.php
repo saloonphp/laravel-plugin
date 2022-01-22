@@ -48,6 +48,16 @@ class SaloonMockManager
     }
 
     /**
+     * Check if the responses are empty
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return empty($this->sequence); // Todo: add other response types...
+    }
+
+    /**
      * Return the SaloonMockManager out of the Laravel container
      *
      * @return \Illuminate\Contracts\Foundation\Application|mixed

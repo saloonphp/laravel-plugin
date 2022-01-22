@@ -2,7 +2,7 @@
 
 namespace Sammyjo20\SaloonLaravel;
 
-use Sammyjo20\Saloon\Managers\LaravelManger;
+use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Http\Handlers\MockHandler;
 use Sammyjo20\SaloonLaravel\Managers\SaloonMockManager;
 
@@ -12,21 +12,21 @@ class Saloon
      * The boot method. This is called by Saloon and from within here, can push almost anything
      * into Saloon, but most important - we can push interceptors and handlers 🚀
      *
-     * @param LaravelManger $laravelManger
-     * @return LaravelManger
+     * @param LaravelManager $laravelManager
+     * @return LaravelManager
      */
-    public static function boot(LaravelManger $laravelManger): LaravelManger
+    public static function boot(LaravelManager $laravelManager): LaravelManager
     {
         $isMocking = SaloonMockManager::resolve()->isMocking();
 
         if ($isMocking === true) {
-            $laravelManger->addHandler('laravelSaloonMockHandler', new MockHandler);
+            $laravelManager->addHandler('laravelSaloonMockHandler', new MockHandler);
             // Todo: Use a response interceptor
         }
 
-        $laravelManger->setIsMocking($isMocking);
+        $laravelManager->setIsMocking($isMocking);
 
-        return $laravelManger;
+        return $laravelManager;
     }
 
     /**
