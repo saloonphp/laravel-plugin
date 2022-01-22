@@ -55,10 +55,18 @@
             ]
         }
     },
+<<<<<<< HEAD
     "repositories": [
         {
             "type": "path",
             "url": "./../saloon"
         }
     ]
+=======
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+>>>>>>> main
 }
