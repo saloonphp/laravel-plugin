@@ -3,23 +3,22 @@
 namespace Sammyjo20\SaloonLaravel;
 
 use Illuminate\Support\ServiceProvider;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
+use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
+use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        // Todo: Publish stubs
+        $this->app->bind('saloon', fn () => new Saloon);
+        $this->app->singleton(MockClient::class, fn () => new MockClient);
 
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
         }
     }
 
-    /**
-     * @return $this
-     */
     protected function registerCommands(): self
     {
         $this->commands([

@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Sammyjo20\\SaloonLaravel\\": "src/"
+            "Sammyjo20\\SaloonLaravel\\": "src/",
+            "Sammyjo20\\SaloonLaravel\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -17,20 +18,41 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0",
-        "illuminate/console": "^8.0",
-        "sammyjo20/saloon": "^0.3.1"
+        "illuminate/support": "^8.0|^9.0",
+        "illuminate/console": "^8.0|^9.0",
+        "sammyjo20/saloon": "^0.4.0"
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Saloon": "Saloon"
+            }
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.5",
+        "pestphp/pest": "^1.21",
+        "orchestra/testbench": "^v6.24.0"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/pest"
+        ],
+        "fix-code": [
+            "./vendor/bin/php-cs-fixer fix"
+        ],
+        "scripts": {
+            "post-autoload-dump": [
+                "@php ./vendor/bin/testbench package:discover --ansi"
+            ]
         }
     }
 }
