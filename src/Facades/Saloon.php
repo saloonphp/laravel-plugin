@@ -1,13 +1,13 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel;
+namespace Sammyjo20\SaloonLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon
  */
-class Facade extends BaseFacade
+class Saloon extends BaseFacade
 {
     /**
      * Register the Saloon facade

@@ -3,6 +3,8 @@
 use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Constants\MockStrategies;
 use Sammyjo20\Saloon\Exceptions\SaloonMultipleMockMethodsException;
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Managers\RequestManager;
 use Sammyjo20\Saloon\Tests\Resources\Requests\UserRequest;
 use Sammyjo20\SaloonLaravel\Saloon;
@@ -14,7 +16,9 @@ test('it can detect laravel', function () {
 });
 
 test('it can boot properly when using laravel mock', function () {
-    Saloon::fake();
+    Saloon::fake([
+        new MockResponse([], 200),
+    ]);
 
     $requestManager = new RequestManager(new UserRequest());
 
@@ -22,10 +26,29 @@ test('it can boot properly when using laravel mock', function () {
     expect($requestManager->getMockStrategy())->toEqual(MockStrategies::LARAVEL);
 });
 
+test('it can boot properly when not using laravel mock', function () {
+    $requestManager = new RequestManager(new UserRequest());
+
+    expect($requestManager->isMocking())->toBeFalse();
+    expect($requestManager->getMockStrategy())->toBeNull();
+});
+
+test('it throws an exception when you try to mock without providing a response', function () {
+    $this->expectException(SaloonNoMockResponsesProvidedException::class);
+
+    Saloon::fake([]);
+});
+
 test('it throws an exception when you try to use both mock methods', function () {
-    Saloon::fake();
+    Saloon::fake([
+        new MockResponse([], 200),
+    ]);
 
     $this->expectException(SaloonMultipleMockMethodsException::class);
 
-    new RequestManager(new UserRequest(), new MockClient());
+    $mockClient = new MockClient([
+        new MockResponse([], 200),
+    ]);
+
+    new RequestManager(new UserRequest(), $mockClient);
 });

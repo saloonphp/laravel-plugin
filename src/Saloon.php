@@ -2,9 +2,10 @@
 
 namespace Sammyjo20\SaloonLaravel;
 
+use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Managers\LaravelManager;
-use Sammyjo20\SaloonLaravel\Http\Handlers\MockHandler;
-use Sammyjo20\SaloonLaravel\Managers\SaloonMockManager;
+use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
+use Sammyjo20\SaloonLaravel\Managers\MockManager;
 
 class Saloon
 {
@@ -13,30 +14,26 @@ class Saloon
      * into Saloon, but most important - we can push interceptors and handlers 🚀
      *
      * @param LaravelManager $laravelManager
+     * @param SaloonRequest $request
      * @return LaravelManager
      */
-    public static function boot(LaravelManager $laravelManager): LaravelManager
+    public static function bootLaravelFeatures(LaravelManager $laravelManager, SaloonRequest $request): LaravelManager
     {
-        $isMocking = SaloonMockManager::resolve()->isMocking();
+        $manager = new FeatureManager($laravelManager, $request);
 
-        if ($isMocking === true) {
-            $laravelManager->addHandler('laravelSaloonMockHandler', new MockHandler);
-            // Todo: Use a response interceptor
-        }
+        $manager->bootMockingFeature();
 
-        $laravelManager->setIsMocking($isMocking);
-
-        return $laravelManager;
+        return $manager->getLaravelManager();
     }
 
     /**
-     * Start mocking
+     * Start mocking!
      *
-     * @param array $sequence
-     * @return SaloonMockManager
+     * @param array $responses
+     * @return MockManager
      */
-    public static function fake(array $sequence = []): SaloonMockManager
+    public static function fake(array $responses): MockManager
     {
-        return SaloonMockManager::resolve()->startMocking($sequence);
+        return MockManager::resolve()->startMocking($responses);
     }
 }

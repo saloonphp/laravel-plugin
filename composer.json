@@ -28,7 +28,7 @@
                 "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
             ],
             "aliases": {
-                "Saloon": "Sammyjo20\\SaloonLaravel\\Facade"
+                "Saloon": "Saloon"
             }
         }
     },

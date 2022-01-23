@@ -3,7 +3,7 @@
 namespace Sammyjo20\SaloonLaravel\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Sammyjo20\SaloonLaravel\Facade;
+use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\SaloonServiceProvider;
 
 class TestCase extends BaseTestCase
@@ -25,7 +25,7 @@ class TestCase extends BaseTestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Saloon' => Facade::class,
+            'Saloon' => Saloon::class,
         ];
     }
 }
