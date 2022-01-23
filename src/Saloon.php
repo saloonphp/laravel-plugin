@@ -4,8 +4,8 @@ namespace Sammyjo20\SaloonLaravel;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Managers\LaravelManager;
+use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
-use Sammyjo20\SaloonLaravel\Managers\MockManager;
 
 class Saloon
 {
@@ -16,6 +16,8 @@ class Saloon
      * @param LaravelManager $laravelManager
      * @param SaloonRequest $request
      * @return LaravelManager
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidConnectorException
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException
      */
     public static function bootLaravelFeatures(LaravelManager $laravelManager, SaloonRequest $request): LaravelManager
     {
@@ -30,10 +32,11 @@ class Saloon
      * Start mocking!
      *
      * @param array $responses
-     * @return MockManager
+     * @return MockClient
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidMockResponseCaptureMethodException
      */
-    public static function fake(array $responses): MockManager
+    public static function fake(array $responses): MockClient
     {
-        return MockManager::resolve()->startMocking($responses);
+        return MockClient::resolve()->startMocking($responses);
     }
 }

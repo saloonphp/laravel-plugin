@@ -2,9 +2,12 @@
 
 namespace Sammyjo20\SaloonLaravel\Managers;
 
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException;
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 use Sammyjo20\Saloon\Http\Middleware\MockMiddleware;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Managers\LaravelManager;
+use Sammyjo20\SaloonLaravel\Clients\MockClient;
 
 class FeatureManager
 {
@@ -36,20 +39,22 @@ class FeatureManager
      * Boot the mocking feature.
      *
      * @return void
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidConnectorException
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException
      */
     public function bootMockingFeature(): void
     {
-        $mockManager = MockManager::resolve();
-        $isMocking = $mockManager->isMocking();
+        $mockClient = MockClient::resolve();
 
-        if ($isMocking === false) {
+        if ($mockClient->isMocking() === false) {
             return;
         }
 
-        $response = $mockManager->guessNextResponse($this->getRequest());
+        if ($mockClient->isEmpty()) {
+            throw new SaloonNoMockResponsesProvidedException;
+        }
 
-        $this->laravelManager->setIsMocking($isMocking);
-        $this->laravelManager->addHandler('saloonMockMiddleware', new MockMiddleware($response));
+        $this->laravelManager->setMockClient($mockClient);
     }
 
     /**
