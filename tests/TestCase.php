@@ -2,8 +2,8 @@
 
 namespace Sammyjo20\SaloonLaravel\Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 use Sammyjo20\SaloonLaravel\SaloonServiceProvider;
 
 class TestCase extends BaseTestCase

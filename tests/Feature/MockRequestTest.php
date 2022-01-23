@@ -1,14 +1,14 @@
 <?php
 
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 use Sammyjo20\Saloon\Http\MockResponse;
-use Sammyjo20\Saloon\Tests\Resources\Connectors\QueryParameterConnector;
-use Sammyjo20\Saloon\Tests\Resources\Connectors\TestConnector;
-use Sammyjo20\Saloon\Tests\Resources\Requests\DifferentServiceUserRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\ErrorRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\QueryParameterConnectorRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\UserRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Sammyjo20\Saloon\Tests\Resources\Requests\UserRequest;
+use Sammyjo20\Saloon\Tests\Resources\Requests\ErrorRequest;
+use Sammyjo20\Saloon\Tests\Resources\Connectors\TestConnector;
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Sammyjo20\Saloon\Tests\Resources\Connectors\QueryParameterConnector;
+use Sammyjo20\Saloon\Tests\Resources\Requests\DifferentServiceUserRequest;
+use Sammyjo20\Saloon\Tests\Resources\Requests\QueryParameterConnectorRequest;
 
 test('a request can be mocked with a sequence', function () {
     Saloon::fake([
@@ -49,7 +49,7 @@ test('a request can be mocked with a connector defined', function () {
 
     Saloon::fake([
         TestConnector::class => $responseA,
-        QueryParameterConnector::class => $responseB
+        QueryParameterConnector::class => $responseB,
     ]);
 
     $responseA = $connectorARequest->send();
@@ -74,7 +74,7 @@ test('a request can be mocked with a request defined', function () {
 
     Saloon::fake([
         UserRequest::class => $responseA,
-        QueryParameterConnectorRequest::class => $responseB
+        QueryParameterConnectorRequest::class => $responseB,
     ]);
 
     $responseA = $requestA->send();

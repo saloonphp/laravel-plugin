@@ -2,12 +2,10 @@
 
 namespace Sammyjo20\SaloonLaravel\Managers;
 
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException;
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\Saloon\Http\Middleware\MockMiddleware;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 
 class FeatureManager
 {
