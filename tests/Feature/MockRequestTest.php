@@ -2,13 +2,13 @@
 
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\Saloon\Tests\Resources\Requests\UserRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\ErrorRequest;
-use Sammyjo20\Saloon\Tests\Resources\Connectors\TestConnector;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\UserRequest;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\ErrorRequest;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Connectors\TestConnector;
 use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\Saloon\Tests\Resources\Connectors\QueryParameterConnector;
-use Sammyjo20\Saloon\Tests\Resources\Requests\DifferentServiceUserRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\QueryParameterConnectorRequest;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Connectors\QueryParameterConnector;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\DifferentServiceUserRequest;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\QueryParameterConnectorRequest;
 
 test('a request can be mocked with a sequence', function () {
     Saloon::fake([
