@@ -4,7 +4,9 @@ namespace Sammyjo20\SaloonLaravel;
 
 use Illuminate\Support\ServiceProvider;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
+use Sammyjo20\SaloonLaravel\Console\Commands\MakePlugin;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
+use Sammyjo20\SaloonLaravel\Console\Commands\MakeResponse;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
 
 class SaloonServiceProvider extends ServiceProvider
@@ -24,6 +26,8 @@ class SaloonServiceProvider extends ServiceProvider
         $this->commands([
             MakeConnector::class,
             MakeRequest::class,
+            MakeResponse::class,
+            MakePlugin::class,
         ]);
 
         return $this;
