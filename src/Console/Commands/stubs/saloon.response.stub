@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Sammyjo20\Saloon\Http\SaloonResponse;
+
+class {{ class }} extends SaloonResponse
+{
+    //
+}
