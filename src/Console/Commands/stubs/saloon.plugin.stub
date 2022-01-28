@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 trait {{ class }}
 {
-    public function boot{{ class }}Feature()
+    public function boot{{ class }}Feature(): void
     {
         //
     }
