@@ -9,4 +9,4 @@ composer require sammyjo20/saloon-laravel
 
 ### Documentation
 
-[Click here to read the documentation](https://github.com/sammyjo20/saloon)
+[Click here to read the documentation](https://docs.saloon.dev/)
