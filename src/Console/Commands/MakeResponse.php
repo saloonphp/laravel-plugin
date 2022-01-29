@@ -38,4 +38,9 @@ class MakeResponse extends MakeCommand
      * @var string
      */
     protected $stub = 'saloon.response.stub';
+
+    public function getClassNamespace()
+    {
+        return $this->namespace;
+    }
 }

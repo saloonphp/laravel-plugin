@@ -1,11 +1,14 @@
 <?php
 
-namespace {{ namespace }};
+namespace {{ $namespace }};
 
 use Sammyjo20\Saloon\Constants\Saloon;
 use Sammyjo20\Saloon\Http\SaloonRequest;
+@isset($responseImport)
+use {{ $responseImport }};
+@endisset
 
-class {{ class }} extends SaloonRequest
+class {{ $class }} extends SaloonRequest
 {
     /**
      * Define the method that the request will use.
@@ -20,6 +23,10 @@ class {{ class }} extends SaloonRequest
      * @var string|null
      */
     protected ?string $connector = null;
+
+    @isset($response)
+    protected ?string $response = {{ $response }};
+    @endisset
 
     /**
      * Define the endpoint for the request.

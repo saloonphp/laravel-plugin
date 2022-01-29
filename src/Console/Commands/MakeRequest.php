@@ -32,7 +32,7 @@ class MakeRequest extends MakeCommand
      *
      * @var string
      */
-    protected $namespace = '\Http\Saloon\Requests';
+    protected $namespace = '\Http\Integration\{integration}\Requests';
 
     /**
      * The default stub
@@ -40,4 +40,21 @@ class MakeRequest extends MakeCommand
      * @var string
      */
     protected $stub = 'saloon.request.stub';
+
+    protected function buildClass($name)
+    {
+        $stub = $this->files->get($this->getStub());
+        $response = new MakeResponse($this->files);
+
+
+        dd($response->rootNamespace());
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ...parent::getOptions(),
+            ['response', 'r',InputOption::VALUE_OPTIONAL, 'Specify an optional response class which will be generated and associated with this request'],
+        ];
+    }
 }
