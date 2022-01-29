@@ -30,7 +30,7 @@ class MakeResponse extends MakeCommand
      *
      * @var string
      */
-    protected $namespace = '\Http\Saloon\Responses';
+    protected $namespace = '\Http\Integration\{integration}\Responses';
 
     /**
      * The default stub

@@ -2,6 +2,8 @@
 
 namespace Sammyjo20\SaloonLaravel\Console\Commands;
 
+use Symfony\Component\Console\Input\InputOption;
+
 class MakeRequest extends MakeCommand
 {
     /**

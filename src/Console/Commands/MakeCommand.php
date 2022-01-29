@@ -3,8 +3,9 @@
 namespace Sammyjo20\SaloonLaravel\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Symfony\Component\Console\Input\InputArgument;
 
-class MakeCommand extends GeneratorCommand
+abstract class MakeCommand extends GeneratorCommand
 {
     /**
      * @var string
@@ -14,7 +15,7 @@ class MakeCommand extends GeneratorCommand
     /**
      * @var string
      */
-    protected $namespace = '';
+    protected $namespace = '\Http\Integration';
 
     /**
      * Get the stub
@@ -47,6 +48,22 @@ class MakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . $this->namespace;
+        return str_replace('{integration}', $this->getIntegration(), $rootNamespace . $this->namespace);
+    }
+
+    protected function getIntegration(): string {
+        return $this->argument('integration');
+    }
+
+    /**
+     * Get the console command arguments.
+     * @return array
+     */
+    protected function getArguments(): array
+    {
+        return [
+            ['integration', InputArgument::REQUIRED, 'The related integration'],
+            ...parent::getArguments()
+        ];
     }
 }
