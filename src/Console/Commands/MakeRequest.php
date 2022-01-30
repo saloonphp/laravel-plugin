@@ -46,8 +46,6 @@ class MakeRequest extends MakeCommand
         $stub = $this->files->get($this->getStub());
         $response = new MakeResponse($this->files);
 
-
-        dd($response->rootNamespace());
     }
 
     protected function getOptions()
