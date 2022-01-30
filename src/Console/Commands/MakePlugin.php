@@ -30,7 +30,7 @@ class MakePlugin extends MakeCommand
      *
      * @var string
      */
-    protected $namespace = '\Http\Integration\{integration}\Plugins';
+    protected $namespace = '\Http\Integrations\{integration}\Plugins';
 
     /**
      * The default stub

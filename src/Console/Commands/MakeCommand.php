@@ -15,7 +15,7 @@ abstract class MakeCommand extends GeneratorCommand
     /**
      * @var string
      */
-    protected $namespace = '\Http\Integration';
+    protected $namespace = '';
 
     /**
      * Get the stub
