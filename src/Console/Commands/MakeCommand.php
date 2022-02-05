@@ -51,7 +51,8 @@ abstract class MakeCommand extends GeneratorCommand
         return str_replace('{integration}', $this->getIntegration(), $rootNamespace . $this->namespace);
     }
 
-    protected function getIntegration(): string {
+    protected function getIntegration(): string
+    {
         return $this->argument('integration');
     }
 
@@ -63,7 +64,7 @@ abstract class MakeCommand extends GeneratorCommand
     {
         return [
             ['integration', InputArgument::REQUIRED, 'The related integration'],
-            ...parent::getArguments()
+            ...parent::getArguments(),
         ];
     }
 }
