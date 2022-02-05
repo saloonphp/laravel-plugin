@@ -30,7 +30,7 @@ class MakeConnector extends MakeCommand
      *
      * @var string
      */
-    protected $namespace = '\Http\Saloon\Connectors';
+    protected $namespace = '\Http\Integrations\{integration}';
 
     /**
      * The default stub

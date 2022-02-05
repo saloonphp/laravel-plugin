@@ -2,6 +2,8 @@
 
 namespace Sammyjo20\SaloonLaravel\Console\Commands;
 
+use Symfony\Component\Console\Input\InputOption;
+
 class MakeRequest extends MakeCommand
 {
     /**
@@ -30,7 +32,7 @@ class MakeRequest extends MakeCommand
      *
      * @var string
      */
-    protected $namespace = '\Http\Saloon\Requests';
+    protected $namespace = '\Http\Integrations\{integration}\Requests';
 
     /**
      * The default stub
