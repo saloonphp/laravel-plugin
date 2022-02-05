@@ -10,6 +10,14 @@ class {{ class }} extends SaloonConnector
     use AcceptsJson;
 
     /**
+     * Register Saloon requests that will become methods on the connector.
+     * For example, GetUserRequest would become $this->getUserRequest(...$args)
+     *
+     * @var array
+     */
+    protected array $requests = [];
+
+    /**
      * Define the base url of the api.
      *
      * @return string

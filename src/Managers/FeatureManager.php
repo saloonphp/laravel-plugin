@@ -37,8 +37,7 @@ class FeatureManager
      * Boot the mocking feature.
      *
      * @return void
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidConnectorException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException
+     * @throws SaloonNoMockResponsesProvidedException
      */
     public function bootMockingFeature(): void
     {
