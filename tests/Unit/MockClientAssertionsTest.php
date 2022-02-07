@@ -3,9 +3,9 @@
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Tests\Resources\Requests\UserRequest;
-use Sammyjo20\Saloon\Tests\Resources\Requests\ErrorRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\UserRequest;
+use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\ErrorRequest;
 
 test('that assertSent works with a request', function () {
     Saloon::fake([

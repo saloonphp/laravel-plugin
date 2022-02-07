@@ -15,12 +15,12 @@
             "email": "29132017+Sammyjo20@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0|^9.0",
         "illuminate/console": "^8.0|^9.0",
-        "sammyjo20/saloon": "dev-main"
+        "sammyjo20/saloon": "^0.7.0"
     },
     "extra": {
         "laravel": {
@@ -54,11 +54,5 @@
                 "@php ./vendor/bin/testbench package:discover --ansi"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../saloon"
-        }
-    ]
+    }
 }
