@@ -10,7 +10,7 @@ use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
 class Saloon
 {
     /**
-     * The boot method. This is called by Saloon and from within here, can push almost anything
+     * The boot method. This is called by Saloon and from within here, we can push almost anything
      * into Saloon, but most important - we can push interceptors and handlers 🚀
      *
      * @param LaravelManager $laravelManager
