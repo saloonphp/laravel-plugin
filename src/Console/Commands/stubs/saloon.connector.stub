@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Features\AcceptsJson;
+use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
 
 class {{ class }} extends SaloonConnector
 {
