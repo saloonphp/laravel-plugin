@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }};
+
+use Sammyjo20\Saloon\Helpers\Keychain;
+use Sammyjo20\Saloon\Http\SaloonRequest;
+
+class {{ class }} extends Keychain
+{
+    public function __construct()
+    {
+        //
+    }
+
+    public static function default(SaloonRequest $request): Keychain
+    {
+        return new static();
+    }
+
+    public function boot(SaloonRequest $request): void
+    {
+        //
+    }
+}
