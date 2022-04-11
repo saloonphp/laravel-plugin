@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakePlugin;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeKeychain;
+use Sammyjo20\SaloonLaravel\Console\Commands\MakeAuthenticator;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeResponse;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
 
@@ -29,7 +29,7 @@ class SaloonServiceProvider extends ServiceProvider
             MakeRequest::class,
             MakeResponse::class,
             MakePlugin::class,
-            MakeKeychain::class,
+            MakeAuthenticator::class,
         ]);
 
         return $this;

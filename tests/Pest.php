@@ -43,5 +43,5 @@ expect()->extend('toBeOne', function () {
 
 function apiUrl()
 {
-    return 'https://saloon-test.samcarre.dev/api';
+    return 'https://tests.saloon.dev/api';
 }
