@@ -57,7 +57,7 @@ test('that assertSent works with a url', function () {
 
     (new UserRequest())->send();
 
-    Saloon::assertSent('samcarre.dev/*');
+    Saloon::assertSent('saloon.dev/*');
     Saloon::assertSent('/user');
     Saloon::assertSent('api/user');
 });
