@@ -15,7 +15,7 @@ class {{ class }} extends SaloonRequest
     protected ?string $connector = null;
 
     /**
-     * The HTTP verb that the request should use.
+     * The HTTP verb the request will use.
      *
      * @var string|null
      */
