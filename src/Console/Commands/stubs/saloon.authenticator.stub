@@ -7,7 +7,8 @@ use Sammyjo20\Saloon\Interfaces\AuthenticatorInterface;
 
 class {{ class }} implements AuthenticatorInterface
 {
-    public function __construct() {
+    public function __construct()
+    {
         //
     }
 
