@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Exception\ConnectException;
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
@@ -130,4 +131,31 @@ test('test assertSentCount works properly', function () {
     (new UserRequest())->send();
 
     Saloon::assertSentCount(3);
+});
+
+test('you can mock guzzle exceptions', function () {
+    Saloon::fake([
+        MockResponse::make(['name' => 'Sam']),
+        MockResponse::make(['name' => 'Patrick'])->throw(fn ($guzzleRequest) => new ConnectException('Unable to connect!', $guzzleRequest)),
+    ]);
+
+    $okResponse = (new UserRequest)->send();
+
+    expect($okResponse->json())->toEqual(['name' => 'Sam']);
+
+    $this->expectException(ConnectException::class);
+    $this->expectExceptionMessage('Unable to connect!');
+
+    (new UserRequest())->send();
+});
+
+test('you can mock normal exceptions', function () {
+    Saloon::fake([
+        MockResponse::make(['name' => 'Michael'])->throw(new Exception('Custom Exception!')),
+    ]);
+
+    $this->expectException(Exception::class);
+    $this->expectExceptionMessage('Custom Exception!');
+
+    (new UserRequest())->send();
 });
