@@ -1,9 +1,9 @@
 <?php
 
-use GuzzleHttp\Exception\ConnectException;
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
+use GuzzleHttp\Exception\ConnectException;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\UserRequest;
 use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\ErrorRequest;
