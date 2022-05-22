@@ -1,11 +1,11 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Tests\Resources\Connectors;
+namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors;
 
 use Sammyjo20\Saloon\Http\SaloonConnector;
 use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
 
-class DifferentServiceConnector extends SaloonConnector
+class TestConnector extends SaloonConnector
 {
     use AcceptsJson;
 
@@ -16,7 +16,7 @@ class DifferentServiceConnector extends SaloonConnector
      */
     public function defineBaseUrl(): string
     {
-        return 'https://google.com';
+        return apiUrl();
     }
 
     /**

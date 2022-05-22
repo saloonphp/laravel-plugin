@@ -4,7 +4,7 @@ use Sammyjo20\SaloonLaravel\Saloon;
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Managers\RequestManager;
-use Sammyjo20\SaloonLaravel\Tests\Resources\Requests\UserRequest;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
 use Sammyjo20\Saloon\Exceptions\SaloonMultipleMockMethodsException;
 use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 

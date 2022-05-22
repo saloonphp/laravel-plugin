@@ -14,7 +14,7 @@ class SaloonServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->app->bind('saloon', fn () => new Saloon);
+        $this->app->bind('saloon', Saloon::class);
         $this->app->singleton(MockClient::class, fn () => new MockClient);
 
         if ($this->app->runningInConsole()) {

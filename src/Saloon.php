@@ -3,12 +3,27 @@
 namespace Sammyjo20\SaloonLaravel;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
+use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
 
 class Saloon
 {
+    /**
+     * Determines if requests should be recorded.
+     *
+     * @var bool
+     */
+    protected bool $record = false;
+
+    /**
+     * An array of the recorded responses if $record is enabled.
+     *
+     * @var array
+     */
+    protected array $recordedResponses = [];
+
     /**
      * The boot method. This is called by Saloon and from within here, we can push almost anything
      * into Saloon, but most important - we can push interceptors and handlers 🚀
@@ -24,6 +39,7 @@ class Saloon
         $manager = new FeatureManager($laravelManager, $request);
 
         $manager->bootMockingFeature();
+        $manager->bootRecordingFeature();
 
         return $manager->getLaravelManager();
     }
@@ -106,5 +122,74 @@ class Saloon
     public static function assertSentCount(int $count): void
     {
         static::mockClient()->assertSentCount($count);
+    }
+
+    /**
+     * Start Saloon recording responses.
+     *
+     * @return void
+     */
+    public function record(): void
+    {
+        $this->record = true;
+    }
+
+    /**
+     * Stop Saloon recording responses.
+     *
+     * @return void
+     */
+    public function stopRecording(): void
+    {
+        $this->record = false;
+    }
+
+    /**
+     * Check if Saloon is recording
+     *
+     * @return bool
+     */
+    public function isRecording(): bool
+    {
+        return $this->record;
+    }
+
+    /**
+     * Record a response.
+     *
+     * @param SaloonResponse $response
+     * @return void
+     */
+    public function recordResponse(SaloonResponse $response): void
+    {
+        $this->recordedResponses[] = $response;
+    }
+
+    /**
+     * Get all the recorded responses.
+     *
+     * @return array
+     */
+    public function getRecordedResponses(): array
+    {
+        return $this->recordedResponses;
+    }
+
+    /**
+     * Get the last response that Saloon recorded.
+     *
+     * @return SaloonResponse|null
+     */
+    public function getLastRecordedResponse(): ?SaloonResponse
+    {
+        if (empty($this->recordedResponses)) {
+            return null;
+        }
+
+        $lastResponse = end($this->recordedResponses);
+
+        reset($this->recordedResponses);
+
+        return $lastResponse;
     }
 }

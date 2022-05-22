@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method assertSentJson(string $request, array $data)
  * @method assertNothingSent()
  * @method assertSentCount(int $count)
+ * @method record()
+ * @method stopRecording()
+ * @method isRecording()
+ * @method getRecordedResponses()
+ * @method getLastRecordedResponse()
  */
 class Saloon extends BaseFacade
 {

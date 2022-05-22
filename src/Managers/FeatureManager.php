@@ -3,9 +3,11 @@
 namespace Sammyjo20\SaloonLaravel\Managers;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
+use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Sammyjo20\SaloonLaravel\Facades\Saloon;
 
 class FeatureManager
 {
@@ -52,6 +54,27 @@ class FeatureManager
         }
 
         $this->laravelManager->setMockClient($mockClient);
+    }
+
+    /**
+     * Boot the recording feature.
+     *
+     * @return void
+     * @throws SaloonNoMockResponsesProvidedException
+     */
+    public function bootRecordingFeature(): void
+    {
+        if (Saloon::isRecording() === false) {
+            return;
+        }
+
+        // Register a response interceptor which will record the response.
+
+        $this->request->addResponseInterceptor(function (SaloonRequest $request, SaloonResponse $response) {
+            Saloon::recordResponse($response);
+
+            return $response;
+        });
     }
 
     /**
