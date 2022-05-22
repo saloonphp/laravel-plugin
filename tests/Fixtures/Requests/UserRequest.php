@@ -1,12 +1,12 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Tests\Resources\Requests;
+namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
 
 use Sammyjo20\Saloon\Constants\Saloon;
 use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Resources\Connectors\TestConnector;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
 
-class ErrorRequest extends SaloonRequest
+class UserRequest extends SaloonRequest
 {
     /**
      * Define the method that the request will use.
@@ -29,6 +29,6 @@ class ErrorRequest extends SaloonRequest
      */
     public function defineEndpoint(): string
     {
-        return '/error';
+        return '/user';
     }
 }

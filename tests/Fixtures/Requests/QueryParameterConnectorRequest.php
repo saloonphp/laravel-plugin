@@ -1,12 +1,12 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Tests\Resources\Requests;
+namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
 
 use Sammyjo20\Saloon\Constants\Saloon;
 use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Resources\Connectors\TestConnector;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\QueryParameterConnector;
 
-class UserRequest extends SaloonRequest
+class QueryParameterConnectorRequest extends SaloonRequest
 {
     /**
      * Define the method that the request will use.
@@ -20,7 +20,7 @@ class UserRequest extends SaloonRequest
      *
      * @var string|null
      */
-    protected ?string $connector = TestConnector::class;
+    protected ?string $connector = QueryParameterConnector::class;
 
     /**
      * Define the endpoint for the request.
@@ -30,5 +30,12 @@ class UserRequest extends SaloonRequest
     public function defineEndpoint(): string
     {
         return '/user';
+    }
+
+    public function defaultQuery(): array
+    {
+        return [
+            'include' => 'user',
+        ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Tests\Resources\Requests;
+namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
 
 use Sammyjo20\Saloon\Constants\Saloon;
 use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Resources\Connectors\DifferentServiceConnector;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
 
 class DifferentServiceUserRequest extends SaloonRequest
 {
