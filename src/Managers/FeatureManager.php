@@ -4,10 +4,10 @@ namespace Sammyjo20\SaloonLaravel\Managers;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
+use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
 
 class FeatureManager
 {
