@@ -6,18 +6,18 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon
- * @method fake(array $responses)
- * @method mockClient()
- * @method assertSent(string|callable $value)
- * @method assertNotSent(string|callable $value)
- * @method assertSentJson(string $request, array $data)
- * @method assertNothingSent()
- * @method assertSentCount(int $count)
- * @method record()
- * @method stopRecording()
- * @method isRecording()
- * @method getRecordedResponses()
- * @method getLastRecordedResponse()
+ * @method static \Sammyjo20\SaloonLaravel\Clients\MockClient fake(array $responses)
+ * @method static \Sammyjo20\SaloonLaravel\Clients\MockClient mockClient()
+ * @method static void assertSent(string|callable $value)
+ * @method static void assertNotSent(string|callable $value)
+ * @method static void assertSentJson(string $request, array $data)
+ * @method static void assertNothingSent()
+ * @method static void assertSentCount(int $count)
+ * @method static void record()
+ * @method static void stopRecording()
+ * @method static bool isRecording()
+ * @method static array getRecordedResponses()
+ * @method static array getLastRecordedResponse()
  */
 class Saloon extends BaseFacade
 {
