@@ -19,8 +19,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0|^9.0",
-        "illuminate/console": "^8.0|^9.0",
-        "sammyjo20/saloon": "^1.0"
+        "illuminate/console": "^8.0|^9.0"
     },
     "extra": {
         "laravel": {
@@ -54,5 +53,11 @@
                 "@php ./vendor/bin/testbench package:discover --ansi"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../saloon"
+        }
+    ]
 }

@@ -1,0 +1,41 @@
+<?php
+
+namespace {{ namespace }};
+
+use Sammyjo20\Saloon\Http\SaloonConnector;
+use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Sammyjo20\Saloon\Helpers\OAuth2\OAuthConfig;
+use Sammyjo20\Saloon\Traits\OAuth2\AuthorizationCodeGrant;
+
+class {{ class }} extends SaloonConnector
+{
+    use AuthorizationCodeGrant;
+    use AcceptsJson;
+
+    /**
+     * The Base URL of the API.
+     *
+     * @return string
+     */
+    public function defineBaseUrl(): string
+    {
+        return '';
+    }
+
+    /**
+     * Define the default OAuth2 Config.
+     *
+     * @return OAuthConfig
+     */
+    protected function defaultOauthConfig(): OAuthConfig
+    {
+        return OAuthConfig::make()
+            ->setClientId('')
+            ->setClientSecret('')
+            ->setRedirectUri('')
+            ->setDefaultScopes([])
+            ->setAuthorizeEndpoint('authorize')
+            ->setTokenEndpoint('token')
+            ->setUserEndpoint('user');
+    }
+}
