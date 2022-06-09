@@ -9,6 +9,7 @@ use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeResponse;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
 use Sammyjo20\SaloonLaravel\Console\Commands\MakeAuthenticator;
+use Sammyjo20\SaloonLaravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,7 @@ class SaloonServiceProvider extends ServiceProvider
     {
         $this->commands([
             MakeConnector::class,
+            MakeOAuthConnector::class,
             MakeRequest::class,
             MakeResponse::class,
             MakePlugin::class,
