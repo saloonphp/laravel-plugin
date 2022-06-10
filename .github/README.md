@@ -1,3 +1,5 @@
+> This package is indended for Laravel. To read more about Saloon, see here: https://github.com/sammyjo20/saloon
+
 ## Saloon Laravel Package
 
 This is the Laravel package for Saloon, to install it run the following command
