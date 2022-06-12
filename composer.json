@@ -1,51 +1,62 @@
 {
     "name": "sammyjo20/saloon-laravel",
     "description": "Laravel package for Sammyjo20/Saloon",
-    "type": "library",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Sammyjo20\\SaloonLaravel\\": "src/",
-            "Sammyjo20\\SaloonLaravel\\Tests\\": "tests/"
-        }
-    },
+    "type": "library",
+    "keywords": [
+        "sammyjo20",
+        "saloon",
+        "sdk",
+        "api",
+        "api-integrations"
+    ],
     "authors": [
         {
             "name": "Sam Carré",
-            "email": "29132017+Sammyjo20@users.noreply.github.com"
+            "email": "29132017+Sammyjo20@users.noreply.github.com",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "stable",
+    "homepage": "https://github.com/sammyjo20/saloon-laravel",
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0|^9.0",
-        "illuminate/console": "^8.0|^9.0",
+        "illuminate/console": "^8.0 || ^9.0",
+        "illuminate/support": "^8.0 || ^9.0",
         "sammyjo20/saloon": "^1.3"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
-            ],
-            "aliases": {
-                "Saloon": "Saloon"
-            }
-        }
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
-        "pestphp/pest": "^1.21",
-        "orchestra/testbench": "^v6.24.0"
+        "orchestra/testbench": "^v6.24.0",
+        "pestphp/pest": "^1.21"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Sammyjo20\\SaloonLaravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sammyjo20\\SaloonLaravel\\Tests\\": "tests/"
+        }
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {
+                "Saloon": "Saloon"
+            },
+            "providers": [
+                "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
+            ]
         }
     },
     "scripts": {
-        "test": [
-            "./vendor/bin/pest"
-        ],
         "fix-code": [
             "./vendor/bin/php-cs-fixer fix"
         ],
@@ -53,6 +64,9 @@
             "post-autoload-dump": [
                 "@php ./vendor/bin/testbench package:discover --ansi"
             ]
-        }
+        },
+        "test": [
+            "./vendor/bin/pest"
+        ]
     }
 }
