@@ -1,6 +1,8 @@
 <?php
 
+use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Http\MockResponse;
+use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\ErrorRequest;
@@ -40,6 +42,20 @@ test('a request can be mocked with a sequence', function () {
     (new UserRequest)->send();
 });
 
+test('a request can be mocked with a sequence using a closure', function () {
+    Saloon::fake([
+        function (SaloonRequest $request): MockResponse {
+            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        }
+    ]);
+
+    $responseA = (new UserRequest)->send();
+
+    expect($responseA->isMocked())->toBeTrue();
+    expect($responseA->json())->toEqual(['request' => 'https://tests.saloon.dev/api/user']);
+    expect($responseA->status())->toEqual(200);
+});
+
 test('a request can be mocked with a connector defined', function () {
     $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
     $responseB = new MockResponse(['name' => 'Alex'], 200);
@@ -65,6 +81,20 @@ test('a request can be mocked with a connector defined', function () {
     expect($responseB->status())->toEqual(200);
 });
 
+test('a request can be mocked with a connector defined using a closure', function () {
+    Saloon::fake([
+        TestConnector::class => function (SaloonRequest $request): MockResponse {
+            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        }
+    ]);
+
+    $responseA = (new UserRequest)->send();
+
+    expect($responseA->isMocked())->toBeTrue();
+    expect($responseA->json())->toEqual(['request' => 'https://tests.saloon.dev/api/user']);
+    expect($responseA->status())->toEqual(200);
+});
+
 test('a request can be mocked with a request defined', function () {
     $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
     $responseB = new MockResponse(['name' => 'Alex'], 200);
@@ -88,6 +118,20 @@ test('a request can be mocked with a request defined', function () {
     expect($responseB->isMocked())->toBeTrue();
     expect($responseB->json())->toEqual(['name' => 'Alex']);
     expect($responseB->status())->toEqual(200);
+});
+
+test('a request can be mocked with a request defined using a closure', function () {
+    Saloon::fake([
+        UserRequest::class => function (SaloonRequest $request): MockResponse {
+            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        }
+    ]);
+
+    $responseA = (new UserRequest)->send();
+
+    expect($responseA->isMocked())->toBeTrue();
+    expect($responseA->json())->toEqual(['request' => 'https://tests.saloon.dev/api/user']);
+    expect($responseA->status())->toEqual(200);
 });
 
 test('a request can be mocked with a url defined', function () {
@@ -156,4 +200,18 @@ test('you can create wildcard url mocks', function () {
     expect($responseC->isMocked())->toBeTrue();
     expect($responseC->json())->toEqual(['error' => 'Server Broken']);
     expect($responseC->status())->toEqual(500);
+});
+
+test('a request can be mocked with a url defined using a closure', function () {
+    Saloon::fake([
+        'tests.saloon.dev/*' => function (SaloonRequest $request): MockResponse {
+            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        }
+    ]);
+
+    $responseA = (new UserRequest)->send();
+
+    expect($responseA->isMocked())->toBeTrue();
+    expect($responseA->json())->toEqual(['request' => 'https://tests.saloon.dev/api/user']);
+    expect($responseA->status())->toEqual(200);
 });
