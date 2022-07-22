@@ -31,15 +31,15 @@ class Saloon
      * @param LaravelManager $laravelManager
      * @param SaloonRequest $request
      * @return LaravelManager
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidConnectorException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonNoMockResponseFoundException
+     * @throws \Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException
      */
     public static function bootLaravelFeatures(LaravelManager $laravelManager, SaloonRequest $request): LaravelManager
     {
         $manager = new FeatureManager($laravelManager, $request);
 
-        $manager->bootMockingFeature();
-        $manager->bootRecordingFeature();
+        $manager->bootMockingFeature()
+            ->bootRecordingFeature()
+            ->bootEventTriggers();
 
         return $manager->getLaravelManager();
     }
