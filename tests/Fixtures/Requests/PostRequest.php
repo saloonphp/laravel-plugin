@@ -53,4 +53,11 @@ class PostRequest extends SaloonRequest
             'X-Foo' => 'Bar',
         ];
     }
+
+    public function defaultQuery(): array
+    {
+        return [
+            'test_query' => 'hello',
+        ];
+    }
 }

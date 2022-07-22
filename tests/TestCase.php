@@ -29,6 +29,8 @@ class TestCase extends BaseTestCase
     protected function defineDatabaseMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../vendor/laravel/telescope/database/migrations');
+
+        $this->artisan('migrate');
     }
 
     /**
