@@ -5,7 +5,7 @@ namespace Sammyjo20\SaloonLaravel\Events;
 use Illuminate\Foundation\Events\Dispatchable;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 
-class SaloonRequestSending
+class SendingSaloonRequest
 {
     use Dispatchable;
 

@@ -4,8 +4,8 @@ namespace Sammyjo20\SaloonLaravel\Managers;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\SaloonLaravel\Events\SaloonRequestSending;
-use Sammyjo20\SaloonLaravel\Events\SaloonRequestSent;
+use Sammyjo20\SaloonLaravel\Events\SendingSaloonRequest;
+use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
@@ -95,13 +95,13 @@ class FeatureManager
         // We'll firstly send off the initial event which is when the request is
         // being sent.
 
-        SaloonRequestSending::dispatch($request);
+        SendingSaloonRequest::dispatch($request);
 
         // Next, we'll register a response interceptor which will send the event
         // when a response has been received.
 
         $request->addResponseInterceptor(function (SaloonRequest $request, SaloonResponse $response) {
-            SaloonRequestSent::dispatch($request, $response);
+            SentSaloonRequest::dispatch($request, $response);
 
             return $response;
         });

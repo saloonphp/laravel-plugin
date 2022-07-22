@@ -6,7 +6,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 
-class SaloonRequestSent
+class SentSaloonRequest
 {
     use Dispatchable;
 
