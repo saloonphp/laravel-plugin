@@ -2,13 +2,13 @@
 
 namespace Sammyjo20\SaloonLaravel\Tests;
 
-use Illuminate\Support\Collection;
-use Laravel\Telescope\Contracts\EntriesRepository;
-use Laravel\Telescope\Storage\EntryModel;
 use Laravel\Telescope\Telescope;
-use Laravel\Telescope\TelescopeServiceProvider;
+use Illuminate\Support\Collection;
+use Laravel\Telescope\Storage\EntryModel;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Laravel\Telescope\TelescopeServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Laravel\Telescope\Contracts\EntriesRepository;
 use Sammyjo20\SaloonLaravel\SaloonServiceProvider;
 
 class TestCase extends BaseTestCase

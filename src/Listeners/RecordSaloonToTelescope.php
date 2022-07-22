@@ -2,8 +2,8 @@
 
 namespace Sammyjo20\SaloonLaravel\Listeners;
 
-use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
+use Laravel\Telescope\IncomingEntry;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
 

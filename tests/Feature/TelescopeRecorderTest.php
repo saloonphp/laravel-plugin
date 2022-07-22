@@ -1,16 +1,15 @@
 <?php
 
+use Laravel\Telescope\EntryType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use Laravel\Telescope\EntryType;
-use Laravel\Telescope\ExtractTags;
-use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Http\MockResponse;
+use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
 use Sammyjo20\SaloonLaravel\Listeners\RecordSaloonToTelescope;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\PostRequest;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
 
 beforeEach(function () {
     Event::listen(SentSaloonRequest::class, RecordSaloonToTelescope::class);
@@ -62,7 +61,7 @@ test('when a request is made - it is reported to telescope', function () {
 
 test('it will format the response data as json if it can determine the response is JSON', function () {
     $mockClient = new MockClient([
-        MockResponse::make('Plain Text Response', 200, ['Content-Type' => 'text/plain'])
+        MockResponse::make('Plain Text Response', 200, ['Content-Type' => 'text/plain']),
     ]);
 
     UserRequest::make()->send($mockClient);
