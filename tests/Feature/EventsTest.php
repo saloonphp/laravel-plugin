@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Event;
 use Sammyjo20\Saloon\Http\MockResponse;
+use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
 use Sammyjo20\SaloonLaravel\Events\SendingSaloonRequest;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
 
 test('events are fired when a request is being sent and when a request has been sent', function () {

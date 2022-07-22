@@ -1,6 +1,5 @@
 <?php
 
-use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
@@ -46,7 +45,7 @@ test('a request can be mocked with a sequence using a closure', function () {
     Saloon::fake([
         function (SaloonRequest $request): MockResponse {
             return new MockResponse(['request' => $request->getFullRequestUrl()]);
-        }
+        },
     ]);
 
     $responseA = (new UserRequest)->send();
@@ -85,7 +84,7 @@ test('a request can be mocked with a connector defined using a closure', functio
     Saloon::fake([
         TestConnector::class => function (SaloonRequest $request): MockResponse {
             return new MockResponse(['request' => $request->getFullRequestUrl()]);
-        }
+        },
     ]);
 
     $responseA = (new UserRequest)->send();
@@ -124,7 +123,7 @@ test('a request can be mocked with a request defined using a closure', function 
     Saloon::fake([
         UserRequest::class => function (SaloonRequest $request): MockResponse {
             return new MockResponse(['request' => $request->getFullRequestUrl()]);
-        }
+        },
     ]);
 
     $responseA = (new UserRequest)->send();
@@ -206,7 +205,7 @@ test('a request can be mocked with a url defined using a closure', function () {
     Saloon::fake([
         'tests.saloon.dev/*' => function (SaloonRequest $request): MockResponse {
             return new MockResponse(['request' => $request->getFullRequestUrl()]);
-        }
+        },
     ]);
 
     $responseA = (new UserRequest)->send();

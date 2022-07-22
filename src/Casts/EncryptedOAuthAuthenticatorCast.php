@@ -2,8 +2,8 @@
 
 namespace Sammyjo20\SaloonLaravel\Casts;
 
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Sammyjo20\Saloon\Interfaces\OAuthAuthenticatorInterface;
 
 class EncryptedOAuthAuthenticatorCast implements CastsAttributes

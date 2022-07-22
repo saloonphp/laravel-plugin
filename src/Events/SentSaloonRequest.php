@@ -2,9 +2,9 @@
 
 namespace Sammyjo20\SaloonLaravel\Events;
 
-use Illuminate\Foundation\Events\Dispatchable;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class SentSaloonRequest
 {
