@@ -4,6 +4,8 @@ namespace Sammyjo20\SaloonLaravel\Managers;
 
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
+use Sammyjo20\SaloonLaravel\Events\SaloonRequestSending;
+use Sammyjo20\SaloonLaravel\Events\SaloonRequestSent;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
@@ -38,15 +40,15 @@ class FeatureManager
     /**
      * Boot the mocking feature.
      *
-     * @return void
+     * @return self
      * @throws SaloonNoMockResponsesProvidedException
      */
-    public function bootMockingFeature(): void
+    public function bootMockingFeature(): static
     {
         $mockClient = MockClient::resolve();
 
         if ($mockClient->isMocking() === false) {
-            return;
+            return $this;
         }
 
         if ($mockClient->isEmpty()) {
@@ -54,18 +56,20 @@ class FeatureManager
         }
 
         $this->laravelManager->setMockClient($mockClient);
+
+        return $this;
     }
 
     /**
      * Boot the recording feature.
      *
-     * @return void
+     * @return self
      * @throws SaloonNoMockResponsesProvidedException
      */
-    public function bootRecordingFeature(): void
+    public function bootRecordingFeature(): static
     {
         if (Saloon::isRecording() === false) {
-            return;
+            return $this;
         }
 
         // Register a response interceptor which will record the response.
@@ -75,6 +79,34 @@ class FeatureManager
 
             return $response;
         });
+
+        return $this;
+    }
+
+    /**
+     * Dispatch events that can be listened to on Laravel.
+     *
+     * @return $this
+     */
+    public function bootEventTriggers(): static
+    {
+        $request = $this->request;
+
+        // We'll firstly send off the initial event which is when the request is
+        // being sent.
+
+        SaloonRequestSending::dispatch($request);
+
+        // Next, we'll register a response interceptor which will send the event
+        // when a response has been received.
+
+        $request->addResponseInterceptor(function (SaloonRequest $request, SaloonResponse $response) {
+            SaloonRequestSent::dispatch($request, $response);
+
+            return $response;
+        });
+
+        return $this;
     }
 
     /**
