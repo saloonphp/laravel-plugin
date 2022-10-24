@@ -20,15 +20,15 @@
     "homepage": "https://github.com/sammyjo20/saloon-laravel",
     "require": {
         "php": "^8.0",
-        "illuminate/console": "^8.0 || ^9.0",
-        "illuminate/support": "^8.0 || ^9.0",
+        "illuminate/console": "^8.37 || ^9.0",
+        "illuminate/support": "^8.37 || ^9.0",
         "sammyjo20/saloon": "^1.5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.12",
         "laravel/telescope": "^4.6",
-        "orchestra/testbench": "^6.24 || ^7.8",
-        "pestphp/pest": "^1.21"
+        "orchestra/testbench": "^6.24 || ^7.11",
+        "pestphp/pest": "^1.22.1"
     },
     "minimum-stability": "stable",
     "autoload": {
