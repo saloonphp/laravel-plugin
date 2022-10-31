@@ -2,7 +2,7 @@
 
 namespace Sammyjo20\SaloonLaravel\Clients;
 
-use Sammyjo20\Saloon\Clients\BaseMockClient;
+use Sammyjo20\Saloon\Clients\MockClient as BaseMockClient;
 
 class MockClient extends BaseMockClient
 {

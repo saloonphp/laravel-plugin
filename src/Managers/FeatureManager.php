@@ -2,8 +2,9 @@
 
 namespace Sammyjo20\SaloonLaravel\Managers;
 
+use Sammyjo20\Saloon\Http\PendingSaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Sammyjo20\Saloon\Contracts\SaloonResponse;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\Saloon\Managers\LaravelManager;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
@@ -14,27 +15,20 @@ use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 class FeatureManager
 {
     /**
-     * The LaravelManager provided by Saloon.
+     * The PendingSaloonRequest
      *
-     * @var LaravelManager
+     * @var PendingSaloonRequest
      */
-    protected LaravelManager $laravelManager;
+    protected PendingSaloonRequest $pendingRequest;
 
     /**
-     * The SaloonRequest provided by Saloon
+     * Constructor
      *
-     * @var SaloonRequest
+     * @param PendingSaloonRequest $pendingRequest
      */
-    protected SaloonRequest $request;
-
-    /**
-     * @param LaravelManager $laravelManager
-     * @param SaloonRequest $request
-     */
-    public function __construct(LaravelManager $laravelManager, SaloonRequest $request)
+    public function __construct(PendingSaloonRequest $pendingRequest)
     {
-        $this->laravelManager = $laravelManager;
-        $this->request = $request;
+        $this->pendingRequest = $pendingRequest;
     }
 
     /**
@@ -45,9 +39,14 @@ class FeatureManager
      */
     public function bootMockingFeature(): static
     {
+        $pendingRequest = $this->pendingRequest;
         $mockClient = MockClient::resolve();
 
         if ($mockClient->isMocking() === false) {
+            return $this;
+        }
+
+        if ($pendingRequest->isMocking()) {
             return $this;
         }
 
@@ -55,7 +54,7 @@ class FeatureManager
             throw new SaloonNoMockResponsesProvidedException;
         }
 
-        $this->laravelManager->setMockClient($mockClient);
+        $pendingRequest->setMockClient($mockClient);
 
         return $this;
     }
@@ -72,9 +71,7 @@ class FeatureManager
             return $this;
         }
 
-        // Register a response interceptor which will record the response.
-
-        $this->request->addResponseInterceptor(function (SaloonRequest $request, SaloonResponse $response) {
+        $this->pendingRequest->middleware()->onResponse(function (SaloonResponse $response) {
             Saloon::recordResponse($response);
 
             return $response;
@@ -90,42 +87,22 @@ class FeatureManager
      */
     public function bootEventTriggers(): static
     {
-        $request = $this->request;
+        $pendingRequest = $this->pendingRequest;
 
         // We'll firstly send off the initial event which is when the request is
         // being sent.
 
-        SendingSaloonRequest::dispatch($request);
+        SendingSaloonRequest::dispatch($pendingRequest);
 
         // Next, we'll register a response interceptor which will send the event
         // when a response has been received.
 
-        $request->addResponseInterceptor(function (SaloonRequest $request, SaloonResponse $response) {
-            SentSaloonRequest::dispatch($request, $response);
+        $pendingRequest->middleware()->onResponse(function (SaloonResponse $response) {
+            SentSaloonRequest::dispatch($response->getPendingSaloonRequest(), $response);
 
             return $response;
         });
 
         return $this;
-    }
-
-    /**
-     * Return the Laravel Manager.
-     *
-     * @return LaravelManager
-     */
-    public function getLaravelManager(): LaravelManager
-    {
-        return $this->laravelManager;
-    }
-
-    /**
-     * Return the Saloon request
-     *
-     * @return SaloonRequest
-     */
-    public function getRequest(): SaloonRequest
-    {
-        return $this->request;
     }
 }

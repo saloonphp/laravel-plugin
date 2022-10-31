@@ -2,8 +2,9 @@
 
 namespace Sammyjo20\SaloonLaravel\Events;
 
+use Sammyjo20\Saloon\Http\PendingSaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Sammyjo20\Saloon\Contracts\SaloonResponse;
 use Illuminate\Foundation\Events\Dispatchable;
 
 class SentSaloonRequest
@@ -13,9 +14,9 @@ class SentSaloonRequest
     /**
      * The outgoing SaloonRequest
      *
-     * @var SaloonRequest
+     * @var PendingSaloonRequest
      */
-    public SaloonRequest $request;
+    public PendingSaloonRequest $pendingRequest;
 
     /**
      * The response received by Saloon.
@@ -27,12 +28,12 @@ class SentSaloonRequest
     /**
      * Create a new event instance.
      *
-     * @param SaloonRequest $request
+     * @param PendingSaloonRequest $pendingRequest
      * @param SaloonResponse $response
      */
-    public function __construct(SaloonRequest $request, SaloonResponse $response)
+    public function __construct(PendingSaloonRequest $pendingRequest, SaloonResponse $response)
     {
-        $this->request = $request;
+        $this->pendingRequest = $pendingRequest;
         $this->response = $response;
     }
 }
