@@ -24,7 +24,7 @@ class DifferentServiceConnector extends SaloonConnector
      *
      * @return string[]
      */
-    public function defaultHeaders(): array
+    protected function defaultHeaders(): array
     {
         return [];
     }

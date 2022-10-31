@@ -13,9 +13,9 @@ use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\QueryParameterConnectorReque
 
 test('a request can be mocked with a sequence', function () {
     Saloon::fake([
-        new MockResponse(['name' => 'Sam'], 200),
-        new MockResponse(['name' => 'Alex'], 200),
-        new MockResponse(['error' => 'Server Unavailable'], 500),
+        new MockResponse(200, ['name' => 'Sam']),
+        new MockResponse(200, ['name' => 'Alex']),
+        new MockResponse(500, ['error' => 'Server Unavailable']),
     ]);
 
     $responseA = (new UserRequest)->send();

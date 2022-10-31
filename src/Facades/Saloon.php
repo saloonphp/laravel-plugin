@@ -3,12 +3,14 @@
 namespace Sammyjo20\SaloonLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
+use Sammyjo20\Saloon\Contracts\SaloonResponse;
+use Sammyjo20\SaloonLaravel\Clients\MockClient;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon
  *
- * @method static \Sammyjo20\SaloonLaravel\Clients\MockClient fake(array $responses)
- * @method static \Sammyjo20\SaloonLaravel\Clients\MockClient mockClient()
+ * @method static MockClient fake(array $responses)
+ * @method static MockClient mockClient()
  * @method static void assertSent(string|callable $value)
  * @method static void assertNotSent(string|callable $value)
  * @method static void assertSentJson(string $request, array $data)
@@ -17,8 +19,8 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static void record()
  * @method static void stopRecording()
  * @method static bool isRecording()
- * @method static \Sammyjo20\Saloon\Http\SaloonResponse[] getRecordedResponses()
- * @method static \Sammyjo20\Saloon\Http\SaloonResponse getLastRecordedResponse()
+ * @method static SaloonResponse[] getRecordedResponses()
+ * @method static SaloonResponse getLastRecordedResponse()
  */
 class Saloon extends BaseFacade
 {

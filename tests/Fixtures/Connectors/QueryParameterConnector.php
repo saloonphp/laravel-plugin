@@ -14,7 +14,7 @@ class QueryParameterConnector extends SaloonConnector
         return apiUrl();
     }
 
-    public function defaultQuery(): array
+    protected function defaultQueryParameters(): array
     {
         return [
             'sort' => 'first_name',
