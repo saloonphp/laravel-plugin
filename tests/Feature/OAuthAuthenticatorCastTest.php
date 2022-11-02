@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use Sammyjo20\Saloon\Http\Auth\AccessTokenAuthenticator;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Models\OAuthModel;

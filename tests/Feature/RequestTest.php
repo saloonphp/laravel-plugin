@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\ErrorRequest;

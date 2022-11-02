@@ -1,12 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sammyjo20\SaloonLaravel\Managers;
 
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\Saloon\Managers\LaravelManager;
+use Sammyjo20\Saloon\Contracts\SaloonResponse;
+use Sammyjo20\Saloon\Http\PendingSaloonRequest;
 use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
 use Sammyjo20\SaloonLaravel\Events\SendingSaloonRequest;

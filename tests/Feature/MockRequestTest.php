@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Clients\MockClient;
 use Sammyjo20\Saloon\Http\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;

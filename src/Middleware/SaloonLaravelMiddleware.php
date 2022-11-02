@@ -1,12 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sammyjo20\SaloonLaravel\Middleware;
 
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\Saloon\Helpers\MiddlewarePipeline;
-use Sammyjo20\Saloon\Helpers\Pipeline;
 use Sammyjo20\Saloon\Http\PendingSaloonRequest;
 use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
+use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 
 class SaloonLaravelMiddleware
 {
