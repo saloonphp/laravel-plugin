@@ -13,6 +13,23 @@ use Sammyjo20\SaloonLaravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/saloon.php', 'saloon'
+        );
+    }
+
+    /**
+     * Handle the booting of the service provider.
+     *
+     * @return void
+     */
     public function boot(): void
     {
         $this->app->bind('saloon', Saloon::class);
@@ -21,6 +38,10 @@ class SaloonServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
         }
+
+        $this->publishes([
+            __DIR__.'/../config/saloon.php' => config_path('saloon.php'),
+        ], 'saloon-config');
     }
 
     protected function registerCommands(): self

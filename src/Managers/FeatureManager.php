@@ -44,7 +44,7 @@ class FeatureManager
             return $this;
         }
 
-        if ($pendingRequest->isMocking()) {
+        if ($pendingRequest->hasMockClient()) {
             return $this;
         }
 
