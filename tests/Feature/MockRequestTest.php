@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\MockResponse;
+use Sammyjo20\Saloon\Http\Faking\MockResponse;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\SaloonLaravel\Facades\Saloon;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
