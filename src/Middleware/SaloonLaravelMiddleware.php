@@ -17,7 +17,7 @@ class SaloonLaravelMiddleware
      */
     public function __invoke(PendingSaloonRequest $pendingRequest): PendingSaloonRequest
     {
-        // Todo: Move Feature Manager into this one middleware class.
+        // Todo: Move Feature Manager into this one middleware class.`
 
         $manager = new FeatureManager($pendingRequest);
 
