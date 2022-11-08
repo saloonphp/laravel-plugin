@@ -2,9 +2,9 @@
 
 namespace Sammyjo20\SaloonLaravel\Facades;
 
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\SaloonLaravel\Clients\MockClient;
 use Illuminate\Support\Facades\Facade as BaseFacade;
+use Sammyjo20\Saloon\Contracts\SaloonResponse;
+use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon

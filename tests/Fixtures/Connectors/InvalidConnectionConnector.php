@@ -1,40 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace {{ namespace }};
+namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors;
 
 use Sammyjo20\Saloon\Http\SaloonConnector;
 use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
 
-class {{ class }} extends SaloonConnector
+class InvalidConnectionConnector extends SaloonConnector
 {
     use AcceptsJson;
 
     /**
-     * The Base URL of the API.
+     * Define the base url of the api.
      *
      * @return string
      */
     public function defineBaseUrl(): string
     {
-        return '';
+        return 'https://invalid.saloon.dev';
     }
 
     /**
-     * Default headers for every request
+     * Define the base headers that will be applied in every request.
      *
      * @return string[]
      */
     protected function defaultHeaders(): array
-    {
-        return [];
-    }
-
-    /**
-     * Default HTTP client options
-     *
-     * @return string[]
-     */
-    protected function defaultConfig(): array
     {
         return [];
     }

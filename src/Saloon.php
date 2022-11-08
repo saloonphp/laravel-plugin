@@ -3,7 +3,7 @@
 namespace Sammyjo20\SaloonLaravel;
 
 use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\SaloonLaravel\Clients\MockClient;
+use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
 
 class Saloon
 {
