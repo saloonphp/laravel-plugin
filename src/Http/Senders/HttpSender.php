@@ -2,16 +2,27 @@
 
 namespace Sammyjo20\SaloonLaravel\Http\Senders;
 
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Promise\PromiseInterface;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\PendingRequest;
+use Psr\Http\Message\RequestInterface;
 use Sammyjo20\Saloon\Http\PendingSaloonRequest;
 use Sammyjo20\Saloon\Http\Responses\PsrResponse;
 use Sammyjo20\Saloon\Http\Responses\SaloonResponse;
 use Sammyjo20\Saloon\Http\Senders\GuzzleSender;
+use Sammyjo20\SaloonLaravel\Http\LaravelPendingRequest;
 
 class HttpSender extends GuzzleSender
 {
+    /**
+     * Denotes if we have pushed the handlers onto the client.
+     *
+     * @var bool
+     */
+    protected bool $hasPushedHandlers = false;
+
     /**
      * Send the request
      *
@@ -22,11 +33,12 @@ class HttpSender extends GuzzleSender
      */
     public function sendRequest(PendingSaloonRequest $pendingRequest, bool $asynchronous = false): PsrResponse|PromiseInterface
     {
-        $laravelPendingRequest = $this->createLaravelPendingRequest($pendingRequest, $asynchronous);
+        $laravelPendingRequest = $this->createLaravelPendingRequest($asynchronous);
 
         $response = $laravelPendingRequest->send(
             $pendingRequest->getMethod()->value,
-            $pendingRequest->getUrl()
+            $pendingRequest->getUrl(),
+            $this->createRequestOptions($pendingRequest)
         );
 
         // When the response is a normal HTTP Client Response, we can create the response
@@ -45,21 +57,35 @@ class HttpSender extends GuzzleSender
     /**
      * Create the Laravel Pending Request
      *
-     * @param PendingSaloonRequest $pendingRequest
      * @param bool $asynchronous
      * @return PendingRequest
      */
-    protected function createLaravelPendingRequest(PendingSaloonRequest $pendingRequest, bool $asynchronous = false): PendingRequest
+    protected function createLaravelPendingRequest(bool $asynchronous = false): PendingRequest
     {
-        $laravelPendingRequest = new PendingRequest();
+        $laravelPendingRequest = new PendingRequest;
         $laravelPendingRequest->setClient($this->client);
-
-        $laravelPendingRequest->withOptions(
-            $this->createRequestOptions($pendingRequest)
-        );
 
         $laravelPendingRequest->async($asynchronous);
 
+        $this->pushHandlers($laravelPendingRequest);
+
         return $laravelPendingRequest;
+    }
+
+    /**
+     * Push Laravel's handlers onto the Guzzle Handler Stack.
+     *
+     * @param PendingRequest $pendingRequest
+     * @return void
+     */
+    protected function pushHandlers(PendingRequest $pendingRequest): void
+    {
+        if ($this->hasPushedHandlers === true) {
+            return;
+        }
+
+        $pendingRequest->pushHandlers($this->getHandlerStack());
+
+        $this->hasPushedHandlers = true;
     }
 }
