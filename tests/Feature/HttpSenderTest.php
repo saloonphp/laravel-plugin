@@ -26,6 +26,8 @@ test('a request can be sent with string body', function () {
     $request = new StringRequest;
     $request->body()->set('Hello World');
 
+    // Todo
+
     $response = $request->send();
     $pendingRequest = $response->getPendingSaloonRequest();
 
