@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\FormParamsRequest;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\JsonRequest;
+use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\MultipartRequest;
 use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\StringRequest;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -25,6 +27,40 @@ test('a request can be sent with json body', function () {
 test('a request can be sent with string body', function () {
     $request = new StringRequest;
     $request->body()->set('Hello World');
+
+    // Todo
+
+    $response = $request->send();
+    $pendingRequest = $response->getPendingSaloonRequest();
+
+    expect($pendingRequest->body())->toEqual($request->body());
+    expect($response->status())->toEqual(200);
+    expect($response->body())->toEqual($request->body()->all());
+});
+
+test('a request can be sent with multipart body', function () {
+    $request = new MultipartRequest();
+
+    $request->body()->add('yee', 'haw');
+    $request->body()->add('name', 'Sam');
+    $request->body()->add('country', 'UK');
+
+    // Todo
+
+    $response = $request->send();
+    $pendingRequest = $response->getPendingSaloonRequest();
+
+    expect($pendingRequest->body())->toEqual($request->body());
+    expect($response->status())->toEqual(200);
+    expect($response->body())->toEqual($request->body()->all());
+});
+
+test('a request can be sent with a form params body', function () {
+    $request = new FormParamsRequest();
+
+    $request->body()->add('yee', 'haw');
+    $request->body()->add('name', 'Sam');
+    $request->body()->add('country', 'UK');
 
     // Todo
 
