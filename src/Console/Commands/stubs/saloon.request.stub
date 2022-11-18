@@ -2,26 +2,26 @@
 
 namespace {{ namespace }};
 
-use Saloon\Http\SaloonRequest;
+use Saloon\Http\Request;
 
-class {{ class }} extends SaloonRequest
+class {{ class }} extends Request
 {
     /**
-     * The connector class.
+     * Define the connector.
      *
      * @var string
      */
     protected string $connector = '';
 
     /**
-     * The HTTP verb the request will use.
+     * Define the HTTP method.
      *
      * @var string
      */
     protected string $method = 'GET';
 
     /**
-     * The endpoint of the request.
+     * Define the endpoint for the request.
      *
      * @return string
      */

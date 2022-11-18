@@ -2,7 +2,6 @@
 
 namespace Saloon\Laravel;
 
-use Saloon\Contracts\SaloonResponse;
 use Saloon\Laravel\Http\Faking\MockClient;
 
 class Saloon

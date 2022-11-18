@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Saloon\Http\PendingSaloonRequest;
-use Saloon\Interfaces\AuthenticatorInterface;
+use Saloon\Contracts\PendingRequest;
+use Saloon\Contracts\AuthenticatorInterface;
 
 class {{ class }} implements AuthenticatorInterface
 {

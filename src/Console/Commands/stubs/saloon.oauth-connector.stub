@@ -2,12 +2,12 @@
 
 namespace {{ namespace }};
 
-use Saloon\Http\SaloonConnector;
-use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\Connector;
 use Saloon\Helpers\OAuth2\OAuthConfig;
+use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\OAuth2\AuthorizationCodeGrant;
 
-class {{ class }} extends SaloonConnector
+class {{ class }} extends Connector
 {
     use AuthorizationCodeGrant;
     use AcceptsJson;

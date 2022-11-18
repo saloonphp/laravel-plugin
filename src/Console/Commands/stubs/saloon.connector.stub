@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Saloon\Http\SaloonConnector;
+use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 
 class {{ class }} extends SaloonConnector
