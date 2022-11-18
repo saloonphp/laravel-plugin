@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@
 |
 */
 
-use Sammyjo20\SaloonLaravel\Tests\TestCase;
+use Saloon\Laravel\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature', 'Unit');
 

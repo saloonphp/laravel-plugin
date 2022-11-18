@@ -2,11 +2,11 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
+use Saloon\Contracts\PendingRequest;
 
 trait {{ class }}
 {
-    public function boot{{ class }}(SaloonRequest $request): void
+    public function boot{{ class }}(PendingRequest $pendingRequest): void
     {
         //
     }

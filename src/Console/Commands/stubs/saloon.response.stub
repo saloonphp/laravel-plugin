@@ -2,9 +2,9 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Saloon\Http\Responses\Response;
 
-class {{ class }} extends SaloonResponse
+class {{ class }} extends Response
 {
     //
 }

@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Events;
+namespace Saloon\Laravel\Events;
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
+use Saloon\Contracts\PendingRequest;
 use Illuminate\Foundation\Events\Dispatchable;
 
 class SendingSaloonRequest
@@ -10,20 +10,20 @@ class SendingSaloonRequest
     use Dispatchable;
 
     /**
-     * The outgoing SaloonRequest
+     * The outgoing Saloon PendingRequest
      *
-     * @var SaloonRequest
+     * @var PendingRequest
      */
-    public SaloonRequest $request;
+    public PendingRequest $pendingRequest;
 
     /**
      * Create a new event instance.
      *
-     * @param SaloonRequest $request
+     * @param PendingRequest $pendingRequest
      * @return void
      */
-    public function __construct(SaloonRequest $request)
+    public function __construct(PendingRequest $pendingRequest)
     {
-        $this->request = $request;
+        $this->pendingRequest = $pendingRequest;
     }
 }

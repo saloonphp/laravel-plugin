@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
 class {{ class }} extends SaloonConnector
 {
@@ -20,21 +20,21 @@ class {{ class }} extends SaloonConnector
     }
 
     /**
-     * The headers that will be applied to every request.
+     * Default headers for every request
      *
      * @return string[]
      */
-    public function defaultHeaders(): array
+    protected function defaultHeaders(): array
     {
         return [];
     }
 
     /**
-     * The config options that will be applied to every request.
+     * Default HTTP client options
      *
      * @return string[]
      */
-    public function defaultConfig(): array
+    protected function defaultConfig(): array
     {
         return [];
     }

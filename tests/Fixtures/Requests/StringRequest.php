@@ -3,23 +3,27 @@
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
 use Saloon\Http\Request;
-use Saloon\Laravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
+use Saloon\Traits\Body\HasBody;
+use Saloon\Contracts\Body\WithBody;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-class DifferentServiceUserRequest extends Request
+class StringRequest extends Request implements WithBody
 {
+    use HasBody;
+
     /**
      * Define the method that the request will use.
      *
      * @var string
      */
-    protected string $method = 'GET';
+    protected string $method = 'POST';
 
     /**
      * The connector.
      *
      * @var string
      */
-    protected string $connector = DifferentServiceConnector::class;
+    protected string $connector = TestConnector::class;
 
     /**
      * Define the endpoint for the request.
@@ -28,6 +32,6 @@ class DifferentServiceUserRequest extends Request
      */
     protected function defineEndpoint(): string
     {
-        return '/user';
+        return '/payload';
     }
 }

@@ -1,21 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\MockResponse;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\ErrorRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\QueryParameterConnector;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\DifferentServiceUserRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\QueryParameterConnectorRequest;
+use Saloon\Laravel\Facades\Saloon;
+use Saloon\Contracts\PendingRequest;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Exceptions\NoMockResponsesProvidedException;
+use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Laravel\Tests\Fixtures\Connectors\QueryParameterConnector;
+use Saloon\Laravel\Tests\Fixtures\Requests\DifferentServiceUserRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\QueryParameterConnectorRequest;
 
 test('a request can be mocked with a sequence', function () {
     Saloon::fake([
-        new MockResponse(['name' => 'Sam'], 200),
-        new MockResponse(['name' => 'Alex'], 200),
-        new MockResponse(['error' => 'Server Unavailable'], 500),
+        new MockResponse(200, ['name' => 'Sam']),
+        new MockResponse(200, ['name' => 'Alex']),
+        new MockResponse(500, ['error' => 'Server Unavailable']),
     ]);
 
     $responseA = (new UserRequest)->send();
@@ -36,15 +36,15 @@ test('a request can be mocked with a sequence', function () {
     expect($responseC->json())->toEqual(['error' => 'Server Unavailable']);
     expect($responseC->status())->toEqual(500);
 
-    $this->expectException(SaloonNoMockResponsesProvidedException::class);
+    $this->expectException(NoMockResponsesProvidedException::class);
 
     (new UserRequest)->send();
 });
 
 test('a request can be mocked with a sequence using a closure', function () {
     Saloon::fake([
-        function (SaloonRequest $request): MockResponse {
-            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        function (PendingRequest $request): MockResponse {
+            return new MockResponse(200, ['request' => $request->getUrl()]);
         },
     ]);
 
@@ -56,8 +56,8 @@ test('a request can be mocked with a sequence using a closure', function () {
 });
 
 test('a request can be mocked with a connector defined', function () {
-    $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
-    $responseB = new MockResponse(['name' => 'Alex'], 200);
+    $responseA = new MockResponse(200, ['name' => 'Sammyjo20']);
+    $responseB = new MockResponse(200, ['name' => 'Alex']);
 
     $connectorARequest = new UserRequest;
     $connectorBRequest = new QueryParameterConnectorRequest;
@@ -82,8 +82,8 @@ test('a request can be mocked with a connector defined', function () {
 
 test('a request can be mocked with a connector defined using a closure', function () {
     Saloon::fake([
-        TestConnector::class => function (SaloonRequest $request): MockResponse {
-            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        TestConnector::class => function (PendingRequest $request): MockResponse {
+            return new MockResponse(200, ['request' => $request->getUrl()]);
         },
     ]);
 
@@ -95,8 +95,8 @@ test('a request can be mocked with a connector defined using a closure', functio
 });
 
 test('a request can be mocked with a request defined', function () {
-    $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
-    $responseB = new MockResponse(['name' => 'Alex'], 200);
+    $responseA = new MockResponse(200, ['name' => 'Sammyjo20']);
+    $responseB = new MockResponse(200, ['name' => 'Alex']);
 
     $requestA = new UserRequest;
     $requestB = new QueryParameterConnectorRequest;
@@ -121,8 +121,8 @@ test('a request can be mocked with a request defined', function () {
 
 test('a request can be mocked with a request defined using a closure', function () {
     Saloon::fake([
-        UserRequest::class => function (SaloonRequest $request): MockResponse {
-            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        UserRequest::class => function (PendingRequest $request): MockResponse {
+            return new MockResponse(200, ['request' => $request->getUrl()]);
         },
     ]);
 
@@ -134,9 +134,9 @@ test('a request can be mocked with a request defined using a closure', function 
 });
 
 test('a request can be mocked with a url defined', function () {
-    $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
-    $responseB = new MockResponse(['name' => 'Alex'], 200);
-    $responseC = new MockResponse(['error' => 'Server Broken'], 500);
+    $responseA = new MockResponse(200, ['name' => 'Sammyjo20']);
+    $responseB = new MockResponse(200, ['name' => 'Alex']);
+    $responseC = new MockResponse(500, ['error' => 'Server Broken']);
 
     $requestA = new UserRequest;
     $requestB = new ErrorRequest;
@@ -168,9 +168,9 @@ test('a request can be mocked with a url defined', function () {
 });
 
 test('you can create wildcard url mocks', function () {
-    $responseA = new MockResponse(['name' => 'Sammyjo20'], 200);
-    $responseB = new MockResponse(['name' => 'Alex'], 200);
-    $responseC = new MockResponse(['error' => 'Server Broken'], 500);
+    $responseA = new MockResponse(200, ['name' => 'Sammyjo20']);
+    $responseB = new MockResponse(200, ['name' => 'Alex']);
+    $responseC = new MockResponse(500, ['error' => 'Server Broken']);
 
     $requestA = new UserRequest;
     $requestB = new ErrorRequest;
@@ -203,8 +203,8 @@ test('you can create wildcard url mocks', function () {
 
 test('a request can be mocked with a url defined using a closure', function () {
     Saloon::fake([
-        'tests.saloon.dev/*' => function (SaloonRequest $request): MockResponse {
-            return new MockResponse(['request' => $request->getFullRequestUrl()]);
+        'tests.saloon.dev/*' => function (PendingRequest $request): MockResponse {
+            return new MockResponse(200, ['request' => $request->getUrl()]);
         },
     ]);
 

@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors;
+namespace Saloon\Laravel\Tests\Fixtures\Connectors;
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
-class DifferentServiceConnector extends SaloonConnector
+class DifferentServiceConnector extends Connector
 {
     use AcceptsJson;
 
@@ -24,7 +24,7 @@ class DifferentServiceConnector extends SaloonConnector
      *
      * @return string[]
      */
-    public function defaultHeaders(): array
+    protected function defaultHeaders(): array
     {
         return [];
     }

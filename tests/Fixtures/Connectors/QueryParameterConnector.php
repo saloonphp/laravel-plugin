@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors;
+namespace Saloon\Laravel\Tests\Fixtures\Connectors;
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
-class QueryParameterConnector extends SaloonConnector
+class QueryParameterConnector extends Connector
 {
     use AcceptsJson;
 
@@ -14,7 +14,7 @@ class QueryParameterConnector extends SaloonConnector
         return apiUrl();
     }
 
-    public function defaultQuery(): array
+    protected function defaultQueryParameters(): array
     {
         return [
             'sort' => 'first_name',

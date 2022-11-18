@@ -5,7 +5,7 @@ namespace Saloon\Laravel\Tests\Fixtures\Connectors;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 
-class TestConnector extends Connector
+class InvalidConnectionConnector extends Connector
 {
     use AcceptsJson;
 
@@ -16,7 +16,7 @@ class TestConnector extends Connector
      */
     public function defineBaseUrl(): string
     {
-        return apiUrl();
+        return 'https://invalid.saloon.dev';
     }
 
     /**

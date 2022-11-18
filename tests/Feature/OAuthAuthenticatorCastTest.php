@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\Auth\AccessTokenAuthenticator;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Models\OAuthModel;
+use Saloon\Http\Auth\AccessTokenAuthenticator;
+use Saloon\Laravel\Tests\Fixtures\Models\OAuthModel;
 
 test('the authenticator is serialized and unserialized when using the cast', function () {
     $model = new OAuthModel();

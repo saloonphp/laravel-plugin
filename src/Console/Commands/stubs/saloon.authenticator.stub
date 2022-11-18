@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Interfaces\AuthenticatorInterface;
+use Saloon\Contracts\PendingRequest;
+use Saloon\Contracts\AuthenticatorInterface;
 
 class {{ class }} implements AuthenticatorInterface
 {
@@ -18,7 +18,7 @@ class {{ class }} implements AuthenticatorInterface
      * @param SaloonRequest $request
      * @return void
      */
-    public function set(SaloonRequest $request): void
+    public function set(PendingSaloonRequest $pendingRequest): void
     {
         //
     }

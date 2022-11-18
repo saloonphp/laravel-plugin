@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests;
+namespace Saloon\Laravel\Tests;
 
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Saloon\Laravel\Facades\Saloon;
+use Saloon\Laravel\SaloonServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Sammyjo20\SaloonLaravel\SaloonServiceProvider;
 
 class TestCase extends BaseTestCase
 {

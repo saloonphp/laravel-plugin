@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Casts;
+namespace Saloon\Laravel\Casts;
 
 use InvalidArgumentException;
+use Saloon\Contracts\OAuthAuthenticator;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Sammyjo20\Saloon\Interfaces\OAuthAuthenticatorInterface;
 
 class EncryptedOAuthAuthenticatorCast implements CastsAttributes
 {
@@ -15,9 +15,9 @@ class EncryptedOAuthAuthenticatorCast implements CastsAttributes
      * @param string $key
      * @param $value
      * @param array $attributes
-     * @return OAuthAuthenticatorInterface|null
+     * @return OAuthAuthenticator|null
      */
-    public function get($model, string $key, $value, array $attributes): ?OAuthAuthenticatorInterface
+    public function get($model, string $key, $value, array $attributes): ?OAuthAuthenticator
     {
         if (is_null($value)) {
             return null;
@@ -41,8 +41,8 @@ class EncryptedOAuthAuthenticatorCast implements CastsAttributes
             return null;
         }
 
-        if (! $value instanceof OAuthAuthenticatorInterface) {
-            throw new InvalidArgumentException('The given value is not an OAuthAuthenticatorInterface instance.');
+        if (! $value instanceof OAuthAuthenticator) {
+            throw new InvalidArgumentException('The given value is not an OAuthAuthenticator instance.');
         }
 
         return encrypt(serialize($value));

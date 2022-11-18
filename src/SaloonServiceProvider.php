@@ -1,18 +1,36 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel;
+namespace Saloon\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Sammyjo20\SaloonLaravel\Clients\MockClient;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakePlugin;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeResponse;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeAuthenticator;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeOAuthConnector;
+use Saloon\Laravel\Http\Faking\MockClient;
+use Saloon\Laravel\Console\Commands\MakePlugin;
+use Saloon\Laravel\Console\Commands\MakeRequest;
+use Saloon\Laravel\Console\Commands\MakeResponse;
+use Saloon\Laravel\Console\Commands\MakeConnector;
+use Saloon\Laravel\Console\Commands\MakeAuthenticator;
+use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/saloon.php',
+            'saloon'
+        );
+    }
+
+    /**
+     * Handle the booting of the service provider.
+     *
+     * @return void
+     */
     public function boot(): void
     {
         $this->app->bind('saloon', Saloon::class);
@@ -21,6 +39,10 @@ class SaloonServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
         }
+
+        $this->publishes([
+            __DIR__.'/../config/saloon.php' => config_path('saloon.php'),
+        ], 'saloon-config');
     }
 
     protected function registerCommands(): self
