@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Casts;
+namespace Saloon\Laravel\Casts;
 
 use InvalidArgumentException;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Sammyjo20\Saloon\Interfaces\OAuthAuthenticatorInterface;
+use Saloon\\Interfaces\OAuthAuthenticatorInterface;
 
 class OAuthAuthenticatorCast implements CastsAttributes
 {

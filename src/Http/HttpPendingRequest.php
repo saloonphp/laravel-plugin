@@ -1,8 +1,7 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Http;
+namespace Saloon\Laravel\Http;
 
-use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
 
 class HttpPendingRequest extends PendingRequest

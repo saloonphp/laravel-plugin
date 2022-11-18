@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Facades;
+namespace Saloon\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
+use Saloon\Contracts\SaloonResponse;
+use Saloon\Laravel\Http\Faking\MockClient;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon

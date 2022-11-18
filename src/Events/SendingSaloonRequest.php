@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Events;
+namespace Saloon\Laravel\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
+use Saloon\Http\PendingSaloonRequest;
 
 class SendingSaloonRequest
 {

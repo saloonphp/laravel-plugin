@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
+namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Sammyjo20\Saloon\Contracts\Body\WithBody;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Traits\Body\HasBody;
-use Sammyjo20\Saloon\Traits\Body\HasFormBody;
-use Sammyjo20\Saloon\Traits\Body\HasJsonBody;
-use Sammyjo20\Saloon\Traits\Body\HasMultipartBody;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Contracts\Body\WithBody;
+use Saloon\Http\SaloonRequest;
+use Saloon\Traits\Body\HasBody;
+use Saloon\Traits\Body\HasFormBody;
+use Saloon\Traits\Body\HasJsonBody;
+use Saloon\Traits\Body\HasMultipartBody;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 class FormParamsRequest extends SaloonRequest implements WithBody
 {

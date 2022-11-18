@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Http\SaloonConnector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
 class {{ class }} extends SaloonConnector
 {

@@ -23,7 +23,7 @@
         "illuminate/console": "^8.0 || ^9.0",
         "illuminate/http": "^8.0 || ^9.0",
         "illuminate/support": "^8.0 || ^9.0",
-        "sammyjo20/saloon": "2.x-dev"
+        "sammyjo20/saloon": "dev-main"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
@@ -33,12 +33,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Sammyjo20\\SaloonLaravel\\": "src/"
+            "Saloon\\Laravel\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sammyjo20\\SaloonLaravel\\Tests\\": "tests/"
+            "Saloon\\Laravel\\Tests\\": "tests/"
         }
     },
     "config": {

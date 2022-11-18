@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Events;
+namespace Saloon\Laravel\Events;
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
+use Saloon\Http\SaloonRequest;
 use Illuminate\Foundation\Events\Dispatchable;
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
+use Saloon\Contracts\SaloonResponse;
+use Saloon\Http\PendingSaloonRequest;
 
 class SentSaloonRequest
 {

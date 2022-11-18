@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
-use Sammyjo20\Saloon\Interfaces\AuthenticatorInterface;
+use Saloon\Http\PendingSaloonRequest;
+use Saloon\Interfaces\AuthenticatorInterface;
 
 class {{ class }} implements AuthenticatorInterface
 {

@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Http\Middleware;
+namespace Saloon\Laravel\Http\Middleware;
 
-use Sammyjo20\Saloon\Contracts\RequestMiddleware;
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
-use Sammyjo20\SaloonLaravel\Events\SendingSaloonRequest;
-use Sammyjo20\SaloonLaravel\Events\SentSaloonRequest;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
-use Sammyjo20\SaloonLaravel\Managers\FeatureManager;
+use Saloon\Contracts\RequestMiddleware;
+use Saloon\Contracts\SaloonResponse;
+use Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Saloon\Http\PendingSaloonRequest;
+use Saloon\Laravel\Events\SendingSaloonRequest;
+use Saloon\Laravel\Events\SentSaloonRequest;
+use Saloon\Laravel\Facades\Saloon;
+use Saloon\Laravel\Http\Faking\MockClient;
+use Saloon\Laravel\Managers\FeatureManager;
 
 class SaloonLaravelMiddleware implements RequestMiddleware
 {

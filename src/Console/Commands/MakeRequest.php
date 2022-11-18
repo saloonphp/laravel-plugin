@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Console\Commands;
+namespace Saloon\Laravel\Console\Commands;
 
 class MakeRequest extends MakeCommand
 {

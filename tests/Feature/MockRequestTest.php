@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\Faking\MockResponse;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\ErrorRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\QueryParameterConnector;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\DifferentServiceUserRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\QueryParameterConnectorRequest;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Http\SaloonRequest;
+use Saloon\Laravel\Facades\Saloon;
+use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Saloon\Laravel\Tests\Fixtures\Connectors\QueryParameterConnector;
+use Saloon\Laravel\Tests\Fixtures\Requests\DifferentServiceUserRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\QueryParameterConnectorRequest;
 
 test('a request can be mocked with a sequence', function () {
     Saloon::fake([

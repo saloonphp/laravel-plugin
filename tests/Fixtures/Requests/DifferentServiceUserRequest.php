@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
+namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
+use Saloon\Http\SaloonRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
 
 class DifferentServiceUserRequest extends SaloonRequest
 {

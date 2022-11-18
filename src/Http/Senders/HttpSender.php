@@ -1,19 +1,19 @@
 <?php
 
-namespace Sammyjo20\SaloonLaravel\Http\Senders;
+namespace Saloon\Laravel\Http\Senders;
 
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Client\PendingRequest;
-use Sammyjo20\Saloon\Http\PendingSaloonRequest;
-use Sammyjo20\Saloon\Http\Responses\PsrResponse;
-use Sammyjo20\Saloon\Http\Responses\SaloonResponse;
-use Sammyjo20\Saloon\Http\Senders\GuzzleSender;
-use Sammyjo20\Saloon\Repositories\Body\FormBodyRepository;
-use Sammyjo20\Saloon\Repositories\Body\JsonBodyRepository;
-use Sammyjo20\Saloon\Repositories\Body\MultipartBodyRepository;
-use Sammyjo20\Saloon\Repositories\Body\StringBodyRepository;
-use Sammyjo20\SaloonLaravel\Http\HttpPendingRequest;
+use Saloon\Http\PendingSaloonRequest;
+use Saloon\Http\Responses\PsrResponse;
+use Saloon\Http\Responses\SaloonResponse;
+use Saloon\Http\Senders\GuzzleSender;
+use Saloon\Repositories\Body\FormBodyRepository;
+use Saloon\Repositories\Body\JsonBodyRepository;
+use Saloon\Repositories\Body\MultipartBodyRepository;
+use Saloon\Repositories\Body\StringBodyRepository;
+use Saloon\Laravel\Http\HttpPendingRequest;
 
 class HttpSender extends GuzzleSender
 {

@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel;
+namespace Saloon\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeAuthenticator;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeConnector;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeOAuthConnector;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakePlugin;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeRequest;
-use Sammyjo20\SaloonLaravel\Console\Commands\MakeResponse;
-use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
+use Saloon\Laravel\Console\Commands\MakeAuthenticator;
+use Saloon\Laravel\Console\Commands\MakeConnector;
+use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
+use Saloon\Laravel\Console\Commands\MakePlugin;
+use Saloon\Laravel\Console\Commands\MakeRequest;
+use Saloon\Laravel\Console\Commands\MakeResponse;
+use Saloon\Laravel\Http\Faking\MockClient;
 
 class SaloonServiceProvider extends ServiceProvider
 {

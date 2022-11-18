@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\Auth\AccessTokenAuthenticator;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Models\EncryptedOAuthModel;
+use Saloon\Http\Auth\AccessTokenAuthenticator;
+use Saloon\Laravel\Tests\Fixtures\Models\EncryptedOAuthModel;
 
 test('the authenticator can be encrypted, serialized and decrypted and unserialized when using the cast', function () {
     $model = new EncryptedOAuthModel();

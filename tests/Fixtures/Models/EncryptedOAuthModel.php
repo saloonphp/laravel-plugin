@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Models;
+namespace Saloon\Laravel\Tests\Fixtures\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
-use Sammyjo20\SaloonLaravel\Casts\EncryptedOAuthAuthenticatorCast;
+use Saloon\Laravel\Casts\EncryptedOAuthAuthenticatorCast;
 
 class EncryptedOAuthModel extends BaseModel
 {

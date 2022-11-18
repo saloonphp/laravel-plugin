@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel;
+namespace Saloon\Laravel;
 
-use Sammyjo20\Saloon\Contracts\SaloonResponse;
-use Sammyjo20\SaloonLaravel\Http\Faking\MockClient;
+use Saloon\Contracts\SaloonResponse;
+use Saloon\Laravel\Http\Faking\MockClient;
 
 class Saloon
 {

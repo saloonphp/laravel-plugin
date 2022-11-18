@@ -2,10 +2,10 @@
 
 namespace {{ namespace }};
 
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
-use Sammyjo20\Saloon\Helpers\OAuth2\OAuthConfig;
-use Sammyjo20\Saloon\Traits\OAuth2\AuthorizationCodeGrant;
+use Saloon\Http\SaloonConnector;
+use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Helpers\OAuth2\OAuthConfig;
+use Saloon\Traits\OAuth2\AuthorizationCodeGrant;
 
 class {{ class }} extends SaloonConnector
 {

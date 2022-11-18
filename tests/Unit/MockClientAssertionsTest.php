@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-use Sammyjo20\Saloon\Http\MockResponse;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Saloon\Http\MockResponse;
+use Saloon\Http\SaloonRequest;
+use Saloon\Http\SaloonResponse;
 use GuzzleHttp\Exception\ConnectException;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\ErrorRequest;
+use Saloon\Laravel\Facades\Saloon;
+use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 
 test('that assertSent works with a request', function () {
     Saloon::fake([

@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\FormParamsRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\JsonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\MultipartRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\StringRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\FormParamsRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\JsonRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\MultipartRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\StringRequest;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
 // Todo: Add other sender tests for query parameters and options...

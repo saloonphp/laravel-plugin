@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-use Sammyjo20\SaloonLaravel\Saloon;
-use Sammyjo20\Saloon\Http\MockResponse;
-use Sammyjo20\Saloon\Clients\MockClient;
-use Sammyjo20\Saloon\Managers\RequestManager;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests\UserRequest;
-use Sammyjo20\Saloon\Exceptions\SaloonMultipleMockMethodsException;
-use Sammyjo20\Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
+use Saloon\Laravel\Saloon;
+use Saloon\Http\MockResponse;
+use Saloon\Clients\MockClient;
+use Saloon\Managers\RequestManager;
+use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Exceptions\SaloonMultipleMockMethodsException;
+use Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
 
 test('it can detect laravel', function () {
     $requestManager = new RequestManager(new UserRequest());

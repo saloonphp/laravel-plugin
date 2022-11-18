@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Http\Faking;
+namespace Saloon\Laravel\Http\Faking;
 
-use Sammyjo20\Saloon\Http\Faking\MockClient as BaseMockClient;
+use Saloon\Http\Faking\MockClient as BaseMockClient;
 
 class MockClient extends BaseMockClient
 {

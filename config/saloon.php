@@ -1,6 +1,6 @@
 <?php
 
-use Sammyjo20\SaloonLaravel\Http\Senders\HttpSender;
+use Saloon\Laravel\Http\Senders\HttpSender;
 
 return [
 

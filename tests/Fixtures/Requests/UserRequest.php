@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Sammyjo20\SaloonLaravel\Tests\Fixtures\Requests;
+namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Http\Request;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-class UserRequest extends SaloonRequest
+class UserRequest extends Request
 {
     /**
      * Define the method that the request will use.
