@@ -2,26 +2,25 @@
 
 namespace Saloon\Laravel\Http\Middleware;
 
-use Saloon\Contracts\RequestMiddleware;
-use Saloon\Contracts\SaloonResponse;
-use Saloon\Exceptions\SaloonNoMockResponsesProvidedException;
-use Saloon\Http\PendingSaloonRequest;
-use Saloon\Laravel\Events\SendingSaloonRequest;
-use Saloon\Laravel\Events\SentSaloonRequest;
+use Saloon\Contracts\Response;
 use Saloon\Laravel\Facades\Saloon;
+use Saloon\Contracts\PendingRequest;
+use Saloon\Contracts\RequestMiddleware;
 use Saloon\Laravel\Http\Faking\MockClient;
-use Saloon\Laravel\Managers\FeatureManager;
+use Saloon\Laravel\Events\SentSaloonRequest;
+use Saloon\Laravel\Events\SendingSaloonRequest;
+use Saloon\Exceptions\NoMockResponsesProvidedException;
 
-class SaloonLaravelMiddleware implements RequestMiddleware
+class FrameworkMiddleware implements RequestMiddleware
 {
     /**
      * Handle Laravel Actions
      *
-     * @param PendingSaloonRequest $pendingRequest
-     * @return PendingSaloonRequest
-     * @throws SaloonNoMockResponsesProvidedException
+     * @param \Saloon\Http\PendingRequest $pendingRequest
+     * @return \Saloon\Http\PendingRequest
+     * @throws \Saloon\Exceptions\NoMockResponsesProvidedException
      */
-    public function __invoke(PendingSaloonRequest $pendingRequest): PendingSaloonRequest
+    public function __invoke(PendingRequest $pendingRequest): PendingRequest
     {
         $this
             ->bootMockingFeature($pendingRequest)
@@ -34,11 +33,11 @@ class SaloonLaravelMiddleware implements RequestMiddleware
     /**
      * Boot the mocking feature.
      *
-     * @param PendingSaloonRequest $pendingRequest
-     * @return self
-     * @throws SaloonNoMockResponsesProvidedException
+     * @param \Saloon\Http\PendingRequest $pendingRequest
+     * @return $this
+     * @throws \Saloon\Exceptions\NoMockResponsesProvidedException
      */
-    protected function bootMockingFeature(PendingSaloonRequest $pendingRequest): static
+    protected function bootMockingFeature(PendingRequest $pendingRequest): static
     {
         $mockClient = MockClient::resolve();
 
@@ -51,7 +50,7 @@ class SaloonLaravelMiddleware implements RequestMiddleware
         }
 
         if ($mockClient->isEmpty()) {
-            throw new SaloonNoMockResponsesProvidedException;
+            throw new NoMockResponsesProvidedException;
         }
 
         $pendingRequest->withMockClient($mockClient);
@@ -62,16 +61,16 @@ class SaloonLaravelMiddleware implements RequestMiddleware
     /**
      * Boot the recording feature.
      *
-     * @param PendingSaloonRequest $pendingRequest
+     * @param PendingRequest $pendingRequest
      * @return self
      */
-    protected function bootRecordingFeature(PendingSaloonRequest $pendingRequest): static
+    protected function bootRecordingFeature(PendingRequest $pendingRequest): static
     {
         if (Saloon::isRecording() === false) {
             return $this;
         }
 
-        $pendingRequest->middleware()->onResponse(function (SaloonResponse $response): void {
+        $pendingRequest->middleware()->onResponse(function (Response $response): void {
             Saloon::recordResponse($response);
         });
 
@@ -83,7 +82,7 @@ class SaloonLaravelMiddleware implements RequestMiddleware
      *
      * @return $this
      */
-    protected function bootEventTriggers(PendingSaloonRequest $pendingRequest): static
+    protected function bootEventTriggers(PendingRequest $pendingRequest): static
     {
         // We'll firstly send off the initial event which is when
         // the request is being sent.
@@ -93,8 +92,8 @@ class SaloonLaravelMiddleware implements RequestMiddleware
         // Next, we'll register a response middleware which will
         // send the event when a response has been received.
 
-        $pendingRequest->middleware()->onResponse(function (SaloonResponse $response): void {
-            SentSaloonRequest::dispatch($response->getPendingSaloonRequest(), $response);
+        $pendingRequest->middleware()->onResponse(function (Response $response): void {
+            SentSaloonRequest::dispatch($response->getPendingRequest(), $response);
         });
 
         return $this;

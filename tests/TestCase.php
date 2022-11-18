@@ -3,8 +3,8 @@
 namespace Saloon\Laravel\Tests;
 
 use Saloon\Laravel\Facades\Saloon;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Saloon\Laravel\SaloonServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {

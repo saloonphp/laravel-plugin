@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
+use Saloon\Http\Request;
 use Saloon\Http\MockResponse;
-use Saloon\Http\SaloonRequest;
 use Saloon\Http\SaloonResponse;
-use GuzzleHttp\Exception\ConnectException;
 use Saloon\Laravel\Facades\Saloon;
+use GuzzleHttp\Exception\ConnectException;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 
@@ -28,7 +28,7 @@ test('that assertSent works with a closure', function () {
     $originalResponse = $originalRequest->send();
 
     Saloon::assertSent(function ($request, $response) use ($originalRequest, $originalResponse) {
-        expect($request)->toBeInstanceOf(SaloonRequest::class);
+        expect($request)->toBeInstanceOf(Request::class);
         expect($response)->toBeInstanceOf(SaloonResponse::class);
 
         expect($request)->toBe($originalRequest);
@@ -41,7 +41,7 @@ test('that assertSent works with a closure', function () {
     $newResponse = $newRequest->send();
 
     Saloon::assertSent(function ($request, $response) use ($newRequest, $newResponse) {
-        expect($request)->toBeInstanceOf(SaloonRequest::class);
+        expect($request)->toBeInstanceOf(Request::class);
         expect($response)->toBeInstanceOf(SaloonResponse::class);
 
         expect($request)->toBe($newRequest);

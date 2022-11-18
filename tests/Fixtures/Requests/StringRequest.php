@@ -2,14 +2,12 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Saloon\Contracts\Body\WithBody;
-use Saloon\Http\SaloonRequest;
+use Saloon\Http\Request;
 use Saloon\Traits\Body\HasBody;
-use Saloon\Traits\Body\HasJsonBody;
-use Saloon\Traits\Body\HasMultipartBody;
+use Saloon\Contracts\Body\WithBody;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-class StringRequest extends SaloonRequest implements WithBody
+class StringRequest extends Request implements WithBody
 {
     use HasBody;
 

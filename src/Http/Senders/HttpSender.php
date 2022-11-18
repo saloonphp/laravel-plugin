@@ -1,19 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Saloon\Laravel\Http\Senders;
 
-use GuzzleHttp\Promise\PromiseInterface;
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\Client\PendingRequest;
-use Saloon\Http\PendingSaloonRequest;
-use Saloon\Http\Responses\PsrResponse;
-use Saloon\Http\Responses\SaloonResponse;
+use Saloon\Contracts\Response;
+use Saloon\Contracts\PendingRequest;
 use Saloon\Http\Senders\GuzzleSender;
+use GuzzleHttp\Promise\PromiseInterface;
+use Saloon\Laravel\Http\HttpPendingRequest;
 use Saloon\Repositories\Body\FormBodyRepository;
 use Saloon\Repositories\Body\JsonBodyRepository;
-use Saloon\Repositories\Body\MultipartBodyRepository;
 use Saloon\Repositories\Body\StringBodyRepository;
-use Saloon\Laravel\Http\HttpPendingRequest;
+use Saloon\Repositories\Body\MultipartBodyRepository;
+use Illuminate\Http\Client\Response as IlluminateResponse;
 
 class HttpSender extends GuzzleSender
 {
@@ -27,12 +25,12 @@ class HttpSender extends GuzzleSender
     /**
      * Send the request
      *
-     * @param PendingSaloonRequest $pendingRequest
+     * @param \Saloon\Contracts\PendingRequest $pendingRequest
      * @param bool $asynchronous
-     * @return SaloonResponse|PromiseInterface
+     * @return \Saloon\Contracts\Response|\GuzzleHttp\Promise\PromiseInterface
      * @throws \Exception
      */
-    public function sendRequest(PendingSaloonRequest $pendingRequest, bool $asynchronous = false): PsrResponse|PromiseInterface
+    public function sendRequest(PendingRequest $pendingRequest, bool $asynchronous = false): Response|PromiseInterface
     {
         $laravelPendingRequest = $this->createLaravelPendingRequest($pendingRequest, $asynchronous);
 
@@ -48,13 +46,13 @@ class HttpSender extends GuzzleSender
 
         // When the response is a normal HTTP Client Response, we can create the response
 
-        if ($response instanceof Response) {
+        if ($response instanceof IlluminateResponse) {
             return $this->createResponse($pendingRequest, $response->toPsrResponse(), $response->toException());
         }
 
         // Otherwise, it will be a Promise - so we will process the promise like normal.
 
-        $promise = $response->then(fn (Response $response) => $response->toPsrResponse());
+        $promise = $response->then(fn (IlluminateResponse $response) => $response->toPsrResponse());
 
         return $this->processPromise($promise, $pendingRequest);
     }
@@ -62,11 +60,11 @@ class HttpSender extends GuzzleSender
     /**
      * Create the Laravel Pending Request
      *
-     * @param PendingSaloonRequest $pendingRequest
+     * @param PendingRequest $pendingRequest
      * @param bool $asynchronous
-     * @return PendingRequest
+     * @return HttpPendingRequest
      */
-    protected function createLaravelPendingRequest(PendingSaloonRequest $pendingRequest, bool $asynchronous = false): PendingRequest
+    protected function createLaravelPendingRequest(PendingRequest $pendingRequest, bool $asynchronous = false): HttpPendingRequest
     {
         $laravelPendingRequest = new HttpPendingRequest;
         $laravelPendingRequest->setClient($this->client);
@@ -99,16 +97,16 @@ class HttpSender extends GuzzleSender
     /**
      * Push Laravel's handlers onto the Guzzle Handler Stack.
      *
-     * @param PendingRequest $pendingRequest
+     * @param HttpPendingRequest $httpPendingRequest
      * @return void
      */
-    protected function pushHandlers(PendingRequest $pendingRequest): void
+    protected function pushHandlers(HttpPendingRequest $httpPendingRequest): void
     {
         if ($this->hasPushedHandlers === true) {
             return;
         }
 
-        $pendingRequest->pushHandlers($this->getHandlerStack());
+        $httpPendingRequest->pushHandlers($this->getHandlerStack());
 
         $this->hasPushedHandlers = true;
     }

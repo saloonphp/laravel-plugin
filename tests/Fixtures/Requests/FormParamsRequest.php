@@ -2,15 +2,12 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
+use Saloon\Http\Request;
 use Saloon\Contracts\Body\WithBody;
-use Saloon\Http\SaloonRequest;
-use Saloon\Traits\Body\HasBody;
 use Saloon\Traits\Body\HasFormBody;
-use Saloon\Traits\Body\HasJsonBody;
-use Saloon\Traits\Body\HasMultipartBody;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-class FormParamsRequest extends SaloonRequest implements WithBody
+class FormParamsRequest extends Request implements WithBody
 {
     use HasFormBody;
 

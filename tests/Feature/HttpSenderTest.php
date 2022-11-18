@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-use Illuminate\Support\Facades\Http;
-use Saloon\Laravel\Tests\Fixtures\Requests\FormParamsRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\JsonRequest;
-use Saloon\Laravel\Tests\Fixtures\Requests\MultipartRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\StringRequest;
-use Symfony\Component\HttpClient\Response\MockResponse;
+use Saloon\Laravel\Tests\Fixtures\Requests\MultipartRequest;
+use Saloon\Laravel\Tests\Fixtures\Requests\FormParamsRequest;
 
 // Todo: Add other sender tests for query parameters and options...
 
@@ -17,7 +15,7 @@ test('a request can be sent with json body', function () {
     $request->body()->add('country', 'UK');
 
     $response = $request->send();
-    $pendingRequest = $response->getPendingSaloonRequest();
+    $pendingRequest = $response->getPendingRequest();
 
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
@@ -31,7 +29,7 @@ test('a request can be sent with string body', function () {
     // Todo
 
     $response = $request->send();
-    $pendingRequest = $response->getPendingSaloonRequest();
+    $pendingRequest = $response->getPendingRequest();
 
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
@@ -48,7 +46,7 @@ test('a request can be sent with multipart body', function () {
     // Todo
 
     $response = $request->send();
-    $pendingRequest = $response->getPendingSaloonRequest();
+    $pendingRequest = $response->getPendingRequest();
 
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
@@ -65,7 +63,7 @@ test('a request can be sent with a form params body', function () {
     // Todo
 
     $response = $request->send();
-    $pendingRequest = $response->getPendingSaloonRequest();
+    $pendingRequest = $response->getPendingRequest();
 
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
@@ -73,5 +71,4 @@ test('a request can be sent with a form params body', function () {
 });
 
 test('files can be attached to a request and it will be sent', function () {
-
 });

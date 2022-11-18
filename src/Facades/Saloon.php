@@ -2,9 +2,9 @@
 
 namespace Saloon\Laravel\Facades;
 
-use Illuminate\Support\Facades\Facade as BaseFacade;
 use Saloon\Contracts\SaloonResponse;
 use Saloon\Laravel\Http\Faking\MockClient;
+use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
  * @see \Sammyjo20\SaloonLaravel\Saloon

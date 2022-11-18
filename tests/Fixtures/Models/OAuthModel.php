@@ -2,8 +2,8 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Models;
 
-use Illuminate\Database\Eloquent\Model as BaseModel;
 use Saloon\Laravel\Casts\OAuthAuthenticatorCast;
+use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class OAuthModel extends BaseModel
 {

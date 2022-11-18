@@ -2,10 +2,10 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Saloon\Http\SaloonRequest;
+use Saloon\Http\Request;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-class ErrorRequest extends SaloonRequest
+class ErrorRequest extends Request
 {
     /**
      * Define the method that the request will use.

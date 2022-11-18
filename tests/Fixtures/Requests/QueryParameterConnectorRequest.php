@@ -2,10 +2,10 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
-use Saloon\Http\SaloonRequest;
+use Saloon\Http\Request;
 use Saloon\Laravel\Tests\Fixtures\Connectors\QueryParameterConnector;
 
-class QueryParameterConnectorRequest extends SaloonRequest
+class QueryParameterConnectorRequest extends Request
 {
     /**
      * Define the method that the request will use.

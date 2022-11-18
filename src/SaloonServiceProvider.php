@@ -3,13 +3,13 @@
 namespace Saloon\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Saloon\Laravel\Console\Commands\MakeAuthenticator;
-use Saloon\Laravel\Console\Commands\MakeConnector;
-use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
+use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
 use Saloon\Laravel\Console\Commands\MakeRequest;
 use Saloon\Laravel\Console\Commands\MakeResponse;
-use Saloon\Laravel\Http\Faking\MockClient;
+use Saloon\Laravel\Console\Commands\MakeConnector;
+use Saloon\Laravel\Console\Commands\MakeAuthenticator;
+use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,8 @@ class SaloonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/saloon.php', 'saloon'
+            __DIR__.'/../config/saloon.php',
+            'saloon'
         );
     }
 

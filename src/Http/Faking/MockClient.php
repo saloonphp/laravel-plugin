@@ -7,16 +7,18 @@ use Saloon\Http\Faking\MockClient as BaseMockClient;
 class MockClient extends BaseMockClient
 {
     /**
+     * Denotes if the MockClient is mocking
+     *
      * @var bool
      */
     protected bool $isMocking = false;
 
     /**
-     * Start mocking
+     * Start Mocking Responses
      *
      * @param array $responses
      * @return $this
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidMockResponseCaptureMethodException
+     * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
     public function startMocking(array $responses = []): self
     {
@@ -28,7 +30,7 @@ class MockClient extends BaseMockClient
     }
 
     /**
-     * Check if we are mocking.
+     * Check if we are mocking
      *
      * @return bool
      */
@@ -38,9 +40,9 @@ class MockClient extends BaseMockClient
     }
 
     /**
-     * Return the mock client out of the Laravel container
+     * Resolve the MockClient from the container
      *
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     * @return static
      */
     public static function resolve(): static
     {
