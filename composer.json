@@ -23,7 +23,7 @@
         "illuminate/console": "^8.0 || ^9.0",
         "illuminate/http": "^8.0 || ^9.0",
         "illuminate/support": "^8.0 || ^9.0",
-        "sammyjo20/saloon": "dev-main"
+        "sammyjo20/saloon": "v2.x-dev"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
@@ -69,11 +69,5 @@
         "test": [
             "./vendor/bin/pest"
         ]
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../saloon"
-        }
-    ]
+    }
 }
