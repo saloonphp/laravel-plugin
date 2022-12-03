@@ -50,10 +50,10 @@
     "extra": {
         "laravel": {
             "aliases": {
-                "Saloon": "Sammyjo20\\SaloonLaravel\\Facades\\Saloon"
+                "Saloon": "Saloon\\Laravel\\Facades\\Saloon"
             },
             "providers": [
-                "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
+                "Saloon\\Laravel\\SaloonServiceProvider"
             ]
         }
     },
