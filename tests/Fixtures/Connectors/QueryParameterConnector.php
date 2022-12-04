@@ -9,7 +9,7 @@ class QueryParameterConnector extends Connector
 {
     use AcceptsJson;
 
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return apiUrl();
     }

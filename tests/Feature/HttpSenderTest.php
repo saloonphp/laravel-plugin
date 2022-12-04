@@ -20,7 +20,7 @@ test('a request can be sent with json body', function () {
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
     expect($response->json())->toEqual($request->body()->all());
-});
+})->skip();
 
 test('a request can be sent with string body', function () {
     $request = new StringRequest;
@@ -34,7 +34,7 @@ test('a request can be sent with string body', function () {
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
     expect($response->body())->toEqual($request->body()->all());
-});
+})->skip();
 
 test('a request can be sent with multipart body', function () {
     $request = new MultipartRequest();
@@ -51,7 +51,7 @@ test('a request can be sent with multipart body', function () {
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
     expect($response->body())->toEqual($request->body()->all());
-});
+})->skip();
 
 test('a request can be sent with a form params body', function () {
     $request = new FormParamsRequest();
@@ -68,7 +68,8 @@ test('a request can be sent with a form params body', function () {
     expect($pendingRequest->body())->toEqual($request->body());
     expect($response->status())->toEqual(200);
     expect($response->body())->toEqual($request->body()->all());
-});
+})->skip();
 
 test('files can be attached to a request and it will be sent', function () {
-});
+    //
+})->skip();

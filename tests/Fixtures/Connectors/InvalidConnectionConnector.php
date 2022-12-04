@@ -14,7 +14,7 @@ class InvalidConnectionConnector extends Connector
      *
      * @return string
      */
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return 'https://invalid.saloon.dev';
     }

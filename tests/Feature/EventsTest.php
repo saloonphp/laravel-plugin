@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
 
-use Saloon\Http\MockResponse;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Laravel\Events\SendingSaloonRequest;
 use Saloon\Laravel\Facades\Saloon;
 use Illuminate\Support\Facades\Event;
 use Saloon\Laravel\Events\SentSaloonRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 
 test('events are fired when a request is being sent and when a request has been sent', function () {
@@ -13,13 +15,13 @@ test('events are fired when a request is being sent and when a request has been 
 
     Event::fake();
 
-    $response = UserRequest::make()->send();
+    $response = TestConnector::make()->send(new UserRequest);
 
     Event::assertDispatched(SendingSaloonRequest::class, function (SendingSaloonRequest $event) use ($response) {
-        return $response->getOriginalRequest() === $event->request;
+        return $response->getPendingRequest() === $event->pendingRequest;
     });
 
     Event::assertDispatched(SentSaloonRequest::class, function (SentSaloonRequest $event) use ($response) {
-        return $response === $event->response && $response->getOriginalRequest() === $event->request;
+        return $response === $event->response && $response->getPendingRequest() === $event->pendingRequest;
     });
 });

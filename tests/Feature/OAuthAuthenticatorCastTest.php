@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
+use Saloon\Helpers\Date;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Laravel\Tests\Fixtures\Models\OAuthModel;
 
 test('the authenticator is serialized and unserialized when using the cast', function () {
     $model = new OAuthModel();
-    $authenticator = new AccessTokenAuthenticator('access', 'refresh', now());
+    $authenticator = new AccessTokenAuthenticator('access', 'refresh', Date::now()->toDateTime());
 
     $model->auth = $authenticator;
 
@@ -31,4 +32,4 @@ test('the cast will accept null', function () {
 test('it will throw an exception if you pass in a value that is not null', function () {
     $model = new OAuthModel();
     $model->auth = 'Hello';
-})->throws(InvalidArgumentException::class, 'The given value is not an OAuthAuthenticatorInterface instance.');
+})->throws(InvalidArgumentException::class, 'The given value is not an OAuthAuthenticator instance.');
