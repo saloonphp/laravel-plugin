@@ -3,8 +3,8 @@
 namespace Saloon\Laravel\Casts;
 
 use InvalidArgumentException;
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Saloon\Contracts\OAuthAuthenticator;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class OAuthAuthenticatorCast implements CastsAttributes
 {

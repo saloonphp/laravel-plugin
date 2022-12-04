@@ -2,6 +2,7 @@
 
 namespace Saloon\Laravel;
 
+use Saloon\Contracts\Response;
 use Saloon\Laravel\Http\Faking\MockClient;
 
 class Saloon
@@ -24,8 +25,8 @@ class Saloon
      * Start mocking!
      *
      * @param array $responses
-     * @return MockClient
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonInvalidMockResponseCaptureMethodException
+     * @return \Saloon\Laravel\Http\Faking\MockClient
+     * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
     public static function fake(array $responses): MockClient
     {
@@ -133,10 +134,10 @@ class Saloon
     /**
      * Record a response.
      *
-     * @param SaloonResponse $response
+     * @param Response $response
      * @return void
      */
-    public function recordResponse(SaloonResponse $response): void
+    public function recordResponse(Response $response): void
     {
         $this->recordedResponses[] = $response;
     }
@@ -154,9 +155,9 @@ class Saloon
     /**
      * Get the last response that Saloon recorded.
      *
-     * @return SaloonResponse|null
+     * @return Response|null
      */
-    public function getLastRecordedResponse(): ?SaloonResponse
+    public function getLastRecordedResponse(): ?Response
     {
         if (empty($this->recordedResponses)) {
             return null;

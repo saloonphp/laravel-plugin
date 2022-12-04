@@ -72,7 +72,7 @@ class FrameworkMiddleware implements RequestMiddleware
 
         $pendingRequest->middleware()->onResponse(function (Response $response): void {
             Saloon::recordResponse($response);
-        });
+        }, true);
 
         return $this;
     }
@@ -94,7 +94,7 @@ class FrameworkMiddleware implements RequestMiddleware
 
         $pendingRequest->middleware()->onResponse(function (Response $response): void {
             SentSaloonRequest::dispatch($response->getPendingRequest(), $response);
-        });
+        }, true);
 
         return $this;
     }

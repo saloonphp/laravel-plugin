@@ -4,11 +4,11 @@ use Saloon\Laravel\Facades\Saloon;
 use Saloon\Contracts\PendingRequest;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Exceptions\NoMockResponsesProvidedException;
-use Saloon\Laravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Tests\Fixtures\Connectors\QueryParameterConnector;
+use Saloon\Laravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
 use Saloon\Laravel\Tests\Fixtures\Requests\DifferentServiceUserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\QueryParameterConnectorRequest;
 

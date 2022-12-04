@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-use Saloon\Http\Faking\MockResponse;
-use Saloon\Laravel\Events\SendingSaloonRequest;
 use Saloon\Laravel\Facades\Saloon;
+use Saloon\Http\Faking\MockResponse;
 use Illuminate\Support\Facades\Event;
 use Saloon\Laravel\Events\SentSaloonRequest;
-use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Laravel\Events\SendingSaloonRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('events are fired when a request is being sent and when a request has been sent', function () {
     Saloon::fake([
