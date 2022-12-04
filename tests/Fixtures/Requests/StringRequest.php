@@ -30,7 +30,7 @@ class StringRequest extends Request implements WithBody
      *
      * @return string
      */
-    protected function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/payload';
     }

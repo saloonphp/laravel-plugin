@@ -2,12 +2,12 @@
 
 namespace Saloon\Laravel\Facades;
 
-use Saloon\Contracts\SaloonResponse;
+use Saloon\Contracts\Response;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
- * @see \Sammyjo20\SaloonLaravel\Saloon
+ * @see \Saloon\Laravel\Saloon
  *
  * @method static MockClient fake(array $responses)
  * @method static MockClient mockClient()
@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static void record()
  * @method static void stopRecording()
  * @method static bool isRecording()
- * @method static SaloonResponse[] getRecordedResponses()
- * @method static SaloonResponse getLastRecordedResponse()
+ * @method static void recordResponse(Response $response)
+ * @method static \Saloon\Contracts\Response[] getRecordedResponses()
+ * @method static \Saloon\Contracts\Response getLastRecordedResponse()
  */
 class Saloon extends BaseFacade
 {
