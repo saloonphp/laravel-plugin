@@ -19,7 +19,7 @@ class {{ class }} extends Request
      *
      * @return string
      */
-    protected function resolveEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/example';
     }
