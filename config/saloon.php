@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Saloon\Laravel\Http\Senders\HttpSender;
+use Saloon\Http\Senders\GuzzleSender;
 
 return [
 
@@ -16,6 +16,6 @@ return [
     |
     */
 
-    'default_sender' => HttpSender::class,
+    'default_sender' => GuzzleSender::class,
 
 ];

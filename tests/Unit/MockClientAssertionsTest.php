@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
 use Saloon\Http\Request;
-use Saloon\Http\MockResponse;
-use Saloon\Http\SaloonResponse;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Http\Responses\Response;
 use Saloon\Laravel\Facades\Saloon;
 use GuzzleHttp\Exception\ConnectException;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 
@@ -13,7 +14,7 @@ test('that assertSent works with a request', function () {
         UserRequest::class => new MockResponse(['name' => 'Sam'], 200),
     ]);
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 
     Saloon::assertSent(UserRequest::class);
 });
@@ -25,11 +26,11 @@ test('that assertSent works with a closure', function () {
     ]);
 
     $originalRequest = new UserRequest();
-    $originalResponse = $originalRequest->send();
+    $originalResponse = TestConnector::make()->send($originalRequest);
 
     Saloon::assertSent(function ($request, $response) use ($originalRequest, $originalResponse) {
         expect($request)->toBeInstanceOf(Request::class);
-        expect($response)->toBeInstanceOf(SaloonResponse::class);
+        expect($response)->toBeInstanceOf(Response::class);
 
         expect($request)->toBe($originalRequest);
         expect($response)->toBe($originalResponse);
@@ -38,11 +39,11 @@ test('that assertSent works with a closure', function () {
     });
 
     $newRequest = new ErrorRequest();
-    $newResponse = $newRequest->send();
+    $newResponse = TestConnector::make()->send($newRequest);
 
     Saloon::assertSent(function ($request, $response) use ($newRequest, $newResponse) {
         expect($request)->toBeInstanceOf(Request::class);
-        expect($response)->toBeInstanceOf(SaloonResponse::class);
+        expect($response)->toBeInstanceOf(Response::class);
 
         expect($request)->toBe($newRequest);
         expect($response)->toBe($newResponse);
@@ -56,7 +57,7 @@ test('that assertSent works with a url', function () {
         UserRequest::class => new MockResponse(['name' => 'Sam'], 200),
     ]);
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 
     Saloon::assertSent('saloon.dev/*');
     Saloon::assertSent('/user');
@@ -69,7 +70,7 @@ test('that assertNotSent works with a request', function () {
         ErrorRequest::class => new MockResponse(['error' => 'Server Error'], 500),
     ]);
 
-    (new ErrorRequest())->send();
+    TestConnector::make()->send(new ErrorRequest);
 
     Saloon::assertNotSent(UserRequest::class);
 });
@@ -81,7 +82,7 @@ test('that assertNotSent works with a closure', function () {
     ]);
 
     $originalRequest = new ErrorRequest();
-    $originalResponse = $originalRequest->send();
+    $originalResponse = TestConnector::make()->send($originalRequest);
 
     Saloon::assertNotSent(function ($request) {
         return $request instanceof UserRequest;
@@ -93,7 +94,7 @@ test('that assertNotSent works with a url', function () {
         UserRequest::class => new MockResponse(['name' => 'Sam'], 200),
     ]);
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 
     Saloon::assertNotSent('google.com/*');
     Saloon::assertNotSent('/error');
@@ -104,7 +105,7 @@ test('that assertSentJson works properly', function () {
         UserRequest::class => new MockResponse(['name' => 'Sam'], 200),
     ]);
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 
     Saloon::assertSentJson(UserRequest::class, [
         'name' => 'Sam',
@@ -126,27 +127,27 @@ test('test assertSentCount works properly', function () {
         new MockResponse(['name' => 'Marcel'], 200),
     ]);
 
-    (new UserRequest())->send();
-    (new UserRequest())->send();
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
+    TestConnector::make()->send(new UserRequest);
+    TestConnector::make()->send(new UserRequest);
 
     Saloon::assertSentCount(3);
 });
 
-test('you can mock guzzle exceptions', function () {
+test('you can mock exceptions', function () {
     Saloon::fake([
         MockResponse::make(['name' => 'Sam']),
-        MockResponse::make(['name' => 'Patrick'])->throw(fn ($guzzleRequest) => new ConnectException('Unable to connect!', $guzzleRequest)),
+        MockResponse::make(['name' => 'Patrick'])->throw(fn ($pendingRequest) => new Exception('Unable to connect!')),
     ]);
 
-    $okResponse = (new UserRequest)->send();
+    $okResponse = TestConnector::make()->send(new UserRequest);
 
     expect($okResponse->json())->toEqual(['name' => 'Sam']);
 
-    $this->expectException(ConnectException::class);
-    $this->expectExceptionMessage('Unable to connect!');
+    $this->expectException(Exception::class);
+    $this->expectExceptionMessage('Custom Exception!');
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 });
 
 test('you can mock normal exceptions', function () {
@@ -157,5 +158,5 @@ test('you can mock normal exceptions', function () {
     $this->expectException(Exception::class);
     $this->expectExceptionMessage('Custom Exception!');
 
-    (new UserRequest())->send();
+    TestConnector::make()->send(new UserRequest);
 });

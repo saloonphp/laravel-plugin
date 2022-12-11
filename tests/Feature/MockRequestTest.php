@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Contracts\PendingRequest;
 use Saloon\Http\Faking\MockResponse;
@@ -39,7 +40,7 @@ test('a request can be mocked with a sequence', function () {
     expect($responseC->json())->toEqual(['error' => 'Server Unavailable']);
     expect($responseC->status())->toEqual(500);
 
-    $this->expectException(NoMockResponsesProvidedException::class);
+    $this->expectException(NoMockResponseFoundException::class);
 
     $connector->send(new UserRequest);
 });
