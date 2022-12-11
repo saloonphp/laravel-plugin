@@ -3,6 +3,7 @@
 namespace Saloon\Laravel\Http\Middleware;
 
 use Saloon\Contracts\Response;
+use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Contracts\PendingRequest;
 use Saloon\Contracts\RequestMiddleware;
@@ -50,7 +51,7 @@ class FrameworkMiddleware implements RequestMiddleware
         }
 
         if ($mockClient->isEmpty()) {
-            throw new NoMockResponsesProvidedException;
+            throw new NoMockResponseFoundException;
         }
 
         $pendingRequest->withMockClient($mockClient);
