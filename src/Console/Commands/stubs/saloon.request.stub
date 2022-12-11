@@ -2,31 +2,25 @@
 
 namespace {{ namespace }};
 
+use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
 class {{ class }} extends Request
 {
     /**
-     * Define the connector.
-     *
-     * @var string
-     */
-    protected string $connector = '';
-
-    /**
      * Define the HTTP method.
      *
-     * @var string
+     * @var Method
      */
-    protected string $method = 'GET';
+    protected Method $method = Method::GET;
 
     /**
      * Define the endpoint for the request.
      *
      * @return string
      */
-    protected function defineEndpoint(): string
+    protected function resolveEndpoint(): string
     {
-        return '/api/v1/user';
+        return '/example';
     }
 }

@@ -5,7 +5,7 @@ namespace {{ namespace }};
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 
-class {{ class }} extends SaloonConnector
+class {{ class }} extends Connector
 {
     use AcceptsJson;
 
@@ -14,7 +14,7 @@ class {{ class }} extends SaloonConnector
      *
      * @return string
      */
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return '';
     }
