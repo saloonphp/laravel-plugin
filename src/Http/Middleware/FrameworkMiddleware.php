@@ -3,14 +3,13 @@
 namespace Saloon\Laravel\Http\Middleware;
 
 use Saloon\Contracts\Response;
-use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Contracts\PendingRequest;
 use Saloon\Contracts\RequestMiddleware;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Events\SentSaloonRequest;
 use Saloon\Laravel\Events\SendingSaloonRequest;
-use Saloon\Exceptions\NoMockResponsesProvidedException;
+use Saloon\Exceptions\NoMockResponseFoundException;
 
 class FrameworkMiddleware implements RequestMiddleware
 {

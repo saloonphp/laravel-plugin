@@ -2,6 +2,7 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
+use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
@@ -10,9 +11,9 @@ class ErrorRequest extends Request
     /**
      * Define the method that the request will use.
      *
-     * @var string
+     * @var Method
      */
-    protected string $method = 'GET';
+    protected Method $method = Method::GET;
 
     /**
      * The connector.

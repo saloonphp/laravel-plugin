@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Contracts\PendingRequest;
 use Saloon\Http\Faking\MockResponse;
-use Saloon\Exceptions\NoMockResponsesProvidedException;
+use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('a request can be made successfully', function () {
     $request = new UserRequest();

@@ -2,6 +2,7 @@
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
+use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Contracts\Body\WithBody;
 use Saloon\Traits\Body\HasFormBody;
@@ -14,9 +15,9 @@ class FormParamsRequest extends Request implements WithBody
     /**
      * Define the method that the request will use.
      *
-     * @var string
+     * @var Method
      */
-    protected string $method = 'POST';
+    protected Method $method = Method::POST;
 
     /**
      * The connector.

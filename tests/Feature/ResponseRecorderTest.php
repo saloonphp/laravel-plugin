@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Facades\Saloon;
-use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
+use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('you can record a response and you can get the recorded responses', function () {
     Saloon::fake([

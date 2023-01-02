@@ -1,15 +1,14 @@
 <?php declare(strict_types=1);
 
-use Saloon\Exceptions\Request\RequestException;
+use Saloon\Http\Response;
 use Saloon\Http\PendingRequest;
-use Saloon\Http\Faking\MockClient;
-use Saloon\Http\Responses\Response;
+use Saloon\Laravel\Facades\Saloon;
 use Saloon\Http\Faking\MockResponse;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Exception\ConnectException;
-use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\Exceptions\Request\RequestException;
 use Saloon\Contracts\Response as ResponseContract;
-use Saloon\Laravel\Facades\Saloon;
+use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
