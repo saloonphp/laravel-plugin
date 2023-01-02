@@ -8,8 +8,9 @@ on:
   pull_request:
     branches:
       - '*'
-  release:
-    types: [ released ]
+
+permissions:
+  contents: read
 
 jobs:
   test:
