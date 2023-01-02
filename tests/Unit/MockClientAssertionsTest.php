@@ -144,7 +144,7 @@ test('you can mock exceptions', function () {
     expect($okResponse->json())->toEqual(['name' => 'Sam']);
 
     $this->expectException(Exception::class);
-    $this->expectExceptionMessage('Custom Exception!');
+    $this->expectExceptionMessage('Unable to connect!');
 
     TestConnector::make()->send(new UserRequest);
 });
