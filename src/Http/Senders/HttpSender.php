@@ -16,11 +16,11 @@ use Illuminate\Http\Client\Response as IlluminateResponse;
 class HttpSender extends GuzzleSender
 {
     /**
-     * Denotes if we have pushed the handlers onto the client.
+     * Denotes if we have registered the Laravel's default handlers onto the client.
      *
      * @var bool
      */
-    protected bool $hasPushedHandlers = false;
+    protected bool $hasRegisteredDefaultHandlers = false;
 
     /**
      * Send the request
@@ -52,6 +52,8 @@ class HttpSender extends GuzzleSender
 
         // Otherwise, it will be a Promise - so we will process the promise like normal.
 
+        // Todo: Make sure it throws exceptions properly
+
         $promise = $response->then(fn (IlluminateResponse $response) => $response->toPsrResponse());
 
         return $this->processPromise($promise, $pendingRequest);
@@ -69,19 +71,21 @@ class HttpSender extends GuzzleSender
         $laravelPendingRequest = new HttpPendingRequest;
         $laravelPendingRequest->setClient($this->client);
 
-        $laravelPendingRequest->async($asynchronous);
+        $this->registerDefaultHandlers($laravelPendingRequest);
 
-        $this->pushHandlers($laravelPendingRequest);
+        if ($asynchronous === true) {
+            $laravelPendingRequest->async();
+        }
 
         // Depending on the body format (if set) then we will specify the
         // body format on the pending request. This helps it determine
         // the Guzzle options to apply.
 
-        // We must set the pending body if the form type is a pending body.
-
-        // Todo: Make sure it works for json, multipart, form_params and body
-
         $body = $pendingRequest->body();
+
+        if (is_null($body)) {
+            return $laravelPendingRequest;
+        }
 
         match (true) {
             $body instanceof JsonBodyRepository => $laravelPendingRequest->bodyFormat('json'),
@@ -95,19 +99,19 @@ class HttpSender extends GuzzleSender
     }
 
     /**
-     * Push Laravel's handlers onto the Guzzle Handler Stack.
+     * Register Laravel's handlers onto the Guzzle Handler Stack.
      *
      * @param HttpPendingRequest $httpPendingRequest
      * @return void
      */
-    protected function pushHandlers(HttpPendingRequest $httpPendingRequest): void
+    protected function registerDefaultHandlers(HttpPendingRequest $httpPendingRequest): void
     {
-        if ($this->hasPushedHandlers === true) {
+        if ($this->hasRegisteredDefaultHandlers === true) {
             return;
         }
 
         $httpPendingRequest->pushHandlers($this->getHandlerStack());
 
-        $this->hasPushedHandlers = true;
+        $this->hasRegisteredDefaultHandlers = true;
     }
 }
