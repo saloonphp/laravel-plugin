@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
+use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Laravel\Tests\Fixtures\Connectors\DifferentServiceConnector;
 
@@ -10,9 +13,9 @@ class DifferentServiceUserRequest extends Request
     /**
      * Define the method that the request will use.
      *
-     * @var string
+     * @var Method
      */
-    protected string $method = 'GET';
+    protected Method $method = Method::GET;
 
     /**
      * The connector.

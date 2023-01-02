@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Saloon\Laravel\Tests\Fixtures\Requests;
 
+use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasBody;
 use Saloon\Contracts\Body\WithBody;
@@ -14,9 +17,9 @@ class StringRequest extends Request implements WithBody
     /**
      * Define the method that the request will use.
      *
-     * @var string
+     * @var Method
      */
-    protected string $method = 'POST';
+    protected Method $method = Method::POST;
 
     /**
      * The connector.

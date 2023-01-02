@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
-use Saloon\Http\MockResponse;
+declare(strict_types=1);
+
 use Saloon\Laravel\Facades\Saloon;
+use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('you can record a response and you can get the recorded responses', function () {
     Saloon::fake([
@@ -13,7 +16,7 @@ test('you can record a response and you can get the recorded responses', functio
 
     expect(Saloon::isRecording())->toBeTrue();
 
-    $response = UserRequest::make()->send();
+    $response = TestConnector::make()->send(new UserRequest);
 
     $recorded = Saloon::getRecordedResponses();
 
@@ -32,8 +35,9 @@ test('you can get the last recorded response', function () {
 
     expect(Saloon::isRecording())->toBeTrue();
 
-    UserRequest::make()->send();
-    UserRequest::make()->send();
+    $connector = new TestConnector;
+    $connector->send(new UserRequest());
+    $connector->send(new UserRequest());
 
     $recorded = Saloon::getRecordedResponses();
 
@@ -51,17 +55,19 @@ test('you can stop recording', function () {
         MockResponse::make(['id' => 2]),
     ]);
 
+    $connector = new TestConnector;
+
     Saloon::record();
 
     expect(Saloon::isRecording())->toBeTrue();
 
-    UserRequest::make()->send();
+    $connector->send(new UserRequest());
 
     Saloon::stopRecording();
 
     expect(Saloon::isRecording())->toBeFalse();
 
-    UserRequest::make()->send();
+    $connector->send(new UserRequest());
 
     $recorded = Saloon::getRecordedResponses();
 

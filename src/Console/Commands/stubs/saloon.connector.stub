@@ -3,18 +3,15 @@
 namespace {{ namespace }};
 
 use Saloon\Http\Connector;
-use Saloon\Traits\Plugins\AcceptsJson;
 
-class {{ class }} extends SaloonConnector
+class {{ class }} extends Connector
 {
-    use AcceptsJson;
-
     /**
-     * The Base URL of the API.
+     * The Base URL of the API
      *
      * @return string
      */
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return '';
     }

@@ -3,9 +3,9 @@
 namespace {{ namespace }};
 
 use Saloon\Contracts\PendingRequest;
-use Saloon\Contracts\AuthenticatorInterface;
+use Saloon\Contracts\Authenticator;
 
-class {{ class }} implements AuthenticatorInterface
+class {{ class }} implements Authenticator
 {
     public function __construct()
     {

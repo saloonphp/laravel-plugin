@@ -19,7 +19,7 @@
     ],
     "homepage": "https://github.com/sammyjo20/saloon-laravel",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "illuminate/console": "^8.0 || ^9.0",
         "illuminate/http": "^8.0 || ^9.0",
         "illuminate/support": "^8.0 || ^9.0",
@@ -58,14 +58,12 @@
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
         "fix-code": [
             "./vendor/bin/php-cs-fixer fix --allow-risky=yes"
         ],
-        "scripts": {
-            "post-autoload-dump": [
-                "@php ./vendor/bin/testbench package:discover --ansi"
-            ]
-        },
         "test": [
             "./vendor/bin/pest"
         ]

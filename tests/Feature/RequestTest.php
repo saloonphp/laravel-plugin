@@ -1,11 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('a request can be made successfully', function () {
     $request = new UserRequest();
-    $response = $request->send();
+    $response = TestConnector::make()->send($request);
 
     $data = $response->json();
 
@@ -21,7 +24,7 @@ test('a request can be made successfully', function () {
 
 test('a request can handle an exception properly', function () {
     $request = new ErrorRequest();
-    $response = $request->send();
+    $response = TestConnector::make()->send($request);
 
     expect($response->isMocked())->toBeFalse();
     expect($response->status())->toEqual(500);
