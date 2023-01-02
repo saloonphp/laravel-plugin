@@ -58,14 +58,12 @@
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
         "fix-code": [
             "./vendor/bin/php-cs-fixer fix --allow-risky=yes"
         ],
-        "scripts": {
-            "post-autoload-dump": [
-                "@php ./vendor/bin/testbench package:discover --ansi"
-            ]
-        },
         "test": [
             "./vendor/bin/pest"
         ]
