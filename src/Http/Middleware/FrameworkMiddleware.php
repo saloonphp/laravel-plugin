@@ -18,9 +18,9 @@ class FrameworkMiddleware implements RequestMiddleware
     /**
      * Handle Laravel Actions
      *
-     * @param \Saloon\Http\PendingRequest $pendingRequest
-     * @return \Saloon\Http\PendingRequest
-     * @throws \Saloon\Exceptions\NoMockResponsesProvidedException
+     * @param \Saloon\Contracts\PendingRequest $pendingRequest
+     * @return \Saloon\Contracts\PendingRequest
+     * @throws \Saloon\Exceptions\NoMockResponseFoundException
      */
     public function __invoke(PendingRequest $pendingRequest): PendingRequest
     {
@@ -35,9 +35,9 @@ class FrameworkMiddleware implements RequestMiddleware
     /**
      * Boot the mocking feature.
      *
-     * @param \Saloon\Http\PendingRequest $pendingRequest
+     * @param \Saloon\Contracts\PendingRequest $pendingRequest
      * @return $this
-     * @throws \Saloon\Exceptions\NoMockResponsesProvidedException
+     * @throws \Saloon\Exceptions\NoMockResponseFoundException
      */
     protected function bootMockingFeature(PendingRequest $pendingRequest): static
     {
@@ -63,8 +63,8 @@ class FrameworkMiddleware implements RequestMiddleware
     /**
      * Boot the recording feature.
      *
-     * @param PendingRequest $pendingRequest
-     * @return self
+     * @param \Saloon\Contracts\PendingRequest $pendingRequest
+     * @return $this
      */
     protected function bootRecordingFeature(PendingRequest $pendingRequest): static
     {
