@@ -51,6 +51,10 @@ class FrameworkMiddleware implements RequestMiddleware
             return $this;
         }
 
+        if ($pendingRequest->hasSimulatedResponsePayload()) {
+            return $this;
+        }
+
         if ($mockClient->isEmpty()) {
             throw new NoMockResponseFoundException;
         }

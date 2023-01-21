@@ -23,7 +23,7 @@
         "illuminate/console": "^8.0 || ^9.0",
         "illuminate/http": "^8.0 || ^9.0",
         "illuminate/support": "^8.0 || ^9.0",
-        "sammyjo20/saloon": "2.0.0-beta2"
+        "sammyjo20/saloon": "2.0.0-beta3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
