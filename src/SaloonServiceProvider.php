@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel;
 
-use Illuminate\Support\ServiceProvider;
 use Saloon\Config;
+use Illuminate\Support\ServiceProvider;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
 use Saloon\Laravel\Console\Commands\MakeRequest;
 use Saloon\Laravel\Console\Commands\MakeResponse;
 use Saloon\Laravel\Console\Commands\MakeConnector;
+use Saloon\Laravel\Http\Middleware\LaravelMiddleware;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
 use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
-use Saloon\Laravel\Http\Middleware\LaravelMiddleware;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -38,7 +38,7 @@ class SaloonServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind('saloon', Saloon::class);
-        $this->app->singleton(MockClient::class, fn() => new MockClient);
+        $this->app->singleton(MockClient::class, fn () => new MockClient);
 
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
