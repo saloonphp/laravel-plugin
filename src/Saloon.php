@@ -10,6 +10,13 @@ use Saloon\Laravel\Http\Faking\MockClient;
 class Saloon
 {
     /**
+     * Determine if defaults have been registered
+     *
+     * @var bool
+     */
+    public static bool $registeredDefaults = false;
+
+    /**
      * Determines if requests should be recorded.
      *
      * @var bool

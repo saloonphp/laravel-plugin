@@ -13,7 +13,7 @@ use Saloon\Laravel\Events\SentSaloonRequest;
 use Saloon\Laravel\Events\SendingSaloonRequest;
 use Saloon\Exceptions\NoMockResponseFoundException;
 
-class FrameworkMiddleware implements RequestMiddleware
+class LaravelMiddleware implements RequestMiddleware
 {
     /**
      * Handle Laravel Actions
