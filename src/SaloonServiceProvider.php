@@ -25,7 +25,7 @@ class SaloonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/saloon.php',
+            __DIR__ . '/../config/saloon.php',
             'saloon'
         );
     }
@@ -38,21 +38,21 @@ class SaloonServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind('saloon', Saloon::class);
-        $this->app->singleton(MockClient::class, fn () => new MockClient);
+        $this->app->singleton(MockClient::class, fn() => new MockClient);
 
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
         }
 
         $this->publishes([
-            __DIR__.'/../config/saloon.php' => config_path('saloon.php'),
+            __DIR__ . '/../config/saloon.php' => config_path('saloon.php'),
         ], 'saloon-config');
 
         // Register Saloon Laravel's Global Middleware
 
         if (! Saloon::$registeredDefaults) {
             Config::setDefaultSender(config('saloon.default_sender'));
-            Config::middleware()->onRequest(new LaravelMiddleware);
+            Config::middleware()->onRequest(new LaravelMiddleware, false, 'laravelMiddleware');
 
             Saloon::$registeredDefaults = true;
         }
