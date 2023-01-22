@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Saloon\Laravel;
 
 use Illuminate\Support\ServiceProvider;
+use Saloon\Config;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
 use Saloon\Laravel\Console\Commands\MakeRequest;
@@ -12,6 +13,7 @@ use Saloon\Laravel\Console\Commands\MakeResponse;
 use Saloon\Laravel\Console\Commands\MakeConnector;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
 use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
+use Saloon\Laravel\Http\Middleware\LaravelMiddleware;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -45,6 +47,15 @@ class SaloonServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/saloon.php' => config_path('saloon.php'),
         ], 'saloon-config');
+
+        // Register Saloon Laravel's Global Middleware
+
+        if (! Saloon::$registeredDefaults) {
+            Config::setDefaultSender(config('saloon.default_sender'));
+            Config::middleware()->onRequest(new LaravelMiddleware);
+
+            Saloon::$registeredDefaults = true;
+        }
     }
 
     protected function registerCommands(): self
