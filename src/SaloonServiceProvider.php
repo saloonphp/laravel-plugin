@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel;
 
-use Saloon\Config;
+use Saloon\Helpers\Config;
 use Illuminate\Support\ServiceProvider;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
