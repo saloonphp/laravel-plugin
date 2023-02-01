@@ -7,8 +7,8 @@ This is the Laravel package for Saloon, to install it run the following command
 ```php
 composer require sammyjo20/saloon-laravel
 ```
->Requires Laravel 8+ and PHP 8.0+
+>Requires Laravel 9+ and PHP 8.1+
 
 ### Documentation
 
-[Click here to read the documentation](https://docs.saloon.dev/)
+[Click here to read the documentation](https://docs.saloon.dev/v/2)
