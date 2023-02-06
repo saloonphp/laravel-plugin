@@ -13,10 +13,10 @@ declare(strict_types=1);
 |
 */
 
-use Illuminate\Support\Facades\Config;
-use Saloon\Http\Senders\GuzzleSender;
-use Saloon\Laravel\Http\Senders\HttpSender;
 use Saloon\Laravel\Tests\TestCase;
+use Saloon\Http\Senders\GuzzleSender;
+use Illuminate\Support\Facades\Config;
+use Saloon\Laravel\Http\Senders\HttpSender;
 
 uses(TestCase::class)->in('Feature', 'Unit');
 

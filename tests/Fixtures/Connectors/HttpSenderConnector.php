@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Tests\Fixtures\Connectors;
 
-use Saloon\Contracts\Sender;
 use Saloon\Http\Connector;
-use Saloon\Laravel\Http\Senders\HttpSender;
+use Saloon\Contracts\Sender;
 use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Laravel\Http\Senders\HttpSender;
 
 class HttpSenderConnector extends Connector
 {

@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
+declare(strict_types=1);
+
 use Saloon\Http\Senders\GuzzleSender;
+use Illuminate\Support\Facades\Config;
 use Saloon\Laravel\Http\Senders\HttpSender;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 

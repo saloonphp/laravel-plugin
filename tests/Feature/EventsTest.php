@@ -10,7 +10,9 @@ use Saloon\Laravel\Events\SendingSaloonRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
-test('events are fired when a request is being sent and when a request has been sent', function () {
+test('events are fired when a request is being sent and when a request has been sent', function (string $sender) {
+    setSender($sender);
+
     Saloon::fake([
         new MockResponse(['name' => 'Sam'], 200),
     ]);
@@ -26,4 +28,4 @@ test('events are fired when a request is being sent and when a request has been 
     Event::assertDispatched(SentSaloonRequest::class, function (SentSaloonRequest $event) use ($response) {
         return $response === $event->response && $response->getPendingRequest() === $event->pendingRequest;
     });
-});
+})->with('senders');
