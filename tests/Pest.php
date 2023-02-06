@@ -13,9 +13,17 @@ declare(strict_types=1);
 |
 */
 
+use Illuminate\Support\Facades\Config;
+use Saloon\Http\Senders\GuzzleSender;
+use Saloon\Laravel\Http\Senders\HttpSender;
 use Saloon\Laravel\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature', 'Unit');
+
+dataset('senders', [
+    GuzzleSender::class,
+    HttpSender::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +54,9 @@ expect()->extend('toBeOne', function () {
 function apiUrl()
 {
     return 'https://tests.saloon.dev/api';
+}
+
+function setSender(string $sender)
+{
+    Config::set('saloon.default_sender', $sender);
 }

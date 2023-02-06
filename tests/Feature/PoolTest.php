@@ -16,9 +16,13 @@ use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Tests\Fixtures\Connectors\InvalidConnectionConnector;
 
-test('you can create a pool on a connector', function () {
+test('you can create a pool on a connector', function (string $sender) {
+    setSender($sender);
+
     $connector = new TestConnector;
     $count = 0;
+
+    expect($connector->sender())->toBeInstanceOf($sender);
 
     $pool = $connector->pool([
         new UserRequest,
@@ -48,9 +52,11 @@ test('you can create a pool on a connector', function () {
     $promise->wait();
 
     expect($count)->toEqual(5);
-});
+})->with('senders');
 
-test('if a pool has a request that cannot connect it will be caught in the handleException callback', function () {
+test('if a pool has a request that cannot connect it will be caught in the handleException callback', function (string $sender) {
+    setSender($sender);
+
     $connector = new InvalidConnectionConnector;
     $count = 0;
 
@@ -77,7 +83,7 @@ test('if a pool has a request that cannot connect it will be caught in the handl
     $promise->wait();
 
     expect($count)->toEqual(5);
-});
+})->with('senders');
 
 test('you can use pool with a mock client added and it wont send real requests', function () {
     $mockResponses = [
