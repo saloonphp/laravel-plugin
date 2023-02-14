@@ -3,9 +3,12 @@
 namespace {{ namespace }};
 
 use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
 
 class {{ class }} extends Connector
 {
+    use AcceptsJson;
+
     /**
      * The Base URL of the API
      *
