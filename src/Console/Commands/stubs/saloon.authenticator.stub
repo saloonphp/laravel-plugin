@@ -18,7 +18,7 @@ class {{ class }} implements Authenticator
      * @param SaloonRequest $request
      * @return void
      */
-    public function set(PendingSaloonRequest $pendingRequest): void
+    public function set(PendingRequest $pendingRequest): void
     {
         //
     }
