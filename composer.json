@@ -1,6 +1,6 @@
 {
-    "name": "sammyjo20/saloon-laravel",
-    "description": "Laravel package for Sammyjo20/Saloon",
+    "name": "saloonphp/laravel-plugin",
+    "description": "Laravel plugin for Saloon",
     "license": "MIT",
     "type": "library",
     "keywords": [
@@ -17,13 +17,13 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/sammyjo20/saloon-laravel",
+    "homepage": "https://github.com/saloonphp/laravel-plugin",
     "require": {
         "php": "^8.1",
         "illuminate/console": "^9.0 || ^10.0",
         "illuminate/http": "^9.0 || ^10.0",
         "illuminate/support": "^9.0 || ^10.0",
-        "sammyjo20/saloon": "^2.0"
+        "saloonphp/saloon": "^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
