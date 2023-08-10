@@ -22,7 +22,7 @@
         "php": "^8.1",
         "illuminate/console": "^8.0 || ^9.0 || ^10.0",
         "illuminate/support": "^8.0 || ^9.0 || ^10.0",
-        "sammyjo20/saloon": "^1.6.2"
+        "saloonphp/saloon": "^1.6.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
