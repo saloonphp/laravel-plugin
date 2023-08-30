@@ -14,7 +14,6 @@ use Saloon\Laravel\Console\Commands\MakeResponse;
 use Saloon\Laravel\Console\Commands\MakeConnector;
 use Saloon\Laravel\Http\Middleware\LaravelMiddleware;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
-use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -63,7 +62,6 @@ class SaloonServiceProvider extends ServiceProvider
     {
         $this->commands([
             MakeConnector::class,
-            MakeOAuthConnector::class,
             MakeRequest::class,
             MakeResponse::class,
             MakePlugin::class,
