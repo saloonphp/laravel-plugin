@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
+use Symfony\Component\Console\Input\InputOption;
+
 class MakeConnector extends MakeCommand
 {
     /**
@@ -34,10 +36,17 @@ class MakeConnector extends MakeCommand
      */
     protected $namespace = '\Http\Integrations\{integration}';
 
-    /**
-     * The default stub
-     *
-     * @var string
-     */
-    protected $stub = 'saloon.connector.stub';
+    protected function resolveStubName(): string
+    {
+        return $this->option('oauth')
+            ? 'saloon.oauth-connector.stub'
+            : 'saloon.connector.stub';
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ['oauth', null, InputOption::VALUE_NONE, 'Whether the connector should include the OAuth boilerplate'],
+        ];
+    }
 }
