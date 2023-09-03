@@ -103,12 +103,12 @@ class ListCommand extends Command
         return $this->components->twoColumnDetail(
             '<fg=green;options=bold>' . Str::afterLast($integration, '/') . '</>',
             sprintf(
-                '<fg=white>Connectors: %s / Requests: %s / Plugins: %s / Responses: %s / Authenticators: %s</>',
+                '<fg=white>Authenticators: %s / Connectors: %s / Requests: %s / Plugins: %s / Responses: %s</>',
+                count($this->getIntegrationAuthenticators($integration)),
                 count($this->getIntegrationConnectors($integration)),
                 count($this->getIntegrationRequests($integration)),
                 count($this->getIntegrationPlugins($integration)),
                 count($this->getIntegrationResponses($integration)),
-                count($this->getIntegrationAuthenticators($integration)),
             )
         );
     }
