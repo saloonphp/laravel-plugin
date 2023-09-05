@@ -20,4 +20,18 @@ return [
 
     'default_sender' => GuzzleSender::class,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Integrations Path
+    |--------------------------------------------------------------------------
+    |
+    | By default, this package will create any classes within
+    | /app/Http/Integrations directory. If you're using
+    | a different design approach, then your classes
+    | may be in a different place. You can change
+    | that location so that the saloon:list
+    | command will still find your files
+    |
+    */
+    'integrations_path' => 'App/Http/Integrations',
 ];

@@ -8,6 +8,7 @@ use Saloon\Config;
 use Saloon\Enums\PipeOrder;
 use Saloon\Contracts\Sender;
 use Illuminate\Support\ServiceProvider;
+use Saloon\Laravel\Console\Commands\ListCommand;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
 use Saloon\Laravel\Console\Commands\MakeRequest;
@@ -83,6 +84,7 @@ class SaloonServiceProvider extends ServiceProvider
             MakeResponse::class,
             MakePlugin::class,
             MakeAuthenticator::class,
+            ListCommand::class,
         ]);
 
         return $this;

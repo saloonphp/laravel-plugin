@@ -70,7 +70,7 @@ class ListCommand extends Command
 
     protected function getIntegrations(): array
     {
-        return glob('app/Http/Integrations/*') ?? [];
+        return glob(config('saloon.integrations_path').'/*') ?? [];
     }
 
     protected function getIntegrationConnectors(string $integration): array
