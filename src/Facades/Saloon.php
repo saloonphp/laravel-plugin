@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Facades;
 
-use Saloon\Contracts\Response;
+use Saloon\Http\Response;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static void stopRecording()
  * @method static bool isRecording()
  * @method static void recordResponse(Response $response)
- * @method static \Saloon\Contracts\Response[] getRecordedResponses()
- * @method static \Saloon\Contracts\Response getLastRecordedResponse()
+ * @method static \Saloon\Http\Response[] getRecordedResponses()
+ * @method static \Saloon\Http\Response getLastRecordedResponse()
  */
 class Saloon extends BaseFacade
 {
@@ -32,7 +32,7 @@ class Saloon extends BaseFacade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'saloon';
     }

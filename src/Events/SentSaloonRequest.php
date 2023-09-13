@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Events;
 
-use Saloon\Contracts\Response;
-use Saloon\Contracts\PendingRequest;
+use Saloon\Http\Response;
+use Saloon\Http\PendingRequest;
 use Illuminate\Foundation\Events\Dispatchable;
 
 class SentSaloonRequest
