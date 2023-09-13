@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-use Saloon\Helpers\Date;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Laravel\Tests\Fixtures\Models\EncryptedOAuthModel;
 
 test('the authenticator can be encrypted, serialized and decrypted and unserialized when using the cast', function () {
     $model = new EncryptedOAuthModel();
-    $authenticator = new AccessTokenAuthenticator('access', 'refresh', Date::now()->toDateTime());
+    $authenticator = new AccessTokenAuthenticator('access', 'refresh', new DateTimeImmutable);
 
     $model->auth = $authenticator;
 

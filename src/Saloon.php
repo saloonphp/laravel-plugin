@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel;
 
-use Saloon\Contracts\Response;
+use Saloon\Http\Response;
 use Saloon\Laravel\Http\Faking\MockClient;
 
 class Saloon

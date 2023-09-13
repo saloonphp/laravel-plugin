@@ -16,6 +16,10 @@ class RecordResponse implements ResponseMiddleware
      */
     public function __invoke(Response $response): void
     {
+        if (Saloon::isRecording() === false) {
+            return;
+        }
+
         Saloon::recordResponse($response);
     }
 }

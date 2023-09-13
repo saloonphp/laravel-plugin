@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Saloon\Laravel\Facades\Saloon;
-use Saloon\Contracts\PendingRequest;
+use Saloon\Http\PendingRequest;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;

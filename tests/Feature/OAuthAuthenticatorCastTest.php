@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-use Saloon\Helpers\Date;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Saloon\Laravel\Tests\Fixtures\Models\OAuthModel;
 
 test('the authenticator is serialized and unserialized when using the cast', function () {
     $model = new OAuthModel();
-    $authenticator = new AccessTokenAuthenticator('access', 'refresh', Date::now()->toDateTime());
+    $authenticator = new AccessTokenAuthenticator('access', 'refresh', new DateTimeImmutable);
 
     $model->auth = $authenticator;
 
