@@ -22,7 +22,7 @@ class Saloon
     /**
      * An array of the recorded responses if $record is enabled.
      *
-     * @var array<\Saloon\Http\Response> $recordedResponses
+     * @var array<\Saloon\Http\Response>
      */
     protected array $recordedResponses = [];
 
