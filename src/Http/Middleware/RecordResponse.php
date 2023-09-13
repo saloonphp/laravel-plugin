@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saloon\Laravel\Http\Middleware;
 
-use Saloon\Contracts\RequestMiddleware;
-use Saloon\Contracts\ResponseMiddleware;
-use Saloon\Enums\PipeOrder;
-use Saloon\Http\PendingRequest;
 use Saloon\Http\Response;
 use Saloon\Laravel\Facades\Saloon;
+use Saloon\Contracts\ResponseMiddleware;
 
 class RecordResponse implements ResponseMiddleware
 {

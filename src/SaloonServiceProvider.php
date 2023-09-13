@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace Saloon\Laravel;
 
 use Saloon\Config;
+use Saloon\Enums\PipeOrder;
 use Saloon\Contracts\Sender;
 use Illuminate\Support\ServiceProvider;
-use Saloon\Enums\PipeOrder;
 use Saloon\Laravel\Http\Faking\MockClient;
 use Saloon\Laravel\Console\Commands\MakePlugin;
 use Saloon\Laravel\Console\Commands\MakeRequest;
 use Saloon\Laravel\Console\Commands\MakeResponse;
 use Saloon\Laravel\Console\Commands\MakeConnector;
-use Saloon\Laravel\Http\Middleware\LaravelMiddleware;
-use Saloon\Laravel\Console\Commands\MakeAuthenticator;
-use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
 use Saloon\Laravel\Http\Middleware\MockMiddleware;
 use Saloon\Laravel\Http\Middleware\RecordResponse;
 use Saloon\Laravel\Http\Middleware\SendRequestEvent;
 use Saloon\Laravel\Http\Middleware\SendResponseEvent;
+use Saloon\Laravel\Console\Commands\MakeAuthenticator;
+use Saloon\Laravel\Console\Commands\MakeOAuthConnector;
 
 class SaloonServiceProvider extends ServiceProvider
 {
@@ -39,13 +38,12 @@ class SaloonServiceProvider extends ServiceProvider
     /**
      * Handle the booting of the service provider.
      *
-     * @return void
      * @throws \Saloon\Exceptions\DuplicatePipeNameException
      */
     public function boot(): void
     {
         $this->app->bind('saloon', Saloon::class);
-        $this->app->singleton(MockClient::class, fn() => new MockClient);
+        $this->app->singleton(MockClient::class, fn () => new MockClient);
 
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
@@ -58,7 +56,10 @@ class SaloonServiceProvider extends ServiceProvider
         // Register Saloon Laravel's Global Middleware
 
         if (! Saloon::$registeredDefaults) {
-            Config::setSenderResolver(static fn(): Sender => new (config('saloon.default_sender')));
+            Config::setSenderResolver(static function (): Sender {
+                /** @var Sender */
+                return new (config('saloon.default_sender'));
+            });
 
             Config::globalMiddleware()->onRequest(new MockMiddleware, 'laravelMock', PipeOrder::FIRST);
             Config::globalMiddleware()->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST);

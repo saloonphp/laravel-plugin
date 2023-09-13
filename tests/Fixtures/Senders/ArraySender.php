@@ -14,8 +14,6 @@ class ArraySender implements Sender
 {
     /**
      * Get the sender's response class
-     *
-     * @return string
      */
     public function getResponseClass(): string
     {
@@ -24,10 +22,6 @@ class ArraySender implements Sender
 
     /**
      * Send the request.
-     *
-     * @param PendingRequest $pendingRequest
-     * @param bool $asynchronous
-     * @return Response|PromiseInterface
      */
     public function sendRequest(PendingRequest $pendingRequest, bool $asynchronous = false): Response|PromiseInterface
     {

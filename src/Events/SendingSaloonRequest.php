@@ -13,15 +13,12 @@ class SendingSaloonRequest
 
     /**
      * The outgoing Saloon PendingRequest
-     *
-     * @var PendingRequest
      */
     public PendingRequest $pendingRequest;
 
     /**
      * Create a new event instance.
      *
-     * @param PendingRequest $pendingRequest
      * @return void
      */
     public function __construct(PendingRequest $pendingRequest)

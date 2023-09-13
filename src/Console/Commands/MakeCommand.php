@@ -55,12 +55,19 @@ abstract class MakeCommand extends GeneratorCommand
 
     protected function getIntegration(): string
     {
-        return $this->argument('integration');
+        $integration = $this->argument('integration');
+
+        if (! is_string($integration)) {
+            throw new \LogicException('The {integration} argument must be a string.');
+        }
+
+        return $integration;
     }
 
     /**
      * Get the console command arguments.
-     * @return array
+     *
+     * @return array<mixed, mixed>
      */
     protected function getArguments(): array
     {

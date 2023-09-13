@@ -12,12 +12,6 @@ class OAuthAuthenticatorCast implements CastsAttributes
 {
     /**
      * Cast the given value.
-     *
-     * @param $model
-     * @param string $key
-     * @param $value
-     * @param array $attributes
-     * @return OAuthAuthenticator|null
      */
     public function get($model, string $key, $value, array $attributes): ?OAuthAuthenticator
     {
@@ -31,10 +25,6 @@ class OAuthAuthenticatorCast implements CastsAttributes
     /**
      * Prepare the given value for storage.
      *
-     * @param $model
-     * @param string $key
-     * @param $value
-     * @param array $attributes
      * @return mixed|void
      */
     public function set($model, string $key, $value, array $attributes)

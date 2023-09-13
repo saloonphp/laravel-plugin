@@ -10,15 +10,13 @@ class MockClient extends BaseMockClient
 {
     /**
      * Denotes if the MockClient is mocking
-     *
-     * @var bool
      */
     protected bool $isMocking = false;
 
     /**
      * Start Mocking Responses
      *
-     * @param array $responses
+     * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses
      * @return $this
      * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
@@ -33,8 +31,6 @@ class MockClient extends BaseMockClient
 
     /**
      * Check if we are mocking
-     *
-     * @return bool
      */
     public function isMocking(): bool
     {
@@ -43,8 +39,6 @@ class MockClient extends BaseMockClient
 
     /**
      * Resolve the MockClient from the container
-     *
-     * @return static
      */
     public static function resolve(): static
     {

@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saloon\Laravel\Http\Middleware;
 
-use Saloon\Contracts\RequestMiddleware;
-use Saloon\Contracts\ResponseMiddleware;
-use Saloon\Http\PendingRequest;
 use Saloon\Http\Response;
-use Saloon\Laravel\Events\SendingSaloonRequest;
+use Saloon\Contracts\ResponseMiddleware;
 use Saloon\Laravel\Events\SentSaloonRequest;
 
 class SendResponseEvent implements ResponseMiddleware

@@ -29,8 +29,6 @@ class Saloon extends BaseFacade
 {
     /**
      * Register the Saloon facade
-     *
-     * @return string
      */
     protected static function getFacadeAccessor(): string
     {

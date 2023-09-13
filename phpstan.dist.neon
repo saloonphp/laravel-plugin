@@ -12,6 +12,7 @@ parameters:
   #editorUrl: 'vscode://file/%%file%%:%%line%%'
 
   level: 7
+  checkGenericClassInNonGenericObjectType: false
 
   paths:
   - src

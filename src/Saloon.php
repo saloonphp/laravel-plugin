@@ -11,30 +11,25 @@ class Saloon
 {
     /**
      * Determine if defaults have been registered
-     *
-     * @var bool
      */
     public static bool $registeredDefaults = false;
 
     /**
      * Determines if requests should be recorded.
-     *
-     * @var bool
      */
     protected bool $record = false;
 
     /**
      * An array of the recorded responses if $record is enabled.
      *
-     * @var array
+     * @var array<\Saloon\Http\Response> $recordedResponses
      */
     protected array $recordedResponses = [];
 
     /**
      * Start mocking!
      *
-     * @param array $responses
-     * @return \Saloon\Laravel\Http\Faking\MockClient
+     * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses
      * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
     public static function fake(array $responses): MockClient
@@ -44,8 +39,6 @@ class Saloon
 
     /**
      * Retrieve the mock client from the container
-     *
-     * @return MockClient
      */
     public static function mockClient(): MockClient
     {
@@ -55,8 +48,6 @@ class Saloon
     /**
      * Assert that a given request was sent.
      *
-     * @param string|callable $value
-     * @return void
      * @throws \ReflectionException
      */
     public static function assertSent(string|callable $value): void
@@ -67,8 +58,6 @@ class Saloon
     /**
      * Assert that a given request was not sent.
      *
-     * @param string|callable $value
-     * @return void
      * @throws \ReflectionException
      */
     public static function assertNotSent(string|callable $value): void
@@ -79,9 +68,7 @@ class Saloon
     /**
      * Assert JSON data was sent
      *
-     * @param string $request
-     * @param array $data
-     * @return void
+     * @param array<string, mixed> $data
      * @throws \ReflectionException
      */
     public static function assertSentJson(string $request, array $data): void
@@ -91,8 +78,6 @@ class Saloon
 
     /**
      * Assert that nothing was sent.
-     *
-     * @return void
      */
     public static function assertNothingSent(): void
     {
@@ -101,9 +86,6 @@ class Saloon
 
     /**
      * Assert a request count has been met.
-     *
-     * @param int $count
-     * @return void
      */
     public static function assertSentCount(int $count): void
     {
@@ -112,8 +94,6 @@ class Saloon
 
     /**
      * Start Saloon recording responses.
-     *
-     * @return void
      */
     public function record(): void
     {
@@ -122,8 +102,6 @@ class Saloon
 
     /**
      * Stop Saloon recording responses.
-     *
-     * @return void
      */
     public function stopRecording(): void
     {
@@ -132,8 +110,6 @@ class Saloon
 
     /**
      * Check if Saloon is recording
-     *
-     * @return bool
      */
     public function isRecording(): bool
     {
@@ -142,9 +118,6 @@ class Saloon
 
     /**
      * Record a response.
-     *
-     * @param Response $response
-     * @return void
      */
     public function recordResponse(Response $response): void
     {
@@ -154,7 +127,7 @@ class Saloon
     /**
      * Get all the recorded responses.
      *
-     * @return array
+     * @return array<\Saloon\Http\Response>
      */
     public function getRecordedResponses(): array
     {
@@ -163,8 +136,6 @@ class Saloon
 
     /**
      * Get the last response that Saloon recorded.
-     *
-     * @return Response|null
      */
     public function getLastRecordedResponse(): ?Response
     {

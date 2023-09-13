@@ -14,23 +14,16 @@ class SentSaloonRequest
 
     /**
      * The outgoing Saloon PendingRequest
-     *
-     * @var PendingRequest
      */
     public PendingRequest $pendingRequest;
 
     /**
      * The response received by Saloon.
-     *
-     * @var Response
      */
     public Response $response;
 
     /**
      * Create a new event instance.
-     *
-     * @param PendingRequest $pendingRequest
-     * @param Response $response
      */
     public function __construct(PendingRequest $pendingRequest, Response $response)
     {

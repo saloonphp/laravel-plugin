@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saloon\Laravel\Http\Middleware;
 
-use Saloon\Contracts\RequestMiddleware;
-use Saloon\Exceptions\NoMockResponseFoundException;
 use Saloon\Http\PendingRequest;
+use Saloon\Contracts\RequestMiddleware;
 use Saloon\Laravel\Http\Faking\MockClient;
+use Saloon\Exceptions\NoMockResponseFoundException;
 
 class MockMiddleware implements RequestMiddleware
 {

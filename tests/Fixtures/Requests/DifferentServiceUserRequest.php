@@ -12,22 +12,16 @@ class DifferentServiceUserRequest extends Request
 {
     /**
      * Define the method that the request will use.
-     *
-     * @var Method
      */
     protected Method $method = Method::GET;
 
     /**
      * The connector.
-     *
-     * @var string
      */
     protected string $connector = DifferentServiceConnector::class;
 
     /**
      * Define the endpoint for the request.
-     *
-     * @return string
      */
     public function resolveEndpoint(): string
     {

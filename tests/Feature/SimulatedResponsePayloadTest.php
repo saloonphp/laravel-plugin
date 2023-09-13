@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Saloon\Http\Faking\FakeResponse;
 use Saloon\Laravel\Facades\Saloon;
+use Saloon\Http\Faking\FakeResponse;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
