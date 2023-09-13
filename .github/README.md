@@ -1,4 +1,4 @@
-> This package is indended for Laravel. To read more about Saloon, see here: https://github.com/saloonphp/saloon
+> This package is intended for Laravel. To read more about Saloon, see here: https://github.com/saloonphp/saloon
 
 ## Saloon Laravel Package
 
