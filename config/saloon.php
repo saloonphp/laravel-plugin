@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Saloon\Http\Senders\GuzzleSender;
+use Saloon\HttpSender\HttpSender;
 
 return [
 
@@ -18,6 +18,6 @@ return [
     |
     */
 
-    'default_sender' => GuzzleSender::class,
+    'default_sender' => HttpSender::class,
 
 ];

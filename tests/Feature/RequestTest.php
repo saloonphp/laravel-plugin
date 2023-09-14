@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Saloon\HttpSender\HttpSender;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\ErrorRequest;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
@@ -9,6 +10,8 @@ use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 test('a request can be made successfully', function () {
     $request = new UserRequest();
     $response = TestConnector::make()->send($request);
+
+    expect($response->getConnector()->sender())->toBeInstanceOf(HttpSender::class);
 
     $data = $response->json();
 
