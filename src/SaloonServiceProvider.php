@@ -61,10 +61,11 @@ class SaloonServiceProvider extends ServiceProvider
                 return new (config('saloon.default_sender'));
             });
 
-            Config::globalMiddleware()->onRequest(new MockMiddleware, 'laravelMock', PipeOrder::FIRST);
-            Config::globalMiddleware()->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST);
-            Config::globalMiddleware()->onResponse(new RecordResponse, 'laravelRecordResponse', PipeOrder::FIRST);
-            Config::globalMiddleware()->onResponse(new SendResponseEvent, 'laravelSendResponseEvent', PipeOrder::FIRST);
+            Config::globalMiddleware()
+                ->onRequest(new MockMiddleware, 'laravelMock', PipeOrder::FIRST)
+                ->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST)
+                ->onResponse(new RecordResponse, 'laravelRecordResponse', PipeOrder::FIRST)
+                ->onResponse(new SendResponseEvent, 'laravelSendResponseEvent', PipeOrder::FIRST);
 
             Saloon::$registeredDefaults = true;
         }
