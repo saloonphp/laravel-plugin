@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
 
 class ListCommand extends Command
 {
@@ -32,7 +32,8 @@ class ListCommand extends Command
     {
         $this->newLine();
 
-        $this->components->twoColumnDetail('<fg=green;options=bold>General</>',
+        $this->components->twoColumnDetail(
+            '<fg=green;options=bold>General</>',
             '<fg=white>Integrations: ' . count($this->getIntegrations()) . '</>'
         );
 
@@ -176,13 +177,13 @@ class ListCommand extends Command
         foreach ($matchSegments as $key => $matchSegment) {
             if (Str::contains($matchSegment, '$this->')) {
                 $matchSegments[$key] = '{' . Str::before(
-                        Str::after(str_replace(' ', '', $matchSegment), '>'),
-                        ".'"
-                    ) . '}';
+                    Str::after(str_replace(' ', '', $matchSegment), '>'),
+                    '.\''
+                ) . '}';
             }
         }
 
-        return str_replace("'", "", implode('/', $matchSegments));
+        return str_replace('\'', '', implode('/', $matchSegments));
     }
 
     protected function getIntegrationConnectorBaseUrl(string $connector): string
