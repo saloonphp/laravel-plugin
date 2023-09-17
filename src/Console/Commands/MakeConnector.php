@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use function Laravel\Prompts\select;
+
 class MakeConnector extends MakeCommand
 {
     /**
@@ -34,10 +39,38 @@ class MakeConnector extends MakeCommand
      */
     protected $namespace = '\Http\Integrations\{integration}';
 
+    protected function resolveStubName(): string
+    {
+        return $this->option('oauth')
+            ? 'saloon.oauth-connector.stub'
+            : 'saloon.connector.stub';
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ['oauth', null, InputOption::VALUE_NONE, 'Whether the connector should include the OAuth boilerplate'],
+        ];
+    }
+
     /**
-     * The default stub
+     * Interact further with the user if they were prompted for missing arguments.
      *
-     * @var string
+     * @param  \Symfony\Component\Console\Input\InputInterface  $input
+     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @return void
      */
-    protected $stub = 'saloon.connector.stub';
+    protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output)
+    {
+        if ($this->didReceiveOptions($input)) {
+            return;
+        }
+
+        $type = $this->choice('Should the connector support OAuth?', [
+            true => 'Yes',
+            false => 'No',
+        ]);
+
+        $input->setOption('oauth', $type);
+    }
 }
