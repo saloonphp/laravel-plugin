@@ -62,7 +62,7 @@ class SaloonServiceProvider extends ServiceProvider
             });
 
             Config::globalMiddleware()
-                ->onRequest(new MockMiddleware, 'laravelMock', PipeOrder::FIRST)
+                ->onRequest(new MockMiddleware, 'laravelMock')
                 ->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST)
                 ->onResponse(new RecordResponse, 'laravelRecordResponse', PipeOrder::FIRST)
                 ->onResponse(new SendResponseEvent, 'laravelSendResponseEvent', PipeOrder::FIRST);
