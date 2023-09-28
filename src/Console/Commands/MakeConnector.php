@@ -63,11 +63,8 @@ class MakeConnector extends MakeCommand
             return;
         }
 
-        $type = $this->choice('Should the connector support OAuth?', [
-            true => 'Yes',
-            false => 'No',
-        ]);
+        $supportOauth = $this->confirm('Should the connector support OAuth? (Authorization Code Grant)');
 
-        $input->setOption('oauth', $type);
+        $input->setOption('oauth', $supportOauth);
     }
 }
