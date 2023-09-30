@@ -42,6 +42,11 @@ class MakeRequest extends MakeCommand
      */
     protected $namespace = '\Http\Integrations\{integration}\Requests';
 
+    /**
+     * The default stub
+     *
+     * @var string
+     */
     protected $stub = 'saloon.request.stub';
 
     protected function getOptions(): array
