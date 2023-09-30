@@ -8,16 +8,12 @@ use Saloon\Http\Request;
 class {{ class }} extends Request
 {
     /**
-     * Define the HTTP method
-     *
-     * @var Method
+     * The HTTP method of the request
      */
     protected Method $method = Method::GET;
 
     /**
-     * Define the endpoint for the request
-     *
-     * @return string
+     * The endpoint for the request
      */
     public function resolveEndpoint(): string
     {

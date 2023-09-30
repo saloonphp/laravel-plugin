@@ -14,8 +14,6 @@ class {{ class }} extends Connector
 
     /**
      * The Base URL of the API.
-     *
-     * @return string
      */
     public function resolveBaseUrl(): string
     {
@@ -23,9 +21,7 @@ class {{ class }} extends Connector
     }
 
     /**
-     * Define the default OAuth2 Config.
-     *
-     * @return OAuthConfig
+     * The OAuth2 configuration
      */
     protected function defaultOauthConfig(): OAuthConfig
     {

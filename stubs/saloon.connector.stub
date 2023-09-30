@@ -11,8 +11,6 @@ class {{ class }} extends Connector
 
     /**
      * The Base URL of the API
-     *
-     * @return string
      */
     public function resolveBaseUrl(): string
     {
@@ -21,8 +19,6 @@ class {{ class }} extends Connector
 
     /**
      * Default headers for every request
-     *
-     * @return string[]
      */
     protected function defaultHeaders(): array
     {
@@ -31,8 +27,6 @@ class {{ class }} extends Connector
 
     /**
      * Default HTTP client options
-     *
-     * @return string[]
      */
     protected function defaultConfig(): array
     {

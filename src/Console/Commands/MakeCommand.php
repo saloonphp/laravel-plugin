@@ -26,7 +26,7 @@ abstract class MakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/' . $this->resolveStubName());
+        return $this->resolveStubPath('/../../../stubs/' . $this->resolveStubName());
     }
 
     protected function resolveStubName(): string
