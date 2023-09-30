@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
+use Illuminate\Support\Arr;
+use Saloon\Enums\Method;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use function Laravel\Prompts\select;
+
 class MakeRequest extends MakeCommand
 {
     /**
@@ -34,10 +41,43 @@ class MakeRequest extends MakeCommand
      */
     protected $namespace = '\Http\Integrations\{integration}\Requests';
 
+    protected function resolveStubName(): string
+    {
+        return match ($this->option('method')) {
+            'HEAD'    => 'saloon.request.head.stub',
+            'POST'    => 'saloon.request.post.stub',
+            'PUT'     => 'saloon.request.put.stub',
+            'PATCH'   => 'saloon.request.patch.stub',
+            'DELETE'  => 'saloon.request.delete.stub',
+            'OPTIONS' => 'saloon.request.options.stub',
+            'CONNECT' => 'saloon.request.connect.stub',
+            'TRACE'   => 'saloon.request.trace.stub',
+            default   => 'saloon.request.stub'
+        };
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            ['method', null, InputOption::VALUE_REQUIRED, 'the method of the request'],
+        ];
+    }
+
     /**
-     * The default stub
+     * Interact further with the user if they were prompted for missing arguments.
      *
-     * @var string
      */
-    protected $stub = 'saloon.request.stub';
+    protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output): void
+    {
+        if ($this->didReceiveOptions($input)) {
+            return;
+        }
+
+        $methodType = select(
+            'What method type should the saloon request be?',
+            Arr::pluck(Method::cases(), 'name')
+        );
+
+        $input->setOption('method', $methodType);
+    }
 }

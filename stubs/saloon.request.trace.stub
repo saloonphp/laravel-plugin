@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+
+class {{ class }} extends Request
+{
+    /**
+     * The HTTP method of the request
+     */
+    protected Method $method = Method::TRACE;
+
+    /**
+     * The endpoint for the request
+     */
+    public function resolveEndpoint(): string
+    {
+        return '/example';
+    }
+}
