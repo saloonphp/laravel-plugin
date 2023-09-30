@@ -74,7 +74,7 @@ class MakeRequest extends MakeCommand
         }
 
         $methodType = select(
-            'What method type should the saloon request be?',
+            'What method should the saloon request send?',
             Arr::pluck(Method::cases(), 'name')
         );
 
