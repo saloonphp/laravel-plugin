@@ -10,7 +10,7 @@ class {{ class }} extends Request
     /**
      * The HTTP method of the request
      */
-    protected Method $method = Method::GET;
+    protected Method $method = Method::{{ method }};
 
     /**
      * The endpoint for the request

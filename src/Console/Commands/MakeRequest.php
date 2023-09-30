@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Arr;
 use Saloon\Enums\Method;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,20 +42,7 @@ class MakeRequest extends MakeCommand
      */
     protected $namespace = '\Http\Integrations\{integration}\Requests';
 
-    protected function resolveStubName(): string
-    {
-        return match ($this->option('method')) {
-            'HEAD'    => 'saloon.request.head.stub',
-            'POST'    => 'saloon.request.post.stub',
-            'PUT'     => 'saloon.request.put.stub',
-            'PATCH'   => 'saloon.request.patch.stub',
-            'DELETE'  => 'saloon.request.delete.stub',
-            'OPTIONS' => 'saloon.request.options.stub',
-            'CONNECT' => 'saloon.request.connect.stub',
-            'TRACE'   => 'saloon.request.trace.stub',
-            default   => 'saloon.request.stub'
-        };
-    }
+    protected $stub = 'saloon.request.stub';
 
     protected function getOptions(): array
     {
@@ -79,5 +67,32 @@ class MakeRequest extends MakeCommand
         );
 
         $input->setOption('method', $methodType);
+    }
+
+    /**
+     * Build the class with the given name.
+     *
+     * @param string $name
+     * @return MakeRequest|string
+     *
+     * @throws FileNotFoundException
+     */
+    protected function buildClass($name): MakeRequest|string
+    {
+        $stub = $this->files->get($this->getStub());
+        $stub = $this->replaceMethod($stub, $this->option('method'));
+
+        return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
+    }
+
+    /**
+     * Replace the method for the stub
+     * @param $stub
+     * @param $name
+     * @return string
+     */
+    protected function replaceMethod($stub, $name): string
+    {
+        return str_replace('{{ method }}', $name, $stub);
     }
 }
