@@ -52,7 +52,7 @@ class MakeRequest extends MakeCommand
     protected function getOptions(): array
     {
         return [
-            ['method', null, InputOption::VALUE_REQUIRED, 'the method of the request'],
+            ['method', 'm', InputOption::VALUE_REQUIRED, 'the method of the request'],
         ];
     }
 
@@ -83,7 +83,7 @@ class MakeRequest extends MakeCommand
     protected function buildClass($name): MakeRequest|string
     {
         $stub = $this->files->get($this->getStub());
-        $stub = $this->replaceMethod($stub, $this->option('method'));
+        $stub = $this->replaceMethod($stub, $this->option('method') ?? 'GET');
 
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
@@ -91,7 +91,7 @@ class MakeRequest extends MakeCommand
     /**
      * Replace the method for the stub
      */
-    protected function replaceMethod($stub, $name): string
+    protected function replaceMethod(string $stub, string $name): string
     {
         return str_replace('{{ method }}', $name, $stub);
     }
