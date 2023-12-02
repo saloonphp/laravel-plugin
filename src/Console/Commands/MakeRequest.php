@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Support\Arr;
 use Saloon\Enums\Method;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Support\Arr;
 use function Laravel\Prompts\select;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class MakeRequest extends MakeCommand
 {
@@ -58,7 +58,6 @@ class MakeRequest extends MakeCommand
 
     /**
      * Interact further with the user if they were prompted for missing arguments.
-     *
      */
     protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output): void
     {
@@ -78,7 +77,6 @@ class MakeRequest extends MakeCommand
      * Build the class with the given name.
      *
      * @param string $name
-     * @return MakeRequest|string
      *
      * @throws FileNotFoundException
      */
@@ -92,9 +90,6 @@ class MakeRequest extends MakeCommand
 
     /**
      * Replace the method for the stub
-     * @param $stub
-     * @param $name
-     * @return string
      */
     protected function replaceMethod($stub, $name): string
     {
