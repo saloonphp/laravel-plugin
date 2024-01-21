@@ -16,6 +16,7 @@ use Saloon\Laravel\Console\Commands\MakeResponse;
 use Saloon\Laravel\Console\Commands\MakeConnector;
 use Saloon\Laravel\Http\Middleware\MockMiddleware;
 use Saloon\Laravel\Http\Middleware\RecordResponse;
+use Saloon\Http\Faking\MockClient as BaseMockClient;
 use Saloon\Laravel\Http\Middleware\SendRequestEvent;
 use Saloon\Laravel\Http\Middleware\SendResponseEvent;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
@@ -24,10 +25,8 @@ class SaloonServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/saloon.php',
@@ -37,8 +36,6 @@ class SaloonServiceProvider extends ServiceProvider
 
     /**
      * Handle the booting of the service provider.
-     *
-     * @throws \Saloon\Exceptions\DuplicatePipeNameException
      */
     public function boot(): void
     {
@@ -69,6 +66,10 @@ class SaloonServiceProvider extends ServiceProvider
 
             Saloon::$registeredDefaults = true;
         }
+
+        // Destroy global mock client to prevent leaky tests
+
+        BaseMockClient::destroyGlobal();
     }
 
     /**

@@ -45,7 +45,12 @@ class MakeConnector extends MakeCommand
             : 'saloon.connector.stub';
     }
 
-    protected function getOptions()
+    /**
+     * Get the options for making a connector
+     *
+     * @return array<int, array<mixed>>
+     */
+    protected function getOptions(): array
     {
         return [
             ['oauth', null, InputOption::VALUE_NONE, 'Whether the connector should include the OAuth boilerplate'],

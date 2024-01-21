@@ -6,6 +6,9 @@ namespace Saloon\Laravel\Http\Faking;
 
 use Saloon\Http\Faking\MockClient as BaseMockClient;
 
+/**
+ * @deprecated You should use MockClient::global() instead. This class will be removed in Saloon v4.
+ */
 class MockClient extends BaseMockClient
 {
     /**
@@ -18,7 +21,6 @@ class MockClient extends BaseMockClient
      *
      * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses
      * @return $this
-     * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
     public function startMocking(array $responses = []): self
     {

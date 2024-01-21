@@ -26,7 +26,7 @@ class ListCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $this->newLine();
 
@@ -63,43 +63,84 @@ class ListCommand extends Command
             $this->newLine();
         }
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 
-
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrations(): array
     {
-        return glob(config('saloon.integrations_path').'/*') ?? [];
+        if (! $files = glob(config('saloon.integrations_path').'/*')) {
+            return [];
+        }
+
+        return $files;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrationConnectors(string $integration): array
     {
-        return glob($integration . '/*Connector.php') ?? [];
+        if (! $files = glob($integration . '/*Connector.php')) {
+            return [];
+        }
+
+        return $files;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrationRequests(string $integration): array
     {
-        return glob($integration . '/Requests/*') ?? [];
+        if (! $files = glob($integration . '/Requests/*')) {
+            return [];
+        }
+
+        return $files;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrationPlugins(string $integration): array
     {
-        return glob($integration . '/Plugins/*') ?? [];
+        if (! $files = glob($integration . '/Plugins/*')) {
+            return [];
+        }
+
+        return $files;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrationResponses(string $integration): array
     {
-        return glob($integration . '/Responses/*') ?? [];
+        if (! $files = glob($integration . '/Responses/*')) {
+            return [];
+        }
+
+        return $files;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getIntegrationAuthenticators(string $integration): array
     {
-        return glob($integration . '/Auth/*') ?? [];
+        if (! $files = glob($integration . '/Auth/*')) {
+            return [];
+        }
+
+        return $files;
     }
 
-    protected function getIntegrationOutput(string $integration)
+    protected function getIntegrationOutput(string $integration): void
     {
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=green;options=bold>' . Str::afterLast($integration, '/') . '</>',
             sprintf(
                 '<fg=white>Authenticators: %s / Connectors: %s / Requests: %s / Plugins: %s / Responses: %s</>',
@@ -112,22 +153,22 @@ class ListCommand extends Command
         );
     }
 
-    protected function getIntegrationAuthenticatorOutput(string $authenticator)
+    protected function getIntegrationAuthenticatorOutput(string $authenticator): void
     {
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=red>Authenticator</> <fg=gray>...</> ' . Str::afterLast($authenticator, '/')
         );
     }
 
-    protected function getIntegrationConnectorOutput(string $connector)
+    protected function getIntegrationConnectorOutput(string $connector): void
     {
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=blue>Connector</> <fg=gray>.......</> ' . Str::afterLast($connector, '/'),
             '<fg=gray>' . $this->getIntegrationConnectorBaseUrl($connector) . '</>'
         );
     }
 
-    protected function getIntegrationRequestOutput(string $request)
+    protected function getIntegrationRequestOutput(string $request): void
     {
         $requestMethod = Str::afterLast($this->getIntegrationRequestMethod($request), ':');
 
@@ -138,7 +179,7 @@ class ListCommand extends Command
             default => 'magenta'
         };
 
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=magenta>Request</> <fg=gray>.........</> ' .
             Str::afterLast($request, '/'),
             ' <fg=gray>' . $this->getIntegrationRequestEndpoint($request) . '</>' .
@@ -147,29 +188,45 @@ class ListCommand extends Command
         );
     }
 
-    protected function getIntegrationPluginOutput(string $plugin)
+
+    protected function getIntegrationPluginOutput(string $plugin): void
     {
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=cyan>Plugin</> <fg=gray>..........</> ' . Str::afterLast($plugin, '/')
         );
     }
 
-    protected function getIntegrationResponseOutput(string $response)
+
+    protected function getIntegrationResponseOutput(string $response): void
     {
-        return $this->components->twoColumnDetail(
+        $this->components->twoColumnDetail(
             '<fg=yellow>Response</> <fg=gray>........</> ' . Str::afterLast($response, '/')
         );
     }
 
     protected function getIntegrationRequestMethod(string $request): string
     {
-        return Str::match('/\$method\s*=\s*(.*?);/', file_get_contents($request));
+        $contents = file_get_contents($request);
+
+        if ($contents === false) {
+            $contents = '';
+        }
+
+        return Str::match('/\$method\s*=\s*(.*?);/', $contents);
     }
+
 
     protected function getIntegrationRequestEndpoint(string $request): string
     {
+        $contents = file_get_contents($request);
+
+        if ($contents === false) {
+            $contents = '';
+        }
+
         $regex = '/public\s+function\s+resolveEndpoint\(\):\s+string\s*\{\s*return\s+(.*?);/s';
-        $match = Str::match($regex, file_get_contents($request));
+
+        $match = Str::match($regex, $contents);
         $matchSegments = explode('/', $match);
 
         foreach ($matchSegments as $key => $matchSegment) {
@@ -184,10 +241,17 @@ class ListCommand extends Command
         return str_replace('\'', '', implode('/', $matchSegments));
     }
 
+
     protected function getIntegrationConnectorBaseUrl(string $connector): string
     {
+        $contents = file_get_contents($connector);
+
+        if ($contents === false) {
+            $contents = '';
+        }
+
         $regex = '/public\s+function\s+resolveBaseUrl\(\):\s+string\s*\{\s*return\s+\'(.*?)\';\s*/s';
-        $matches = Str::match($regex, file_get_contents($connector));
+        $matches = Str::match($regex, $contents);
 
         return Str::after($matches, '://');
     }
