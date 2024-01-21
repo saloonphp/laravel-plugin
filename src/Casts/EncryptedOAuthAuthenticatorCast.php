@@ -24,10 +24,8 @@ class EncryptedOAuthAuthenticatorCast implements CastsAttributes
 
     /**
      * Prepare the given value for storage.
-     *
-     * @return mixed|void
      */
-    public function set($model, string $key, $value, array $attributes)
+    public function set($model, string $key, $value, array $attributes): ?string
     {
         if (is_null($value)) {
             return null;

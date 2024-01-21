@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Saloon\Laravel;
 
 use Saloon\Http\Response;
-use Saloon\Laravel\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockClient;
 
+/**
+ * @deprecated You should use MockClient::global() instead. This class will be removed in Saloon v4.
+ */
 class Saloon
 {
     /**
@@ -30,25 +33,22 @@ class Saloon
      * Start mocking!
      *
      * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses
-     * @throws \Saloon\Exceptions\InvalidMockResponseCaptureMethodException
      */
     public static function fake(array $responses): MockClient
     {
-        return MockClient::resolve()->startMocking($responses);
+        return MockClient::global($responses);
     }
 
     /**
-     * Retrieve the mock client from the container
+     * Retrieve the global mock client
      */
     public static function mockClient(): MockClient
     {
-        return MockClient::resolve();
+        return MockClient::global();
     }
 
     /**
      * Assert that a given request was sent.
-     *
-     * @throws \ReflectionException
      */
     public static function assertSent(string|callable $value): void
     {
@@ -57,8 +57,6 @@ class Saloon
 
     /**
      * Assert that a given request was not sent.
-     *
-     * @throws \ReflectionException
      */
     public static function assertNotSent(string|callable $value): void
     {
@@ -69,7 +67,6 @@ class Saloon
      * Assert JSON data was sent
      *
      * @param array<string, mixed> $data
-     * @throws \ReflectionException
      */
     public static function assertSentJson(string $request, array $data): void
     {

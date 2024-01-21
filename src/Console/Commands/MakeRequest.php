@@ -6,6 +6,7 @@ namespace Saloon\Laravel\Console\Commands;
 
 use Saloon\Enums\Method;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 use function Laravel\Prompts\select;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,6 +50,11 @@ class MakeRequest extends MakeCommand
      */
     protected $stub = 'saloon.request.stub';
 
+    /**
+     * Get the options for making a request
+     *
+     * @return array<int, array<mixed>>
+     */
     protected function getOptions(): array
     {
         return [
@@ -82,8 +88,14 @@ class MakeRequest extends MakeCommand
      */
     protected function buildClass($name): MakeRequest|string
     {
+        $method = $this->option('method') ?? 'GET';
+
+        if (! is_string($method)) {
+            throw new InvalidArgumentException('The method option must be a string.');
+        }
+
         $stub = $this->files->get($this->getStub());
-        $stub = $this->replaceMethod($stub, $this->option('method') ?? 'GET');
+        $stub = $this->replaceMethod($stub, $method);
 
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }

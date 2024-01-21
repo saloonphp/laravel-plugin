@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Saloon\Laravel\Facades;
 
 use Saloon\Http\Response;
+use Illuminate\Support\Facades\Facade;
 use Saloon\Laravel\Http\Faking\MockClient;
-use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
+ * @deprecated You should use MockClient::global() instead. This facade will be removed in Saloon v4.
+ *
  * @see \Saloon\Laravel\Saloon
  *
  * @method static MockClient fake(array $responses)
@@ -25,7 +27,7 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static \Saloon\Http\Response[] getRecordedResponses()
  * @method static \Saloon\Http\Response getLastRecordedResponse()
  */
-class Saloon extends BaseFacade
+class Saloon extends Facade
 {
     /**
      * Register the Saloon facade

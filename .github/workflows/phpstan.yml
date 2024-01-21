@@ -1,0 +1,30 @@
+name: PHPStan
+
+on:
+  push:
+    branches:
+      - 'v1'
+      - 'v2'
+      - 'v3'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  phpstan:
+    name: phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse --error-format=github
