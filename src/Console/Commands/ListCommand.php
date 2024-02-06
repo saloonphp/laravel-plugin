@@ -6,6 +6,7 @@ namespace Saloon\Laravel\Console\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Symfony\Component\Finder\Finder;
 
 class ListCommand extends Command
 {
@@ -71,11 +72,14 @@ class ListCommand extends Command
      */
     protected function getIntegrations(): array
     {
-        if (! $files = glob(config('saloon.integrations_path').'/*')) {
-            return [];
+        $finder = new Finder();
+        $integrations = [];
+
+        foreach ($finder->directories()->in(config('saloon.integrations_path'))->depth(0) as $integration) {
+            $integrations[] = $integration->getRealPath();
         }
 
-        return $files;
+        return $integrations;
     }
 
     /**
@@ -83,11 +87,14 @@ class ListCommand extends Command
      */
     protected function getIntegrationConnectors(string $integration): array
     {
-        if (! $files = glob($integration . '/*Connector.php')) {
-            return [];
+        $finder = new Finder();
+        $connectors = [];
+
+        foreach ($finder->files()->in($integration)->depth(0) as $connector) {
+            $connectors[] = $connector->getRealPath();
         }
 
-        return $files;
+        return $connectors;
     }
 
     /**
@@ -95,11 +102,16 @@ class ListCommand extends Command
      */
     protected function getIntegrationRequests(string $integration): array
     {
-        if (! $files = glob($integration . '/Requests/*')) {
-            return [];
+        $finder = new Finder();
+        $requests = [];
+
+        if (is_dir($integration . '/Requests')) {
+            foreach ($finder->files()->in($integration . '/Requests') as $request) {
+                $requests[] = $request->getRealPath();
+            }
         }
 
-        return $files;
+        return $requests;
     }
 
     /**
@@ -107,11 +119,16 @@ class ListCommand extends Command
      */
     protected function getIntegrationPlugins(string $integration): array
     {
-        if (! $files = glob($integration . '/Plugins/*')) {
-            return [];
+        $finder = new Finder();
+        $plugins = [];
+
+        if (is_dir($integration . '/Plugins')) {
+            foreach ($finder->files()->in($integration . '/Plugins') as $plugin) {
+                $plugins[] = $plugin->getRealPath();
+            }
         }
 
-        return $files;
+        return $plugins;
     }
 
     /**
@@ -119,11 +136,16 @@ class ListCommand extends Command
      */
     protected function getIntegrationResponses(string $integration): array
     {
-        if (! $files = glob($integration . '/Responses/*')) {
-            return [];
+        $finder = new Finder();
+        $responses = [];
+
+        if (is_dir($integration . '/Responses')) {
+            foreach ($finder->files()->in($integration . '/Responses') as $response) {
+                $responses[] = $response->getRealPath();
+            }
         }
 
-        return $files;
+        return $responses;
     }
 
     /**
@@ -131,11 +153,16 @@ class ListCommand extends Command
      */
     protected function getIntegrationAuthenticators(string $integration): array
     {
-        if (! $files = glob($integration . '/Auth/*')) {
-            return [];
+        $finder = new Finder();
+        $authenticators = [];
+
+        if (is_dir($integration . '/Auth')) {
+            foreach ($finder->files()->in($integration . '/Auth') as $authenticator) {
+                $authenticators[] = $authenticator->getRealPath();
+            }
         }
 
-        return $files;
+        return $authenticators;
     }
 
     protected function getIntegrationOutput(string $integration): void
@@ -156,14 +183,14 @@ class ListCommand extends Command
     protected function getIntegrationAuthenticatorOutput(string $authenticator): void
     {
         $this->components->twoColumnDetail(
-            '<fg=red>Authenticator</> <fg=gray>...</> ' . Str::afterLast($authenticator, '/')
+            '<fg=red>Authenticator</> <fg=gray>...</> ' . $authenticator
         );
     }
 
     protected function getIntegrationConnectorOutput(string $connector): void
     {
         $this->components->twoColumnDetail(
-            '<fg=blue>Connector</> <fg=gray>.......</> ' . Str::afterLast($connector, '/'),
+            '<fg=blue>Connector</> <fg=gray>.......</> ' . $connector,
             '<fg=gray>' . $this->getIntegrationConnectorBaseUrl($connector) . '</>'
         );
     }
@@ -181,7 +208,7 @@ class ListCommand extends Command
 
         $this->components->twoColumnDetail(
             '<fg=magenta>Request</> <fg=gray>.........</> ' .
-            Str::afterLast($request, '/'),
+            $request,
             ' <fg=gray>' . $this->getIntegrationRequestEndpoint($request) . '</>' .
             ' <fg=' . $requestMethodOutputColour . '>' .
             Str::afterLast($this->getIntegrationRequestMethod($request), ':') . '</> '
@@ -192,7 +219,7 @@ class ListCommand extends Command
     protected function getIntegrationPluginOutput(string $plugin): void
     {
         $this->components->twoColumnDetail(
-            '<fg=cyan>Plugin</> <fg=gray>..........</> ' . Str::afterLast($plugin, '/')
+            '<fg=cyan>Plugin</> <fg=gray>..........</> ' . $plugin
         );
     }
 
@@ -200,7 +227,7 @@ class ListCommand extends Command
     protected function getIntegrationResponseOutput(string $response): void
     {
         $this->components->twoColumnDetail(
-            '<fg=yellow>Response</> <fg=gray>........</> ' . Str::afterLast($response, '/')
+            '<fg=yellow>Response</> <fg=gray>........</> ' . $response
         );
     }
 
