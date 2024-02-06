@@ -88,8 +88,6 @@ abstract class MakeCommand extends GeneratorCommand
 
     /**
      * Returns the namespace without the default Saloon parts
-     *
-     * @return string
      */
     protected function getFormattedNamespace(): string
     {
@@ -98,11 +96,11 @@ abstract class MakeCommand extends GeneratorCommand
 
     /**
      * Converts the integrations path to a namespace friendly string
-     *
-     * @return string
      */
     protected function getNamespaceFromIntegrationsPath(): string
     {
-        return str_replace(['\\App', '\\app'], '', str_replace("/", "\\", str_replace(base_path(), '', config('saloon.integrations_path'))));
+        $namespace = (array)str_replace(['\\App', '\\app'], '', str_replace('/', '\\', str_replace(base_path(), '', config('saloon.integrations_path'))));
+
+        return $namespace[0];
     }
 }
