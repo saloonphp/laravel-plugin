@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Saloon\Http\Faking\MockClient;
 use Saloon\Http\PendingRequest;
+use Saloon\Http\Faking\MockClient;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Exceptions\NoMockResponseFoundException;
