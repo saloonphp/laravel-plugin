@@ -57,7 +57,9 @@ abstract class MakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return str_replace('{integration}', $this->getIntegration(), $rootNamespace . $this->namespace);
+        $namespace = $this->getNamespaceFromIntegrationsPath() . $this->getFormattedNamespace();
+
+        return str_replace('{integration}', $this->getIntegration(), $rootNamespace . $namespace);
     }
 
     protected function getIntegration(): string
@@ -82,5 +84,23 @@ abstract class MakeCommand extends GeneratorCommand
             ['integration', InputArgument::REQUIRED, 'The related integration'],
             ...parent::getArguments(),
         ];
+    }
+
+    /**
+     * Returns the namespace without the default Saloon parts
+     */
+    protected function getFormattedNamespace(): string
+    {
+        return str_replace('\\Http\\Integrations', '', $this->namespace);
+    }
+
+    /**
+     * Converts the integrations path to a namespace friendly string
+     */
+    protected function getNamespaceFromIntegrationsPath(): string
+    {
+        $namespace = (array)str_replace(['\\App', '\\app'], '', str_replace('/', '\\', str_replace(base_path(), '', config('saloon.integrations_path'))));
+
+        return $namespace[0];
     }
 }
