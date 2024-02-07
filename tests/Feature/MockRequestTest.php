@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Saloon\Http\Faking\MockClient;
 use Saloon\Http\PendingRequest;
 use Saloon\Laravel\Facades\Saloon;
 use Saloon\Http\Faking\MockResponse;
@@ -230,4 +231,23 @@ test('a request can be mocked with a url defined using a closure', function () {
     expect($responseA->isMocked())->toBeTrue();
     expect($responseA->json())->toEqual(['request' => 'https://tests.saloon.dev/api/user']);
     expect($responseA->status())->toEqual(200);
+});
+
+test('the same global mock client is reused on further calls', function () {
+    $mockClientA = Saloon::fake([
+        new MockResponse(['name' => 'Sam'], 200),
+    ]);
+
+    $mockClientB = Saloon::fake([
+        new MockResponse(['name' => 'Alex'], 200),
+    ]);
+
+    expect(MockClient::getGlobal())->toEqual(new MockClient([
+        new MockResponse(['name' => 'Sam'], 200),
+        new MockResponse(['name' => 'Alex'], 200),
+    ]));
+    
+    expect($mockClientA)->toBe($mockClientB);
+    expect($mockClientA)->toBe(Saloon::mockClient());
+    expect($mockClientB)->toBe(Saloon::mockClient());
 });

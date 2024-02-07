@@ -36,7 +36,11 @@ class Saloon
      */
     public static function fake(array $responses): MockClient
     {
-        return MockClient::global($responses);
+        $mockClient = static::mockClient();
+
+        $mockClient->addResponses($responses);
+
+        return $mockClient;
     }
 
     /**
@@ -44,7 +48,7 @@ class Saloon
      */
     public static function mockClient(): MockClient
     {
-        return MockClient::global();
+        return MockClient::getGlobal() ?? MockClient::global();
     }
 
     /**
