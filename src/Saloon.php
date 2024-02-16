@@ -8,7 +8,7 @@ use Saloon\Http\Response;
 use Saloon\Http\Faking\MockClient;
 
 /**
- * @deprecated You should use MockClient::global() instead. This class will be removed in Saloon v4.
+ * @internal You should use the Saloon facade instead (Saloon\Laravel\Facades\Saloon)
  */
 class Saloon
 {
@@ -95,6 +95,8 @@ class Saloon
 
     /**
      * Start Saloon recording responses.
+     *
+     * @deprecated This method will be removed in Saloon v4.
      */
     public function record(): void
     {
@@ -103,6 +105,8 @@ class Saloon
 
     /**
      * Stop Saloon recording responses.
+     *
+     * @deprecated This method will be removed in Saloon v4.
      */
     public function stopRecording(): void
     {
@@ -111,6 +115,8 @@ class Saloon
 
     /**
      * Check if Saloon is recording
+     *
+     * @deprecated This method will be removed in Saloon v4.
      */
     public function isRecording(): bool
     {
@@ -119,6 +125,8 @@ class Saloon
 
     /**
      * Record a response.
+     *
+     * @deprecated This method will be removed in Saloon v4.
      */
     public function recordResponse(Response $response): void
     {
@@ -127,6 +135,8 @@ class Saloon
 
     /**
      * Get all the recorded responses.
+     *
+     * @deprecated This method will be removed in Saloon v4.
      *
      * @return array<\Saloon\Http\Response>
      */
@@ -137,6 +147,8 @@ class Saloon
 
     /**
      * Get the last response that Saloon recorded.
+     *
+     * @deprecated This method will be removed in Saloon v4.
      */
     public function getLastRecordedResponse(): ?Response
     {
