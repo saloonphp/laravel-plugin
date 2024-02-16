@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @mixin \Saloon\Laravel\Traits\HasDeprecatedFacadeMethods
  *
- * @method static MockClient fake(array $responses)
- * @method static MockClient mockClient()
+ * @method static MockClient fake(array $responses) Alias of MockClient::global()
+ * @method static MockClient mockClient() Alias of MockClient::global()
  * @method static void assertSent(string|callable $value)
  * @method static void assertNotSent(string|callable $value)
  * @method static void assertNothingSent()
