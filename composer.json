@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
-        "orchestra/testbench": "^8.21 || ^9.0",
+        "orchestra/testbench": "^8.21 || 9.x-dev",
         "pestphp/pest": "^2.32",
         "phpstan/phpstan": "^1.10.56"
     },
