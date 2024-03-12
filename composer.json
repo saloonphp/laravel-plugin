@@ -31,7 +31,8 @@
         "pestphp/pest": "^2.32",
         "phpstan/phpstan": "^1.10.56"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Saloon\\Laravel\\": "src/"
