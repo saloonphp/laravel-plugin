@@ -31,7 +31,7 @@
         "pestphp/pest": "^2.32",
         "phpstan/phpstan": "^1.10.56"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
