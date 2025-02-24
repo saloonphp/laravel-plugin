@@ -1,6 +1,13 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag \\@mixin contains invalid type Saloon\\\\Laravel\\\\Traits\\\\HasDeprecatedFacadeMethods.$#"
+			message: '#^PHPDoc tag @mixin contains invalid type Saloon\\Laravel\\Traits\\HasDeprecatedFacadeMethods\.$#'
+			identifier: mixin.trait
 			count: 1
 			path: src/Facades/Saloon.php
+
+		-
+			message: '#^Trait Saloon\\Laravel\\Traits\\HasDeprecatedFacadeMethods is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasDeprecatedFacadeMethods.php
