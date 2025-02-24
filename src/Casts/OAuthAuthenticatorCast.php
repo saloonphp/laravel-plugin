@@ -8,6 +8,9 @@ use InvalidArgumentException;
 use Saloon\Contracts\OAuthAuthenticator;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
+/**
+ * @implements CastsAttributes<OAuthAuthenticator|null, OAuthAuthenticator|string|null>
+ */
 class OAuthAuthenticatorCast implements CastsAttributes
 {
     /**
