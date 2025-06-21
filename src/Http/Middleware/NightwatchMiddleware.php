@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Saloon\Laravel\Http\Middleware;
 
 use Saloon\Http\PendingRequest;
-use Saloon\Contracts\RequestMiddleware;
 use Saloon\Http\Senders\GuzzleSender;
+use Saloon\Contracts\RequestMiddleware;
 
 class NightwatchMiddleware implements RequestMiddleware
 {
@@ -32,4 +32,3 @@ class NightwatchMiddleware implements RequestMiddleware
     }
 
 }
-
