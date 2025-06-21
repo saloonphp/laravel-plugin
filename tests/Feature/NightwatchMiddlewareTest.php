@@ -32,4 +32,3 @@ test('nightwatch middleware checks for guzzle sender', function () {
         $middleware($pendingRequest);
     })->not->toThrow(Exception::class);
 });
-
