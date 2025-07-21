@@ -34,5 +34,5 @@ return [
     |
     */
 
-    'integrations_path' => base_path('App/Http/Integrations'),
+    'integrations_path' => base_path('app/Http/Integrations'),
 ];
