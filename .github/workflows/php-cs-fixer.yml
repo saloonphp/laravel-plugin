@@ -40,3 +40,4 @@ jobs:
         with:
           commit_message: 🪄 Code Style Fixes
           commit_options: '--no-verify'
+
