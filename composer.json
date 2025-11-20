@@ -19,7 +19,7 @@
     ],
     "homepage": "https://github.com/saloonphp/laravel-plugin",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "illuminate/console": "^10.0 || ^11.0 || ^12.0",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0",
         "saloonphp/saloon": "^3.5",
@@ -27,8 +27,8 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
-        "orchestra/testbench": "^8.21 || ^9.0 || ^10.0",
-        "pestphp/pest": "^2.32 || ^3.7",
+        "orchestra/testbench": "^9.15 || ^10.7",
+        "pestphp/pest": "^v3.8.4 || ^v4.1.4",
         "phpstan/phpstan": "^1.10.56 || ^2.1"
     },
     "minimum-stability": "stable",
