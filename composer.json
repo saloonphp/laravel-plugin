@@ -20,14 +20,14 @@
     "homepage": "https://github.com/saloonphp/laravel-plugin",
     "require": {
         "php": "^8.2",
-        "illuminate/console": "^v10.49.0 || ^11.0 || ^12.0",
-        "illuminate/support": "^v10.49.0 || ^11.0 || ^12.0",
+        "illuminate/console": "^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0",
         "saloonphp/saloon": "^3.5",
         "symfony/finder": "^6.4 || ^7.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
-        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "orchestra/testbench": "^9.0|^10",
         "pestphp/pest": "^2.0|^3.0|^4.0",
         "phpstan/phpstan": "^1.10.57|^2.0.2"
     },
