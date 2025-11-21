@@ -82,7 +82,7 @@ class MakeConnector extends MakeCommand
     {
         return [
             ...parent::promptForMissingArgumentsUsing(),
-            'name' => 'What should the saloon connector be named?'
+            'name' => 'What should the saloon connector be named?',
         ];
     }
 }

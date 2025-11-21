@@ -50,7 +50,7 @@ class MakePlugin extends MakeCommand
     {
         return [
             ...parent::promptForMissingArgumentsUsing(),
-            'name' => 'What should the saloon plugin be named?'
+            'name' => 'What should the saloon plugin be named?',
         ];
     }
 }
