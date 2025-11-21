@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Saloon\Laravel\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Input\InputArgument;
+use function Laravel\Prompts\suggest;
 
 abstract class MakeCommand extends GeneratorCommand
 {
@@ -84,6 +86,49 @@ abstract class MakeCommand extends GeneratorCommand
             ['integration', InputArgument::REQUIRED, 'The related integration'],
             ...parent::getArguments(),
         ];
+    }
+
+    /**
+     * Prompt for missing input arguments using the returned questions.
+     *
+     * @return array<string, string|\Closure>
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            'integration' => fn () => suggest(
+                label: 'What is the related integration?',
+                options: fn (string $value) => $this->getExistingIntegrations($value),
+                required: true,
+                hint: 'Start typing to search or enter a new integration name'
+            ),
+        ];
+    }
+
+    /**
+     * Get existing integrations filtered by search value via prompt
+     *
+     * @return array<int, string>
+     */
+    protected function getExistingIntegrations(string $search = ''): array
+    {
+        $integrationsPath = config('saloon.integrations_path');
+
+        if (! File::isDirectory($integrationsPath)) {
+            return [];
+        }
+
+        $directories = File::directories($integrationsPath);
+        $integrations = array_map(fn($path) => basename($path), $directories);
+
+        if (strlen($search) === 0) {
+            return $integrations;
+        }
+
+        return array_values(array_filter(
+            $integrations,
+            fn ($integration) => str_contains(strtolower($integration), strtolower($search))
+        ));
     }
 
     /**
