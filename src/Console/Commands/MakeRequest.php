@@ -71,7 +71,7 @@ class MakeRequest extends MakeCommand
     {
         return [
             ...parent::promptForMissingArgumentsUsing(),
-            'name' => 'What should the saloon request be named?',
+            'name' => 'What should the Saloon request be named?',
         ];
     }
 

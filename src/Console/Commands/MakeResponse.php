@@ -50,7 +50,7 @@ class MakeResponse extends MakeCommand
     {
         return [
             ...parent::promptForMissingArgumentsUsing(),
-            'name' => 'What should the saloon response be named?',
+            'name' => 'What should the Saloon response be named?',
         ];
     }
 }

@@ -50,7 +50,7 @@ class MakeAuthenticator extends MakeCommand
     {
         return [
             ...parent::promptForMissingArgumentsUsing(),
-            'name' => 'What should the saloon authenticator be named?',
+            'name' => 'What should the Saloon authenticator be named?',
         ];
     }
 }
