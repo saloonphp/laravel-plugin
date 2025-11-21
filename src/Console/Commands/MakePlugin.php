@@ -40,4 +40,17 @@ class MakePlugin extends MakeCommand
      * @var string
      */
     protected $stub = 'saloon.plugin.stub';
+
+    /**
+     * Prompt for missing input arguments using the returned questions.
+     *
+     * @return array<string, string|\Closure>
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            ...parent::promptForMissingArgumentsUsing(),
+            'name' => 'What should the Saloon plugin be named?',
+        ];
+    }
 }

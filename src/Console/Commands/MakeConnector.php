@@ -72,4 +72,17 @@ class MakeConnector extends MakeCommand
 
         $input->setOption('oauth', $supportOauth);
     }
+
+    /**
+     * Prompt for missing input arguments using the returned questions.
+     *
+     * @return array<string, string|\Closure>
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            ...parent::promptForMissingArgumentsUsing(),
+            'name' => 'What should the Saloon connector be named?',
+        ];
+    }
 }

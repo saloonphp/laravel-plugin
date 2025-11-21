@@ -63,6 +63,19 @@ class MakeRequest extends MakeCommand
     }
 
     /**
+     * Prompt for missing input arguments using the returned questions.
+     *
+     * @return array<string, string|\Closure>
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            ...parent::promptForMissingArgumentsUsing(),
+            'name' => 'What should the Saloon request be named?',
+        ];
+    }
+
+    /**
      * Interact further with the user if they were prompted for missing arguments.
      */
     protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output): void

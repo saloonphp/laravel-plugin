@@ -40,4 +40,17 @@ class MakeAuthenticator extends MakeCommand
      * @var string
      */
     protected $stub = 'saloon.authenticator.stub';
+
+    /**
+     * Prompt for missing input arguments using the returned questions.
+     *
+     * @return array<string, string|\Closure>
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            ...parent::promptForMissingArgumentsUsing(),
+            'name' => 'What should the Saloon authenticator be named?',
+        ];
+    }
 }
