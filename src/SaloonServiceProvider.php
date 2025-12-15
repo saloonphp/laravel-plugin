@@ -20,6 +20,7 @@ use Saloon\Http\Faking\MockClient as BaseMockClient;
 use Saloon\Laravel\Http\Middleware\SendRequestEvent;
 use Saloon\Laravel\Http\Middleware\SendResponseEvent;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
+use Saloon\Laravel\Http\Middleware\TelescopeMiddleware;
 use Saloon\Laravel\Http\Middleware\NightwatchMiddleware;
 
 class SaloonServiceProvider extends ServiceProvider
@@ -62,6 +63,7 @@ class SaloonServiceProvider extends ServiceProvider
             Config::globalMiddleware()
                 ->onRequest(new MockMiddleware, 'laravelMock')
                 ->onRequest(new NightwatchMiddleware, 'laravelNightwatch')
+                ->onRequest(new TelescopeMiddleware, 'laravelTelescope')
                 ->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST)
                 ->onResponse(new RecordResponse, 'laravelRecordResponse', PipeOrder::FIRST)
                 ->onResponse(new SendResponseEvent, 'laravelSendResponseEvent', PipeOrder::FIRST);
