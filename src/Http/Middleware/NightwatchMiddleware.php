@@ -27,6 +27,13 @@ class NightwatchMiddleware implements RequestMiddleware
             return;
         }
 
+        // Ensure that the Nightwatch middleware is only registered once on the
+        // handler stack. For long-lived connectors, this middleware may be
+        // invoked multiple times, so remove any existing Nightwatch
+        // middleware before re-adding it to prevent oversampling.
+        $handlerStack = $sender->getHandlerStack();
+        $handlerStack->remove('nightwatch');
+
         $sender->addMiddleware(\Laravel\Nightwatch\Facades\Nightwatch::guzzleMiddleware(), 'nightwatch');
 
     }
