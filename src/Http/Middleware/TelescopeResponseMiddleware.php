@@ -4,90 +4,41 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Http\Middleware;
 
+use Saloon\Http\Response;
+use Saloon\Laravel\Saloon;
 use Saloon\Http\PendingRequest;
-use Illuminate\Support\Facades\Event;
-use Saloon\Contracts\RequestMiddleware;
-use Saloon\Laravel\Events\SentSaloonRequest;
-use Saloon\Laravel\Events\SendingSaloonRequest;
+use Saloon\Contracts\ResponseMiddleware;
 
-class TelescopeMiddleware implements RequestMiddleware
+class TelescopeResponseMiddleware implements ResponseMiddleware
 {
-    /**
-     * Track start time for duration calculation
-     *
-     * @var array<int, float>
-     */
-    protected static array $startTimes = [];
-
-    /**
-     * Whether event listeners have been registered
-     */
-    protected static bool $listenersRegistered = false;
-
-    /**
-     * Create a new Telescope middleware instance
-     */
-    public function __construct()
-    {
-        // Register event listeners once
-        if (! self::$listenersRegistered) {
-            Event::listen(SendingSaloonRequest::class, [self::class, 'handleSending']);
-            Event::listen(SentSaloonRequest::class, [self::class, 'handleSent']);
-            self::$listenersRegistered = true;
-        }
-    }
-
-    public function __invoke(PendingRequest $pendingRequest): void
-    {
-    }
-
-    /**
-     * Handle the SendingSaloonRequest event
-     */
-    public static function handleSending(SendingSaloonRequest $event): void
+    public function __invoke(Response $response): void
     {
         // Check if Telescope is installed
+
         if (! class_exists('Laravel\Telescope\Telescope')) {
             return;
         }
 
-        $pendingRequest = $event->pendingRequest;
-
-        // Record start time for duration calculation
-        $requestId = spl_object_id($pendingRequest);
-        self::$startTimes[$requestId] = microtime(true);
-    }
-
-    /**
-     * Handle the SentSaloonRequest event
-     */
-    public static function handleSent(SentSaloonRequest $event): void
-    {
-        // Check if Telescope is installed
-        if (! class_exists('Laravel\Telescope\Telescope')) {
-            return;
-        }
-
-        $pendingRequest = $event->pendingRequest;
-        $response = $event->response;
+        $pendingRequest = $response->getPendingRequest();
 
         $requestId = spl_object_id($pendingRequest);
-        $startTime = self::$startTimes[$requestId] ?? null;
+        $startTime = Saloon::$telescopeStartTimes[$requestId] ?? null;
 
         // Calculate duration
-        $duration = $startTime !== null ? (int) ((microtime(true) - $startTime) * 1000) : null;
+        $duration = $startTime !== null ? (int)((microtime(true) - $startTime) * 1000) : null;
 
         // Clean up start time
-        unset(self::$startTimes[$requestId]);
+        unset(Saloon::$telescopeStartTimes[$requestId]);
 
         // Record to Telescope
-        self::recordToTelescope($pendingRequest, $response, $duration);
+
+        $this->recordToTelescope($pendingRequest, $response, $duration);
     }
 
     /**
      * Record the request to Telescope
      */
-    protected static function recordToTelescope(\Saloon\Http\PendingRequest $pendingRequest, \Saloon\Http\Response $response, ?int $duration): void
+    protected function recordToTelescope(PendingRequest $pendingRequest, Response $response, ?int $duration): void
     {
         // @phpstan-ignore-next-line
         if (! \Laravel\Telescope\Telescope::isRecording()) {
@@ -100,16 +51,16 @@ class TelescopeMiddleware implements RequestMiddleware
         // Format request data
         $requestData = [
             'method' => $psrRequest->getMethod(),
-            'url' => (string) $psrRequest->getUri(),
+            'url' => (string)$psrRequest->getUri(),
             'headers' => $psrRequest->getHeaders(),
-            'body' => self::formatBody((string) $psrRequest->getBody(), $psrRequest->getHeaderLine('Content-Type')),
+            'body' => self::formatBody((string)$psrRequest->getBody(), $psrRequest->getHeaderLine('Content-Type')),
         ];
 
         // Format response data
         $responseData = [
             'status' => $psrResponse->getStatusCode(),
             'headers' => $psrResponse->getHeaders(),
-            'body' => self::formatBody((string) $psrResponse->getBody(), $psrResponse->getHeaderLine('Content-Type')),
+            'body' => self::formatBody((string)$psrResponse->getBody(), $psrResponse->getHeaderLine('Content-Type')),
         ];
 
         // Record to Telescope using IncomingEntry
