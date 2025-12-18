@@ -18,6 +18,13 @@ class Saloon
     public static bool $registeredDefaults = false;
 
     /**
+     * Define sender IDs that have been used before
+     *
+     * @var array<int, array<string, bool>>
+     */
+    public static array $registeredSenders = [];
+
+    /**
      * Determines if requests should be recorded.
      */
     protected bool $record = false;
