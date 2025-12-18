@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Saloon\Http\PendingRequest;
 use Saloon\Http\Senders\GuzzleSender;
+use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 use Saloon\Laravel\Http\Middleware\NightwatchMiddleware;
 use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
-use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
 
 test('nightwatch middleware is invoked without errors when nightwatch is not available', function () {
     $connector = TestConnector::make();
@@ -72,7 +72,7 @@ test('nightwatch middleware is only registered once on the handler stack for lon
      */
     $stackString = (string) $handlerStack;
     $reverseSection = explode('<', $stackString)[0] ?? '';
-    $nightwatchCount = substr_count($reverseSection, "Name: 'nightwatch'");
+    $nightwatchCount = mb_substr_count($reverseSection, 'Name: \'nightwatch\'');
 
     expect($nightwatchCount)->toBe(1);
 });
