@@ -72,6 +72,12 @@ class SaloonServiceProvider extends ServiceProvider
         // Destroy global mock client to prevent leaky tests
 
         BaseMockClient::destroyGlobal();
+
+        // Clear registered senders to prevent Octane memory leaks
+
+        $this->app->terminating(function () {
+            Saloon::$registeredSenders = [];
+        });
     }
 
     /**
