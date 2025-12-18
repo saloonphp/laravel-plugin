@@ -69,7 +69,7 @@ class SaloonServiceProvider extends ServiceProvider
             Saloon::$registeredDefaults = true;
         }
 
-        $this->app->terminating(static function () {
+        $this->app->terminating(function () {
             // Destroy global mock client to prevent leaky tests
 
             BaseMockClient::destroyGlobal();
