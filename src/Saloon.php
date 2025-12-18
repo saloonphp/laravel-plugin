@@ -37,6 +37,13 @@ class Saloon
     protected array $recordedResponses = [];
 
     /**
+     * Track start time for Telescope duration calculation
+     *
+     * @var array<int, float>
+     */
+    public static array $telescopeStartTimes = [];
+
+    /**
      * Start mocking!
      *
      * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses

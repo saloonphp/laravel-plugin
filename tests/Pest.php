@@ -13,9 +13,15 @@ declare(strict_types=1);
 |
 */
 
+use Saloon\Laravel\Saloon;
 use Saloon\Laravel\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature', 'Unit');
+
+pest()->afterEach(function () {
+    Saloon::$registeredSenders = [];
+    Saloon::$telescopeStartTimes = [];
+});
 
 /*
 |--------------------------------------------------------------------------
