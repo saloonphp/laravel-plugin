@@ -40,7 +40,6 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
      */
     protected function recordToTelescope(PendingRequest $pendingRequest, Response $response, ?int $duration): void
     {
-        // @phpstan-ignore-next-line
         if (! \Laravel\Telescope\Telescope::isRecording()) {
             return;
         }
@@ -64,7 +63,6 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
         ];
 
         // Record to Telescope using IncomingEntry
-        // @phpstan-ignore-next-line
         $entry = \Laravel\Telescope\IncomingEntry::make([
             'method' => $requestData['method'],
             'uri' => $requestData['url'],
@@ -76,7 +74,6 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
             'duration' => $duration,
         ])->tags(['saloon']);
 
-        // @phpstan-ignore-next-line
         \Laravel\Telescope\Telescope::recordClientRequest($entry);
     }
 
