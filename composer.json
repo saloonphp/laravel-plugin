@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
+        "laravel/pulse": "^1.4",
         "laravel/telescope": "^5.16",
         "orchestra/testbench": "^9.15 || ^10.7",
         "pestphp/pest": "^3.0|^4.0",

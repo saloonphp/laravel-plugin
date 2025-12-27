@@ -21,6 +21,8 @@ use Saloon\Laravel\Http\Middleware\SendRequestEvent;
 use Saloon\Laravel\Http\Middleware\SendResponseEvent;
 use Saloon\Laravel\Console\Commands\MakeAuthenticator;
 use Saloon\Laravel\Http\Middleware\NightwatchMiddleware;
+use Saloon\Laravel\Http\Middleware\PulseRequestMiddleware;
+use Saloon\Laravel\Http\Middleware\PulseResponseMiddleware;
 use Saloon\Laravel\Http\Middleware\TelescopeRequestMiddleware;
 use Saloon\Laravel\Http\Middleware\TelescopeResponseMiddleware;
 
@@ -65,10 +67,12 @@ class SaloonServiceProvider extends ServiceProvider
                 ->onRequest(new MockMiddleware, 'laravelMock')
                 ->onRequest(new NightwatchMiddleware, 'laravelNightwatch')
                 ->onRequest(new TelescopeRequestMiddleware, 'laravelTelescopeRequest')
+                ->onRequest(new PulseRequestMiddleware, 'laravelPulseRequest')
                 ->onRequest(new SendRequestEvent, 'laravelSendRequestEvent', PipeOrder::LAST)
                 ->onResponse(new RecordResponse, 'laravelRecordResponse', PipeOrder::FIRST)
                 ->onResponse(new SendResponseEvent, 'laravelSendResponseEvent', PipeOrder::FIRST)
-                ->onResponse(new TelescopeResponseMiddleware, 'laravelTelescopeResponse');
+                ->onResponse(new TelescopeResponseMiddleware, 'laravelTelescopeResponse')
+                ->onResponse(new PulseResponseMiddleware, 'laravelPulseResponse');
 
             Saloon::$registeredDefaults = true;
         }
@@ -82,6 +86,7 @@ class SaloonServiceProvider extends ServiceProvider
         $this->app->terminating(function () {
             Saloon::$registeredSenders = [];
             Saloon::$telescopeStartTimes = [];
+            Saloon::$pulseStartTimes = [];
         });
     }
 
