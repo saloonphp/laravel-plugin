@@ -5,9 +5,9 @@ declare(strict_types=1);
 use Saloon\Laravel\Saloon;
 use Saloon\Http\PendingRequest;
 use Saloon\Laravel\Tests\Fixtures\Requests\UserRequest;
-use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 use Saloon\Laravel\Http\Middleware\PulseRequestMiddleware;
 use Saloon\Laravel\Http\Middleware\PulseResponseMiddleware;
+use Saloon\Laravel\Tests\Fixtures\Connectors\TestConnector;
 
 test('pulse middleware handles sending event without errors when pulse is not available', function () {
     $connector = TestConnector::make();
@@ -178,4 +178,3 @@ test('pulse middleware groups uri with empty groups returns original', function 
 
     expect($result)->toBe('https://example.com/api/users/123');
 });
-

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Http\Middleware;
 
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Lottery;
 use Saloon\Http\Response;
 use Saloon\Laravel\Saloon;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Lottery;
 use Saloon\Http\PendingRequest;
+use Illuminate\Support\Facades\Config;
 use Saloon\Contracts\ResponseMiddleware;
 
 class PulseResponseMiddleware implements ResponseMiddleware
@@ -93,6 +93,8 @@ class PulseResponseMiddleware implements ResponseMiddleware
 
     /**
      * Get the threshold for the given URI (matching Pulse Thresholds trait logic)
+     *
+     * @param int|array<string, int> $threshold
      */
     protected function getThreshold(string $uri, int|array $threshold): int
     {
@@ -116,6 +118,8 @@ class PulseResponseMiddleware implements ResponseMiddleware
 
     /**
      * Group the URI according to configured groups (matching Pulse Groups trait logic)
+     *
+     * @param array<string, string> $groups
      */
     protected function groupUri(string $uri, array $groups): string
     {
@@ -130,4 +134,3 @@ class PulseResponseMiddleware implements ResponseMiddleware
         return $uri;
     }
 }
-

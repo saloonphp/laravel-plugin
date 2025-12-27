@@ -24,4 +24,3 @@ class PulseRequestMiddleware implements RequestMiddleware
         Saloon::$pulseStartTimes[$requestId] = microtime(true);
     }
 }
-
