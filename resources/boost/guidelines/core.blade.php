@@ -1,10 +1,12 @@
+@php
+/** @var \Laravel\Boost\Install\GuidelineAssist $assist */
+@endphp
 ## SaloonPHP
 
 - SaloonPHP is a PHP library for building beautiful, maintainable API integrations and SDKs with a fluent, expressive API.
 - Uses a connector-based architecture where **Connectors** define the base URL and shared configuration, and **Requests** represent specific API endpoints.
 - **Version Support**: SaloonPHP v2 and v3 are both actively supported. Check `composer.json` to determine which version-specific documentation to reference.
-- Always use Artisan commands to generate SaloonPHP classes: `php artisan saloon:connector`, `php artisan saloon:request`, `php artisan saloon:response`, `php artisan saloon:plugin`, `php artisan saloon:auth`.
-- Documentation: `https://docs.saloon.dev`
+- Always use Artisan commands to generate SaloonPHP classes: `{{ $assist->artisanCommand('saloon:connector') }}`, `{{ $assist->artisanCommand('saloon:request') }}`, `{{ $assist->artisanCommand('saloon:response') }}`, `{{ $assist->artisanCommand('php artisan saloon:plugin') }}`, `{{ $assist->artisanCommand('saloon:auth') }}`.- Documentation: `https://docs.saloon.dev`
 - **Before implementing features, use the `web-search` tool to get the latest docs. The docs listing is available in <available-docs>**
 
 ### Key Concepts
