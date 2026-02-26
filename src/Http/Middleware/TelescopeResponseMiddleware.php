@@ -92,7 +92,7 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
         if (str_contains($contentType, 'application/json')) {
             $decoded = json_decode($body, true);
             if (json_last_error() === JSON_ERROR_NONE) {
-                return $decoded;
+                return is_array($decoded) ? $decoded : (string) $decoded;
             }
         }
 

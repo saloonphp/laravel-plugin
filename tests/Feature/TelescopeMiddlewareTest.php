@@ -115,3 +115,16 @@ test('telescope middleware returns string for non-json non-form body', function 
     expect($formatted)->toBeString();
     expect($formatted)->toBe('plain text body');
 });
+
+test('telescope middleware returns string for non-json body when header says response is json', function () {
+    $middleware = new TelescopeResponseMiddleware();
+
+    $reflection = new ReflectionClass($middleware);
+    $method = $reflection->getMethod('formatBody');
+
+    $plainBody = 123456;
+    $formatted = $method->invoke($middleware, $plainBody, 'application/json');
+
+    expect($formatted)->toBeString();
+    expect($formatted)->toBe('123456');
+});
