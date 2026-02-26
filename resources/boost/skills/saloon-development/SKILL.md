@@ -24,13 +24,15 @@ Use `web-search` for docs at https://docs.saloon.dev. Check `composer.json` for 
 - **Artisan Commands**: Generate classes with `saloon:connector`, `saloon:request`, `saloon:response`, `saloon:plugin`, `saloon:auth`. Example:
 
 ```bash
-php artisan saloon:connector GitHub
-php artisan saloon:request GitHub/GetUser
+php artisan saloon:connector GitHub GitHubConnector
+php artisan saloon:request GitHub GetUserRequest
 ```
 
 - **Connectors**: Define base URL and shared config. Extend `Saloon\Http\Connector`. Example:
 
 ```php
+use Saloon\Http\Connector;
+
 class GitHubConnector extends Connector
 {
     public function resolveBaseUrl(): string
@@ -43,6 +45,9 @@ class GitHubConnector extends Connector
 - **Requests**: Define endpoints. Extend `Saloon\Http\Request`, set `$method` via `Saloon\Enums\Method`. Example:
 
 ```php
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+
 class GetUserRequest extends Request
 {
     protected Method $method = Method::GET;
@@ -57,7 +62,7 @@ class GetUserRequest extends Request
 - **Sending Requests**: Use connector to send requests. Example:
 
 ```php
-$response = $connector->send(new GetUserRequest());
+$response = $connector->send(new GetUserRequest);
 $response->json();       // Array
 $response->successful(); // Bool
 ```
@@ -105,10 +110,12 @@ Store classes in `app/Http/Integrations/{ServiceName}/` (configurable in `config
 Use `web-search` with these docs for specific topics:
 
 ## Upgrade
+
 - [https://docs.saloon.dev/upgrade/whats-new-in-v3] Use these docs to understand what's new in SaloonPHP v3
 - [https://docs.saloon.dev/upgrade/upgrading-from-v2] Use these docs for upgrading from SaloonPHP v2 to v3
 
 ## The Basics
+
 - [https://docs.saloon.dev/the-basics/installation] Use these docs for installation instructions, Composer setup, and initial configuration
 - [https://docs.saloon.dev/the-basics/connectors] Use these docs for creating connectors, setting base URLs, default headers, and shared configuration
 - [https://docs.saloon.dev/the-basics/requests] Use these docs for creating requests, defining endpoints, HTTP methods, query parameters, and request bodies
@@ -121,6 +128,7 @@ Use `web-search` with these docs for specific topics:
 - [https://docs.saloon.dev/the-basics/testing] Use these docs for testing Saloon integrations, mocking requests, and writing assertions
 
 ## Digging Deeper
+
 - [https://docs.saloon.dev/digging-deeper/data-transfer-objects] Use these docs for casting API responses into DTOs, creating DTOs from responses, implementing WithResponse interface, and using DTOs in requests
 - [https://docs.saloon.dev/digging-deeper/building-sdks] Use these docs for building SDKs with Saloon, creating resource classes, and organizing API integrations
 - [https://docs.saloon.dev/digging-deeper/solo-requests] Use these docs for creating standalone requests without connectors using SoloRequest class
@@ -132,6 +140,7 @@ Use `web-search` with these docs for specific topics:
 - [https://docs.saloon.dev/digging-deeper/psr-support] Use these docs for PSR-7 and PSR-17 support, accessing PSR requests and responses, and modifying PSR-7 requests
 
 ## Installable Plugins
+
 - [https://docs.saloon.dev/installable-plugins/pagination] Use these docs for the Pagination plugin to handle paginated API responses with various pagination methods (required in v3, optional in v2)
 - [https://docs.saloon.dev/installable-plugins/laravel-integration] Use these docs for Laravel plugin features including Artisan commands, facade, events, and HTTP client sender
 - [https://docs.saloon.dev/installable-plugins/caching-responses] Use these docs for the Caching plugin to cache API responses and improve performance
