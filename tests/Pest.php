@@ -21,6 +21,7 @@ uses(TestCase::class)->in('Feature', 'Unit');
 pest()->afterEach(function () {
     Saloon::$registeredSenders = [];
     Saloon::$telescopeStartTimes = [];
+    Saloon::$pulseStartTimes = [];
 });
 
 /*

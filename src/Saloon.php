@@ -44,6 +44,13 @@ class Saloon
     public static array $telescopeStartTimes = [];
 
     /**
+     * Track start time for Pulse duration calculation
+     *
+     * @var array<int, float>
+     */
+    public static array $pulseStartTimes = [];
+
+    /**
      * Start mocking!
      *
      * @param array<\Saloon\Http\Faking\MockResponse|\Saloon\Http\Faking\Fixture|callable> $responses
