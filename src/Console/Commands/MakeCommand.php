@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Saloon\Laravel\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\suggest;
 use Illuminate\Console\GeneratorCommand;
@@ -147,5 +148,28 @@ abstract class MakeCommand extends GeneratorCommand
         $namespace = (array)str_replace(['\\App', '\\app'], '', str_replace('/', '\\', str_replace(base_path(), '', config('saloon.integrations_path'))));
 
         return $namespace[0];
+    }
+
+    /**
+     * Get the destination class path.
+     *
+     * When integrations_path is configured outside app/ (e.g. base_path('src/Domains/Integrations')),
+     * build the path from that config so files are written to the correct location.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+        $relativePath = str_replace('\\', '/', $name) . '.php';
+        $integrationsPath = config('saloon.integrations_path');
+        $pathPrefix = str_replace('\\', '/', mb_trim($this->getNamespaceFromIntegrationsPath(), '\\')) . '/';
+
+        if ($pathPrefix !== '/' && str_starts_with($relativePath, $pathPrefix)) {
+            return mb_rtrim($integrationsPath, '/\\') . \DIRECTORY_SEPARATOR . Str::after($relativePath, $pathPrefix);
+        }
+
+        return $this->laravel->basePath('app') . '/' . $relativePath;
     }
 }
