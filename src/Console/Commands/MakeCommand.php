@@ -170,6 +170,6 @@ abstract class MakeCommand extends GeneratorCommand
             return mb_rtrim($integrationsPath, '/\\') . \DIRECTORY_SEPARATOR . Str::after($relativePath, $pathPrefix);
         }
 
-        return $this->laravel['path'] . '/' . $relativePath;
+        return $this->laravel->basePath('app') . '/' . $relativePath;
     }
 }
