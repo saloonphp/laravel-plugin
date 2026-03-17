@@ -3,9 +3,10 @@ name: Code Style
 on:
   push:
     branches:
-      - 'v1'
-      - 'v2'
-      - 'v3'
+      - v1
+      - v2
+      - v3
+      - v4
   pull_request:
     branches:
       - '*'
