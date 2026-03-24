@@ -1,0 +1,121 @@
+{
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+    "codeGenerations": [
+        {
+            "id": "saloonphp.connector",
+            "name": "Create Saloon Connector",
+            "classSuffix": "Connector",
+            "files": [
+                {
+                    "appNamespace": "Http\\Integrations",
+                    "template": {
+                        "type": "stub",
+                        "path": "/stubs/saloon.connector.stub",
+                        "fallbackPath": "stubs/saloon.connector.stub",
+                        "parameters": {
+                            "{{ namespace }}": "${INPUT_FQN|namespace}",
+                            "{{ class }}": "${INPUT_FQN|className}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "saloonphp.oauth-connector",
+            "name": "Create Saloon OAuth Connector",
+            "classSuffix": "Connector",
+            "files": [
+                {
+                    "appNamespace": "Http\\Integrations",
+                    "template": {
+                        "type": "stub",
+                        "path": "/stubs/saloon.oauth-connector.stub",
+                        "fallbackPath": "stubs/saloon.oauth-connector.stub",
+                        "parameters": {
+                            "{{ namespace }}": "${INPUT_FQN|namespace}",
+                            "{{ class }}": "${INPUT_FQN|className}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "saloonphp.request",
+            "name": "Create Saloon Request",
+            "classSuffix": "Request",
+            "parameters": [
+                {
+                    "id": "saloonphp.request.method",
+                    "name": "HTTP Method",
+                    "variable": "METHOD",
+                    "type": "combobox",
+                    "description": "HTTP method of the request",
+                    "options": {
+                        "GET": "GET",
+                        "HEAD": "HEAD",
+                        "POST": "POST",
+                        "PUT": "PUT",
+                        "PATCH": "PATCH",
+                        "DELETE": "DELETE",
+                        "OPTIONS": "OPTIONS",
+                        "CONNECT": "CONNECT",
+                        "TRACE": "TRACE"
+                    }
+                }
+            ],
+            "files": [
+                {
+                    "appNamespace": "Http\\Integrations",
+                    "template": {
+                        "type": "stub",
+                        "path": "/stubs/saloon.request.stub",
+                        "fallbackPath": "stubs/saloon.request.stub",
+                        "parameters": {
+                            "{{ namespace }}": "${INPUT_FQN|namespace}",
+                            "{{ class }}": "${INPUT_FQN|className}",
+                            "{{ method }}": "${METHOD}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "saloonphp.response",
+            "name": "Create Saloon Response",
+            "classSuffix": "Response",
+            "files": [
+                {
+                    "appNamespace": "Http\\Integrations",
+                    "template": {
+                        "type": "stub",
+                        "path": "/stubs/saloon.response.stub",
+                        "fallbackPath": "stubs/saloon.response.stub",
+                        "parameters": {
+                            "{{ namespace }}": "${INPUT_FQN|namespace}",
+                            "{{ class }}": "${INPUT_FQN|className}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "saloonphp.authenticator",
+            "name": "Create Saloon Authenticator",
+            "classSuffix": "Authenticator",
+            "files": [
+                {
+                    "appNamespace": "Http\\Integrations",
+                    "template": {
+                        "type": "stub",
+                        "path": "/stubs/saloon.authenticator.stub",
+                        "fallbackPath": "stubs/saloon.authenticator.stub",
+                        "parameters": {
+                            "{{ namespace }}": "${INPUT_FQN|namespace}",
+                            "{{ class }}": "${INPUT_FQN|className}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
