@@ -59,6 +59,7 @@ class MakeRequest extends MakeCommand
     {
         return [
             ['method', 'm', InputOption::VALUE_REQUIRED, 'the method of the request'],
+            ['route', 'r', InputOption::VALUE_REQUIRED, 'the route url of the request'],
         ];
     }
 
@@ -109,6 +110,7 @@ class MakeRequest extends MakeCommand
 
         $stub = $this->files->get($this->getStub());
         $stub = $this->replaceMethod($stub, $method);
+        $stub = $this->replaceRoute($stub, $this->option('route','/example'));
 
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
@@ -119,5 +121,10 @@ class MakeRequest extends MakeCommand
     protected function replaceMethod(string $stub, string $name): string
     {
         return str_replace('{{ method }}', $name, $stub);
+    }
+
+    protected function replaceRoute(string $stub, string $name): string
+    {
+        return str_replace('{{ route }}', $name, $stub);
     }
 }

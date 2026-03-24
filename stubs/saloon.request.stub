@@ -17,6 +17,6 @@ class {{ class }} extends Request
      */
     public function resolveEndpoint(): string
     {
-        return '/example';
+        return '{{ route }}';
     }
 }
