@@ -146,7 +146,7 @@ class MakeRequest extends MakeCommand
         $list = json_decode($jsonParamList, true);
         $code = '';
         foreach ($list as $param ) {
-        $code .= "\n public string \$" . $param . ",";
+        $code .= "\n           public string \$" . $param . ", ";
 
         }
         return str_replace('{{ params }}', $code, $stub);

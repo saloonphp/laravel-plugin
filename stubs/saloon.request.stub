@@ -13,12 +13,9 @@ class {{ class }} extends Request
     protected Method $method = Method::{{ method }};
 
 
-    public function __construct(
-        {{ params }}
+    public function __construct(  {{ params }}
     )
-    {
-
-    }
+    {  }
 
 
     /**
