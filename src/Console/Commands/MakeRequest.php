@@ -60,6 +60,7 @@ class MakeRequest extends MakeCommand
         return [
             ['method', 'm', InputOption::VALUE_REQUIRED, 'the method of the request'],
             ['route', 'r', InputOption::VALUE_REQUIRED, 'the route url of the request'],
+            ['params', 'p', InputOption::VALUE_REQUIRED, 'the params of the request'],
         ];
     }
 
@@ -111,6 +112,7 @@ class MakeRequest extends MakeCommand
         $stub = $this->files->get($this->getStub());
         $stub = $this->replaceMethod($stub, $method);
         $stub = $this->replaceRoute($stub, $this->option('route','/example'));
+        $stub = $this->replaceParams($stub, $this->option('params','[]'));
 
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
@@ -123,8 +125,30 @@ class MakeRequest extends MakeCommand
         return str_replace('{{ method }}', $name, $stub);
     }
 
-    protected function replaceRoute(string $stub, string $name): string
+    protected function replaceRoute(string $stub, string $route): string
     {
-        return str_replace('{{ route }}', $name, $stub);
+        $paramList = json_decode($this->option('params','[]'));
+        if (count($paramList) > 0) {
+
+            $paramJoin = collect($paramList)->map(function($v){return "'{" . $v . "}'";})->join(',');
+            $paramVars = collect($paramList)->map(function($v){return '$this->'. $v;})->join(',');
+            $code = " return str('$route')->replace([$paramJoin],[$paramVars]);";
+
+            return str_replace('{{ return_route }}', $code, $stub);
+        }
+
+
+        return str_replace('{{ return_route }}', "return '$route';", $stub);
+    }
+
+    protected function replaceParams(string $stub, string $jsonParamList): string
+    {
+        $list = json_decode($jsonParamList, true);
+        $code = '';
+        foreach ($list as $param ) {
+        $code .= "\n public string \$" . $param . ",";
+
+        }
+        return str_replace('{{ params }}', $code, $stub);
     }
 }
