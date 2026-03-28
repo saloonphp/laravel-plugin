@@ -6,7 +6,12 @@ namespace Saloon\Laravel\Http\Middleware;
 
 use Saloon\Http\Response;
 use Saloon\Laravel\Saloon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Saloon\Http\PendingRequest;
+use Laravel\Telescope\Telescope;
+use Laravel\Telescope\IncomingEntry;
+use Psr\Http\Message\ResponseInterface;
 use Saloon\Contracts\ResponseMiddleware;
 
 class TelescopeResponseMiddleware implements ResponseMiddleware
@@ -25,7 +30,7 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
         $startTime = Saloon::$telescopeStartTimes[$requestId] ?? null;
 
         // Calculate duration
-        $duration = $startTime !== null ? (int)((microtime(true) - $startTime) * 1000) : null;
+        $duration = $startTime !== null ? (int) ((microtime(true) - $startTime) * 1000) : null;
 
         // Clean up start time
         unset(Saloon::$telescopeStartTimes[$requestId]);
@@ -40,41 +45,142 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
      */
     protected function recordToTelescope(PendingRequest $pendingRequest, Response $response, ?int $duration): void
     {
-        if (! \Laravel\Telescope\Telescope::isRecording()) {
+        if (! Telescope::isRecording()) {
             return;
         }
 
         $psrRequest = $pendingRequest->createPsrRequest();
         $psrResponse = $response->getPsrResponse();
 
-        // Format request data
-        $requestData = [
-            'method' => $psrRequest->getMethod(),
-            'url' => (string)$psrRequest->getUri(),
-            'headers' => $psrRequest->getHeaders(),
-            'body' => self::formatBody((string)$psrRequest->getBody(), $psrRequest->getHeaderLine('Content-Type')),
-        ];
+        $rawRequestBody = (string) $psrRequest->getBody();
+        $requestContentType = $psrRequest->getHeaderLine('Content-Type');
+        $formattedRequestBody = self::formatBody($rawRequestBody, $requestContentType);
 
-        // Format response data
-        $responseData = [
-            'status' => $psrResponse->getStatusCode(),
-            'headers' => $psrResponse->getHeaders(),
-            'body' => self::formatBody((string)$psrResponse->getBody(), $psrResponse->getHeaderLine('Content-Type')),
-        ];
+        $rawResponseBody = (string) $psrResponse->getBody();
+        $responseContentType = $psrResponse->getHeaderLine('Content-Type');
+        $formattedResponseBody = self::formatBody($rawResponseBody, $responseContentType);
 
         // Record to Telescope using IncomingEntry
-        $entry = \Laravel\Telescope\IncomingEntry::make([
-            'method' => $requestData['method'],
-            'uri' => $requestData['url'],
-            'headers' => $requestData['headers'],
-            'payload' => $requestData['body'],
-            'response_status' => $responseData['status'],
-            'response_headers' => $responseData['headers'],
-            'response' => $responseData['body'],
+        $entry = IncomingEntry::make([
+            'method' => $psrRequest->getMethod(),
+            'uri' => (string) $psrRequest->getUri(),
+            'headers' => $this->sanitizeHeaders($psrRequest->getHeaders()),
+            'payload' => $this->sanitizePayload($formattedRequestBody),
+            'response_status' => $psrResponse->getStatusCode(),
+            'response_headers' => $this->sanitizeHeaders($psrResponse->getHeaders()),
+            'response' => $this->sanitizeResponseBody($formattedResponseBody, $rawResponseBody, $psrResponse),
             'duration' => $duration,
         ])->tags(['saloon']);
 
-        \Laravel\Telescope\Telescope::recordClientRequest($entry);
+        Telescope::recordClientRequest($entry);
+    }
+
+    /**
+     * Normalize PSR-7 headers and apply the same redaction as ClientRequestWatcher::headers().
+     *
+     * @param  array<string, array<int, string>>  $psrHeaders
+     * @return array<string, string>
+     */
+    protected function sanitizeHeaders(array $psrHeaders): array
+    {
+        if ($psrHeaders === []) {
+            return [];
+        }
+
+        $names = [];
+        $values = [];
+
+        foreach ($psrHeaders as $name => $headerValues) {
+            $names[] = mb_strtolower($name);
+            $values[] = implode(', ', $headerValues);
+        }
+
+        /** @var array<string, string> $combined */
+        $combined = array_combine($names, $values);
+
+        return $this->hideParameters($combined, Telescope::$hiddenRequestHeaders);
+    }
+
+    /**
+     * Apply Telescope::$hiddenRequestParameters like ClientRequestWatcher::payload().
+     *
+     * @param  array<string, mixed>|string  $formatted
+     * @return array<string, mixed>|string
+     */
+    protected function sanitizePayload(array|string $formatted): array|string
+    {
+        if (is_array($formatted)) {
+            return $this->hideParameters($formatted, Telescope::$hiddenRequestParameters);
+        }
+
+        if ($formatted === '') {
+            return '';
+        }
+
+        $decoded = json_decode($formatted, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            return $this->hideParameters($decoded, Telescope::$hiddenRequestParameters);
+        }
+
+        return $formatted;
+    }
+
+    /**
+     * Match ClientRequestWatcher::response() for JSON, plain text, redirects, and size limits.
+     *
+     * @param  array<string, mixed>|string  $formatted
+     * @return array<string, mixed>|string
+     */
+    protected function sanitizeResponseBody(array|string $formatted, string $rawBody, ResponseInterface $psrResponse): array|string
+    {
+        $contentType = mb_strtolower($psrResponse->getHeaderLine('Content-Type'));
+
+        if (is_array($formatted)) {
+            return $this->contentWithinLimits($rawBody)
+                ? $this->hideParameters($formatted, Telescope::$hiddenResponseParameters)
+                : 'Purged By Telescope';
+        }
+
+        if (is_string($formatted)) {
+            if (Str::startsWith($contentType, 'text/plain')) {
+                return $this->contentWithinLimits($formatted) ? $formatted : 'Purged By Telescope';
+            }
+        }
+
+        if ($psrResponse->getStatusCode() >= 300 && $psrResponse->getStatusCode() < 400) {
+            $location = $psrResponse->getHeaderLine('Location');
+
+            return $location !== '' ? 'Redirected to '.$location : 'Redirected';
+        }
+
+        if ($formatted === '' || $formatted === []) {
+            return 'Empty Response';
+        }
+
+        return 'HTML Response';
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<int, string>  $hidden
+     * @return array<string, mixed>
+     */
+    protected function hideParameters(array $data, array $hidden): array
+    {
+        foreach ($hidden as $parameter) {
+            if (Arr::get($data, $parameter)) {
+                Arr::set($data, $parameter, '********');
+            }
+        }
+
+        return $data;
+    }
+
+    protected function contentWithinLimits(string $content): bool
+    {
+        $limit = 64;
+
+        return mb_strlen($content) / 1000 <= $limit;
     }
 
     /**
