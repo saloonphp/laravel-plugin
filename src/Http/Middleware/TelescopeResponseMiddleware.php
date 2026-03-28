@@ -141,10 +141,8 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
                 : 'Purged By Telescope';
         }
 
-        if (is_string($formatted)) {
-            if (Str::startsWith($contentType, 'text/plain')) {
-                return $this->contentWithinLimits($formatted) ? $formatted : 'Purged By Telescope';
-            }
+        if (Str::startsWith($contentType, 'text/plain')) {
+            return $this->contentWithinLimits($formatted) ? $formatted : 'Purged By Telescope';
         }
 
         if ($psrResponse->getStatusCode() >= 300 && $psrResponse->getStatusCode() < 400) {
@@ -153,7 +151,7 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
             return $location !== '' ? 'Redirected to '.$location : 'Redirected';
         }
 
-        if ($formatted === '' || $formatted === []) {
+        if ($formatted === '') {
             return 'Empty Response';
         }
 
