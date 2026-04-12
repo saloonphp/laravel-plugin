@@ -17,7 +17,7 @@ Use this skill when working with SaloonPHP features:
 
 ## Documentation
 
-Use `web-search` for docs at https://docs.saloon.dev. Check `composer.json` for version (v2 or v3).
+Use `web-search` for docs at https://docs.saloon.dev. Check `composer.json` for version (v2, v3 or v4).
 
 ## Features
 
@@ -103,7 +103,7 @@ Store classes in `app/Http/Integrations/{ServiceName}/` (configurable in `config
 - Forgetting `HasBody` interface when sending body data
 - Wrong HTTP method enum (use `Saloon\Enums\Method`)
 - Missing `HttpSender` config for Telescope
-- v3: forgetting to install pagination plugin
+- v3 or v4: forgetting to install pagination plugin
 
 ## Available Documentation
 
@@ -111,6 +111,7 @@ Use `web-search` with these docs for specific topics:
 
 ## Upgrade
 
+- [https://docs.saloon.dev/upgrade/upgrading-from-v3-to-v4] Use these docs to understand what's new in SaloonPHP v4
 - [https://docs.saloon.dev/upgrade/whats-new-in-v3] Use these docs to understand what's new in SaloonPHP v3
 - [https://docs.saloon.dev/upgrade/upgrading-from-v2] Use these docs for upgrading from SaloonPHP v2 to v3
 
