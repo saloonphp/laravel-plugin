@@ -141,6 +141,13 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
                 : 'Purged By Telescope';
         }
 
+        if (is_array(json_decode($formatted, true))
+            && json_last_error() === JSON_ERROR_NONE) {
+            return $this->contentWithinLimits($rawBody)
+                ? $this->hideParameters(json_decode($formatted, true), Telescope::$hiddenResponseParameters)
+                : 'Purged By Telescope';
+        }
+
         if (Str::startsWith($contentType, 'text/plain')) {
             return $this->contentWithinLimits($formatted) ? $formatted : 'Purged By Telescope';
         }
@@ -193,7 +200,7 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
         }
 
         // Try to decode JSON
-        if (str_contains($contentType, 'application/json')) {
+        if (self::isJsonContentType($contentType)) {
             $decoded = json_decode($body, true);
             if (json_last_error() === JSON_ERROR_NONE) {
                 return is_array($decoded) ? $decoded : (string) $decoded;
@@ -210,5 +217,11 @@ class TelescopeResponseMiddleware implements ResponseMiddleware
 
         // Return as string
         return $body;
+    }
+
+    protected static function isJsonContentType(string $contentType): bool
+    {
+        return str_contains($contentType, 'application/json')
+            || str_contains($contentType, '+json');
     }
 }

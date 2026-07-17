@@ -133,6 +133,46 @@ test('telescope middleware returns string for non-json body when header says res
     expect($formatted)->toBe('123456');
 });
 
+test('telescope middleware formats hal+json body', function () {
+    $middleware = new TelescopeResponseMiddleware;
+
+    $reflection = new ReflectionClass($middleware);
+    $method = $reflection->getMethod('formatBody');
+
+    $jsonBody = '{"_links":{"self":{"href":"/api/users/1"}},"name":"Test"}';
+    $formatted = $method->invoke($middleware, $jsonBody, 'application/hal+json');
+
+    expect($formatted)->toBeArray();
+    expect($formatted)->toHaveKeys(['_links', 'name']);
+    expect($formatted['name'])->toBe('Test');
+});
+
+test('telescope middleware formats hal+json body with charset', function () {
+    $middleware = new TelescopeResponseMiddleware;
+
+    $reflection = new ReflectionClass($middleware);
+    $method = $reflection->getMethod('formatBody');
+
+    $jsonBody = '{"id":1}';
+    $formatted = $method->invoke($middleware, $jsonBody, 'application/hal+json; charset=utf-8');
+
+    expect($formatted)->toBeArray();
+    expect($formatted['id'])->toBe(1);
+});
+
+test('telescope middleware formats json api body', function () {
+    $middleware = new TelescopeResponseMiddleware;
+
+    $reflection = new ReflectionClass($middleware);
+    $method = $reflection->getMethod('formatBody');
+
+    $jsonBody = '{"data":{"type":"users","id":"1"}}';
+    $formatted = $method->invoke($middleware, $jsonBody, 'application/vnd.api+json');
+
+    expect($formatted)->toBeArray();
+    expect($formatted['data']['type'])->toBe('users');
+});
+
 /**
  * @return array{hiddenRequestParameters: array<int, string>, hiddenRequestHeaders: array<int, string>, hiddenResponseParameters: array<int, string>, shouldRecord: bool}
  */
@@ -256,6 +296,104 @@ test('telescope response middleware redacts application/x-www-form-urlencoded pa
         expect($entry->content['payload']['password'])->toBe('********');
         expect($entry->content['payload']['email'])->toBe('a@b.test');
         expect($entry->content['payload']['name'])->toBe('test');
+    } finally {
+        restoreTelescopeRedactionSettings($snapshot);
+    }
+});
+
+test('telescope response middleware records hal+json response as array', function () {
+    $snapshot = snapshotTelescopeRedactionSettings();
+
+    try {
+        Telescope::flushEntries();
+        Telescope::$shouldRecord = true;
+        Telescope::$hiddenRequestParameters = [];
+        Telescope::$hiddenRequestHeaders = [];
+        Telescope::$hiddenResponseParameters = [];
+
+        $connector = TestConnector::make();
+        $request = new PostSensitiveJsonRequest;
+        $pendingRequest = new PendingRequest($connector, $request);
+
+        (new TelescopeRequestMiddleware)->__invoke($pendingRequest);
+
+        $psrRequest = $pendingRequest->createPsrRequest();
+        $responseBody = json_encode(['_links' => ['self' => ['href' => '/api/users/1']], 'name' => 'Test']);
+        $psrResponse = new \GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'application/hal+json'], $responseBody);
+        $response = \Saloon\Http\Response::fromPsrResponse($psrResponse, $pendingRequest, $psrRequest);
+
+        (new TelescopeResponseMiddleware)->__invoke($response);
+
+        $entry = collect(Telescope::$entriesQueue)->last(fn ($e) => $e->type === EntryType::CLIENT_REQUEST);
+
+        expect($entry)->not->toBeNull();
+        expect($entry->content['response'])->toBeArray();
+        expect($entry->content['response'])->not->toBe('HTML Response');
+        expect($entry->content['response']['name'])->toBe('Test');
+    } finally {
+        restoreTelescopeRedactionSettings($snapshot);
+    }
+});
+
+test('telescope response middleware redacts hal+json response fields using hidden response parameters', function () {
+    $snapshot = snapshotTelescopeRedactionSettings();
+
+    try {
+        Telescope::flushEntries();
+        Telescope::$shouldRecord = true;
+        Telescope::$hiddenRequestParameters = [];
+        Telescope::$hiddenRequestHeaders = [];
+        Telescope::$hiddenResponseParameters = ['access_token'];
+
+        $connector = TestConnector::make();
+        $request = new PostSensitiveJsonRequest;
+        $pendingRequest = new PendingRequest($connector, $request);
+
+        (new TelescopeRequestMiddleware)->__invoke($pendingRequest);
+
+        $psrRequest = $pendingRequest->createPsrRequest();
+        $responseBody = json_encode(['access_token' => 'secret-token-value', 'expires_in' => 3600]);
+        $psrResponse = new \GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'application/hal+json'], $responseBody);
+        $response = \Saloon\Http\Response::fromPsrResponse($psrResponse, $pendingRequest, $psrRequest);
+
+        (new TelescopeResponseMiddleware)->__invoke($response);
+
+        $entry = collect(Telescope::$entriesQueue)->last(fn ($e) => $e->type === EntryType::CLIENT_REQUEST);
+
+        expect($entry)->not->toBeNull();
+        expect($entry->content['response']['access_token'])->toBe('********');
+        expect($entry->content['response']['expires_in'])->toBe(3600);
+    } finally {
+        restoreTelescopeRedactionSettings($snapshot);
+    }
+});
+
+test('telescope response middleware records html response as html response label', function () {
+    $snapshot = snapshotTelescopeRedactionSettings();
+
+    try {
+        Telescope::flushEntries();
+        Telescope::$shouldRecord = true;
+        Telescope::$hiddenRequestParameters = [];
+        Telescope::$hiddenRequestHeaders = [];
+        Telescope::$hiddenResponseParameters = [];
+
+        $connector = TestConnector::make();
+        $request = new PostSensitiveJsonRequest;
+        $pendingRequest = new PendingRequest($connector, $request);
+
+        (new TelescopeRequestMiddleware)->__invoke($pendingRequest);
+
+        $psrRequest = $pendingRequest->createPsrRequest();
+        $psrResponse = new \GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'text/html'], '<html><body>Hello</body></html>');
+        $response = \Saloon\Http\Response::fromPsrResponse($psrResponse, $pendingRequest, $psrRequest);
+
+        (new TelescopeResponseMiddleware)->__invoke($response);
+
+        $entry = collect(Telescope::$entriesQueue)->last(fn ($e) => $e->type === EntryType::CLIENT_REQUEST);
+
+        expect($entry)->not->toBeNull();
+        expect($entry->content['response'])->toBe('HTML Response');
     } finally {
         restoreTelescopeRedactionSettings($snapshot);
     }
