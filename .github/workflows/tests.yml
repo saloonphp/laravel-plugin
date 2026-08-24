@@ -28,6 +28,7 @@ jobs:
         include:
           - laravel: 11.*
             testbench: 9.*
+            eol: true
           - laravel: 12.*
             testbench: 10.*
           - laravel: 13.*
@@ -53,6 +54,10 @@ jobs:
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Allow EOL framework installs
+        if: matrix.eol
+        run: composer config policy.advisories.block false
 
       - name: Install dependencies
         run: |
