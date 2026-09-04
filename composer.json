@@ -20,16 +20,16 @@
     "homepage": "https://github.com/saloonphp/laravel-plugin",
     "require": {
         "php": "^8.2",
-        "illuminate/console": "^11.0 || ^12.39.0 || ^13.0",
-        "illuminate/support": "^11.0 || ^12.39.0 || ^13.0",
+        "illuminate/console": "^12.39.0 || ^13.0",
+        "illuminate/support": "^12.39.0 || ^13.0",
         "saloonphp/saloon": "^4.0",
-        "symfony/finder": "^6.4 || ^7.0 || ^8.0"
+        "symfony/finder": "^7.0 || ^8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.48",
         "laravel/pulse": "^1.4",
         "laravel/telescope": "^5.16",
-        "orchestra/testbench": "^9.15 || ^10.7 || ^11.0",
+        "orchestra/testbench": "^10.7 || ^11.0",
         "pestphp/pest": "^3.0|^4.0",
         "phpstan/phpstan": "^1.10.57|^2.0.2"
     },

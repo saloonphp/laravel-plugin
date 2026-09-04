@@ -7,7 +7,7 @@ This is the Laravel plugin for Saloon, to install it run the following command
 ```php
 composer require saloonphp/laravel-plugin "^4.0"
 ```
->Requires Laravel 9+ and PHP 8.1+
+>Requires Laravel 12+ and PHP 8.2+
 
 ### Documentation
 
