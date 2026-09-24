@@ -53,26 +53,13 @@ test('nightwatch middleware is only registered once on the handler stack for lon
     $middleware($pendingRequest);
     $middleware($pendingRequest);
 
-    /*
-     *    Handler stack __toString() renders middleware as in > and out <.
-     *    Example:
-     *    > 5) Name: 'http_errors', Function: callable(00000000000004130000000000000000)
-     *   > 4) Name: 'allow_redirects', Function: callable(00000000000004120000000000000000)
-     *   > 3) Name: 'cookies', Function: callable(00000000000004110000000000000000)
-     *   > 2) Name: 'prepare_body', Function: callable(00000000000004100000000000000000)
-     *   > 1) Name: 'nightwatch', Function: callable(00000000000004440000000000000000)
-     *   < 0) Handler: callable(00000000000004170000000000000000)
-     *   < 1) Name: 'nightwatch', Function: callable(00000000000004440000000000000000)
-     *   < 2) Name: 'prepare_body', Function: callable(00000000000004100000000000000000)
-     *   < 3) Name: 'cookies', Function: callable(00000000000004110000000000000000)
-     *   < 4) Name: 'allow_redirects', Function: callable(00000000000004120000000000000000)
-     *   < 5) Name: 'http_errors', Function: callable(00000000000004130000000000000000)
-     *
-     *   Count only the ">" section to avoid double counting
-     */
-    $stackString = (string) $handlerStack;
-    $reverseSection = explode('<', $stackString)[0] ?? '';
-    $nightwatchCount = mb_substr_count($reverseSection, 'Name: \'nightwatch\'');
+    $stackProperty = (new ReflectionClass($handlerStack))->getProperty('stack');
+    $stack = $stackProperty->getValue($handlerStack);
+
+    $nightwatchCount = count(array_filter(
+        $stack,
+        static fn (array $entry): bool => ($entry[1] ?? null) === 'nightwatch'
+    ));
 
     expect($nightwatchCount)->toBe(1);
 });
